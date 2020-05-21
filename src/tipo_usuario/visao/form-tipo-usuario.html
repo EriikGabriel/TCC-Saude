@@ -1,12 +1,24 @@
-
-<form id="tipo-usuario"action="">
-    <div class="form group">
-        <label>Tipo</label>
-        <select name="tipo" class="form-control"></select>
-        <option value="Selecione o tipo de usuário:"></option>
-        <option value="1">Administrador</option>
-        <option value="2">Leitor</option>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../../css/bootstrap.css">
+<!-- <div class="container">
+    <div class="row">
+        <div class="offset-md-2 col-md-6 col-12">
+            <form method="post" id="add-hospital">
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" name="nome" class="form-control" required>
+                </div> -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-12 mt-2" method="POST">
+            <form id="tipo-usuario"action="">
+                <div class="form group">
+                <label>Tipo de Usuário</label>
+                <input type="text" name="tipo" class="form-control">
+        </div>
     </div>
+</div>    
     <input type="hidden" name="idtipo-usuario">
     <button class="btn btn-dark">Salvar</button>
 </form>
+</div>
