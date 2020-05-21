@@ -1,18 +1,21 @@
 <?php
-//Iremos solicitar oa PHP que reporte todos os erros quando houver ...
-ini_set('display erros', true);// Solicito ao PHP demonstre os erros
-error_reporting(E_ALL);
+namespace conn;
 
-// Criar variáveis para acesso ao banco de dados
-$usuario = "";
-$senha = "";
-$host = "localhost";
-$banco = "db_saude";
+class Conexao {
+    private static $instance;
 
-if($conecta = mysqli_connect($host, $usuario, $senha, $banco)){
-   // echo "Conectado ao banco de dados";
-    // depois ele arquivou esse echo
-}else{
-    echo "Deu Merda" .mysqli_connect_error();
+    public static function getConn() {
+        if (!isset(self::$instance)) {
+            try {
+                self::$instance = new \PDO('mysql:host=localhost; dbname=db_game_hype; charset=utf8','root', '');
+                self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                self::$instance->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+            } catch (\PDOException $e) {
+                die("<h3 style='text-align: center;'> Erro: " . $e->getMessage() . "</h3>");
+            }
+        }
+
+        //? Retornando a instancia de conexão
+        return self::$instance;
+    }
 }
-?>
