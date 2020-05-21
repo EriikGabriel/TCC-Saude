@@ -2,6 +2,10 @@
 
 namespace conn;
 
+require_once("../modelo/hospital.php");
+require_once("../modelo/hospitalDAO.php");
+require_once("../../../conexao/conn.php");
+
 $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
 $rua = filter_input(INPUT_POST, "rua", FILTER_SANITIZE_SPECIAL_CHARS);
 $bairro = filter_input(INPUT_POST, "bairro", FILTER_SANITIZE_SPECIAL_CHARS);
