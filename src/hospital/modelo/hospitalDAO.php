@@ -18,8 +18,10 @@ class HospitalDao {
             $stmt->bindValue(5, $h->getTelefoneHospital());
 
             $stmt->execute();
+
+            echo "true";
         } catch (\PDOException $e) {
-            echo $e->getCode();
+            echo $e->getMessage();
         } 
     }
 
