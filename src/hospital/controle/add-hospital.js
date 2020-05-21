@@ -15,7 +15,7 @@ $(document).ready(function(){
             if(dados.return == true){
                 Swal.fire({
                     title: 'TCC',
-                    text: "Cadastro efetuad com sucesso",
+                    text: "Cadastro efetuado com sucesso",
                     type: 'success',
                     confirmButtonText: 'Feito' 
                 })
