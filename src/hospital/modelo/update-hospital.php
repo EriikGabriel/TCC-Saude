@@ -13,9 +13,9 @@ $cep = filter_input(INPUT_POST, "cep", FILTER_SANITIZE_SPECIAL_CHARS);
 $tel = filter_input(INPUT_POST, "tel", FILTER_SANITIZE_SPECIAL_CHARS);
 
 $new_values = [];
-
+$hospital = new Hospital;
 $hospitalDao = new HospitalDao;
 
-$hospitalDao->update($new_values);
+$hospitalDao->update($hospital, $new_values);
 
 ?>

@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../../css/bootstrap.css">
-
+<link rel="stylesheet" href="../../../libs/sweetalert2/sweetalert2.min.css">
 <div class="row">
     <div class="jumbotron jumbotron-fluid bg-danger col-12">
         <h1 class="text-center text-white">Cadastro do Tipo de Usuário</h1>
@@ -11,14 +11,24 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-12 mt-2" method="POST">
-            <form id="tipo-usuario"action="">
+            <form id="add-tipo-usuario" method="POST">
                 <div class="form group">
                     <label>Tipo de Usuário</label>
-                    <input type="text" name="tipo" class="form-control">
+                    <input type="text" name="tipo" class="form-control" required>
                 </div>
                 <input type="hidden" name="idtipo-usuario">
-                <button class="btn btn-dark mt-2 col-md-5">Cadastrar</button>
+                <div class="form-group row">
+                    <div class="col-md-5 col-12 mt-3">
+                        <button type="submit" class="btn btn-outline-danger btn-block">Cadastrar</button>
+                        <a href="../visao/list-tipo-usuario.html"class="btn btn-danger btn-block">Voltar</a> 
+                    </div>
+                </div>
             </form>    
         </div>
     </div>    
 </div>
+
+<script src="../../../js/jquery-3.5.1.js"></script>
+<script src="../../../libs/sweetalert2/sweetalert2.min.js"></script>
+<script src="../../../js/bootstrap.js"></script>
+<script src="../controle/add-tipo-usuario.js"></script>

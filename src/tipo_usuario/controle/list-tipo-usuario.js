@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-    var url = "../modelo/select-hospital.php"
+    var url = "../modelo/select_tipo_usuario.php"
+
     $('#table-tipo-usuario').DataTable({
         "processing": true,
         "serverSide": true,
@@ -10,33 +11,17 @@ $(document).ready(function(){
         },
         "columns": [
         {
-            "data": 'idHospital',
+            "data": 'idTipoUsuario',
             "className": 'text-center'
         },
         {
-            "data": 'nomeHospital',
-            "className": 'text-center'
-        },
-        {
-            "data": 'ruaHospital',
-            "className": 'text-center'
-        },
-        {
-            "data": 'bairroHospital',
-            "className": 'text-center'
-        },
-        {
-            "data": 'cepHospital',
-            "className": 'text-center'
-        },
-        {
-            "data": 'telefoneHospital',
+            "data": 'tipoUsuario',
             "className": 'text-center'
         },
         {
             // O último elemento a ser instânciado em nossa DataTable são os nossos botões de ações, ou seja, devemos criar os elementos em tela para
             // podermos executar as funções do CRUD.
-            "data": 'idHospital',
+            "data": 'idTipoUsuario',
             "orderable": false, // Aqui iremos desabilitar a opção de ordenamento por essa coluna
             "searchable": false, // Aqui também iremos desabilitar a possibilidade de busca por essa coluna
             "className": 'text-center',
@@ -49,7 +34,7 @@ $(document).ready(function(){
                 `
             }
         }]
-    });
+    })
 
     $(document).on('click', '.btn-delete', function(){
         Swal.fire({
@@ -61,7 +46,7 @@ $(document).ready(function(){
             cancelButtonColor: '#d33',
             confirmButtonText: 'Sim, delete isso!'
             }).then((result) => {
-                url = "../modelo/delete-hospital.php"
+                url = "../modelo/delete-tipo-usuario.php"
                 var dados = { "id": $(this).attr("id") }
 
             if (result.value) {
@@ -71,12 +56,14 @@ $(document).ready(function(){
                     url: url,
                     async: true,
                     data: dados,
-                    success: function(){
+                    success: function(res){
+                        console.log(res)
                         Swal.fire(
                             'Deletado!',
                             'Seu arquivo foi deletado.',
                             'success'
                         )
+                        
                         location.reload()
                     }
                 })

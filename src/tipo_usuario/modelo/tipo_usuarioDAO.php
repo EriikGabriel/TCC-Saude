@@ -2,20 +2,15 @@
 
 namespace conn;
 
-class HospitalDao {
+class TipoUsuarioDao {
 
     //? Create
-    public function create(Hospital $h) {
+    public function create(TipoUsuario $tu) {
         try {
-            $sql = 'INSERT INTO HOSPITAL (nomeHospital, ruaHospital, bairroHospital, cepHospital, telefoneHospital) 
-                    VALUES (?, ?, ?, ?, ?)';
+            $sql = 'INSERT INTO TIPO_USUARIO (tipoUsuario) VALUES (?)';
 
             $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $h->getNomeHospital());
-            $stmt->bindValue(2, $h->getRuaHospital());
-            $stmt->bindValue(3, $h->getBairroHospital());
-            $stmt->bindValue(4, $h->getCepHospital());
-            $stmt->bindValue(5, $h->getTelefoneHospital());
+            $stmt->bindValue(1, $tu->getTipoUsuario());
 
             $stmt->execute();
 
@@ -28,15 +23,22 @@ class HospitalDao {
     //? Select
     public function list($requestData) {
         try {
+
             $columnData = $requestData['columns'];
 
-            $sql = 'SELECT * FROM HOSPITAL';
+            $columns = array(
+                array('0' => 'idTipoUsuario'),
+                array('1' => 'tipoUsuario'),
+            );
+
+            $sql = 'SELECT * FROM TIPO_USUARIO';
 
             $stmt = Conexao::getConn()->prepare($sql);
 
             $stmt->execute();
 
             $registerCount = $stmt->rowCount();
+
    
             $columnOrder = $requestData['order'][0]['column']; 
             $order = $columnData[$columnOrder]['data']; 
@@ -62,7 +64,7 @@ class HospitalDao {
                 echo json_encode($json_data);
         
             } else {
-                echo [];
+                return [];
             }
         } catch (\PDOException $e) {
             echo $e->getCode();
@@ -70,15 +72,12 @@ class HospitalDao {
     }
 
     //? Update
-    public function update(Hospital $h, $array) {
+    public function update(TipoUsuario $tu, $array) {
         try {
-            $sql = 'UPDATE HOSPITAL SET nomeHospital = ?, ruaHospital = ?, bairroHospital = ?, cepHospital = ?, telefoneHospital = ? WHERE id = ?';
+            $sql = 'UPDATE TIPO_USUARIO SET nomeHospital = ?, ruaHospital = ?, bairroHospital = ?, cepHospital = ?, telefoneHospital = ? WHERE id = ?';
             $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue("1", $h->getNomeHospital());
-            $stmt->bindValue("2", $h->getRuaHospital());
-            $stmt->bindValue("3", $h->getBairroHospital());
-            $stmt->bindValue("4", $h->getCepHospital());
-            $stmt->bindValue("5", $h->getTelefoneHospital());
+            $stmt->bindValue("1", $tu->getIdTipoUsuario());
+            $stmt->bindValue("2", $tu->getTipoUsuario());
 
             $stmt->execute();
         } catch (\PDOException $e) {
@@ -89,7 +88,7 @@ class HospitalDao {
     //? Delete
     public function delete($id) {
         try {
-            $sql = 'DELETE FROM HOSPITAL WHERE idHospital = ?';
+            $sql = 'DELETE FROM TIPO_USUARIO WHERE idTipoUsuario = ?';
     
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $id);
