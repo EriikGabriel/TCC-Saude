@@ -7,8 +7,8 @@
         <div class="col md-9 col-12 mt-2">
             <h4 class="text-danger">Gerenciar Hospital</h4>
         </div>
-        <div class="col md-3 col-12 mt-2">
-            <a class="btn btn-dark btn-block" href="cadastro-hospital.html" role="button">Adicionar</a>
+        <div class="col-md-12 col-12 mt-2">
+            <button type="button" class="btn btn-dark btn-add col-12" btn-lg btn-block">Cadastrar</button>
         </div>
     </div>
     <br>
@@ -31,11 +31,9 @@
         </div>
     </div>
 </div>
-</div>
-</div>
-</div>
-<div id="modal-tipo-usuario" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+
+<div id="modal-hospital" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title"></div>
@@ -53,3 +51,5 @@
 <script src="../../../libs/DataTables/datatables.min.js"></script>
 <script src="../../../libs/sweetalert2/sweetalert2.all.min.js"></script>
 <script src="../controle/list-hospital.js"></script>
+<script src="../controle/edit-hospital.js"></script>
+<script src="../controle/add-hospital.js"></script>

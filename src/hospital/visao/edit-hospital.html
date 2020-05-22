@@ -1,68 +1,40 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Hospital</title>
-    <link rel="stylesheet" href="../../../css/bootstrap.css">
-    <link rel="stylesheet" href="../../../libs/sweetalert2/sweetalert2.css">
-</head>
-
-<body>
-    <div class="row">
-        <div class="jumbotron jumbotron-fluid bg-danger col-12">
-            <h1 class="text-center text-white bg-danger">Editar Hospital</h1>
-            <p class="lead text-center text-white"></p>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="offset-md-2 col-md-6 col-12">
-                <form method="post" id="edit-hospital">
-                    <div class="form-group">
-                        <label>Nome</label>
-                        <input type="text" id="nome" name="nome" class="form-control" required>
-                    </div>
-                    <div class="form-group row">
-                        <div class=" col-12">
-                            <label>Rua</label>
-                            <input type="text" id="rua" name="rua" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-10 col-12">
-                            <label>Bairro</label>
-                            <input type="text" id="bairro" name="bairro" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <label>Cep</label>
-                            <input type="text" id="cep" name="cep" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label>Telefone</label>
-                            <input type="text" id="tel" name="tel" class="form-control" required>
-                            <input type="hidden" name="idHospital" id="idHospital">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-5 col-12 mt-2">
-                            <button type="submit" class="btn btn-outline-danger btn-block">Cadastrar</button>
-                            <a href="../visao/list-hospital.html"class="btn btn-danger btn-block">Voltar</a> 
-                        </div>
-                    </div>
-                </form>
+<div class="row">
+    <div class="offset-md-2 col-md-6 col-12">
+        <form method="post" id="edit-hospital">
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" id="nome" name="nome" class="form-control" required>
             </div>
-        </div>
+            <div class="form-group row">
+                <div class=" col-12">
+                    <label>Rua</label>
+                    <input type="text" id="rua" name="rua" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-10 col-12">
+                    <label>Bairro</label>
+                    <input type="text" id="bairro" name="bairro" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>Cep</label>
+                    <input type="text" id="cep" name="cep" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label>Telefone</label>
+                    <input type="text" id="tel" name="tel" class="form-control" required>
+                    <input type="hidden" name="idHospital" id="idHospital">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-9 col-12 mt-2">
+                    <button type="submit" class="btn btn-outline-danger btn-block">Alterar</button>
+                    <a href="../visao/list-hospital.html" class="btn btn-danger btn-block">Voltar</a> 
+                </div>
+            </div>
+        </form>
     </div>
+</div>
 
-    <script src="../../../js/jquery-3.5.1.js"></script>
-    <script src="../../../libs/sweetalert2/sweetalert2.js"></script>
-    <script src="../../../js/bootstrap.js"></script>
-    <script src="../../../libs/DataTables/datatables.min.js"></script>
-    <script src="../controle/list-hospital.js"></script>
-</body>
-
-</html>

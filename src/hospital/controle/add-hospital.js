@@ -1,5 +1,11 @@
-$(document).ready(function(){
-    $('#add-hospital').submit(function(e){
+$(document).ready(function(){   
+    $(document).on('click', '.btn-add', function() {
+        $("#modal-hospital .modal-body").load("cadastro-hospital.html")
+
+        $('#modal-hospital').modal('show')
+    })
+    
+    $(document).on('submit', '#add-hospital', function(e){
         e.preventDefault()
 
         var dados = $('#add-hospital').serialize()
@@ -18,6 +24,10 @@ $(document).ready(function(){
                         text: "Cadastro efetuado com sucesso",
                         icon: 'success',
                         confirmButtonText: 'Feito' 
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload()
+                        }
                     })
                 }else{
                     Swal.fire({
@@ -28,7 +38,7 @@ $(document).ready(function(){
                     })
                 }
 
-                $('#add-hospital input').val("")
+                
             }
         })
     })

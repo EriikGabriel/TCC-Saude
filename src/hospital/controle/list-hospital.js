@@ -50,21 +50,15 @@ $(document).ready(function(){
             }
         }]
     })
+    
 
-    //? Função - Botão Editar
-    $(document).on('click', '.btn-edit', function() {
-        location.href = `../visao/edit-hospital.html?id=${$(this).attr("id")}`;  
-    })
-
-    $("#edit-hospital").submit(function (e) { 
+    $(document).on('submit', '#edit-hospital', function(e) { 
         e.preventDefault()
-
+        
         url = "../modelo/edit-hospital.php"
-        queryString = location.search
-        var urlParams = new URLSearchParams(queryString);
 
         var dados = {
-            "id": urlParams.get('id'),
+            "id": $(".btn-edit").attr("id"),
             "nome": $("#nome").val(),
             "rua": $("#rua").val(),
             "bairro": $("#bairro").val(),
@@ -79,6 +73,7 @@ $(document).ready(function(){
             async: true,
             data: dados,
             success: function(dados) {
+                console.log(dados)
                 if(dados == "true") {
                     location.href = "list-hospital.html"
                 }

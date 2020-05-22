@@ -69,6 +69,24 @@ class HospitalDao {
         } 
     }
 
+    public function search($id) {
+        try {
+            $sql = 'SELECT * FROM HOSPITAL WHERE idHospital = ?';
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->bindValue(1, $id);
+            $stmt->execute();
+
+            if($stmt->rowCount() > 0) {
+                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+                echo json_encode($result);
+            }
+        } catch (\PDOException $e) {
+            echo $e->getCode();
+        }
+    }
+
     //? Update
     public function edit($array) {
         try {
