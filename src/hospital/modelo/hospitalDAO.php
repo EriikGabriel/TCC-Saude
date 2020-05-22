@@ -67,7 +67,7 @@ class HospitalDao {
                     "draw" => intval($requestData['draw']),
                     "recordsTotal" => intval($registerCount),
                     "recordsFiltered" => intval($totalFiltred),
-                    "data" => $result[0]
+                    "data" => $result
                 );
 
                 echo json_encode($json_data);
