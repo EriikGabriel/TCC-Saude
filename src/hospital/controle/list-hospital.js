@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     var url = "../modelo/select-hospital.php"
-    $('#table-tipo-usuario').DataTable({
+    $('#table-hospital').DataTable({
         "processing": true,
         "serverSide": true,
         "ajax": {
