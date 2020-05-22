@@ -80,6 +80,23 @@ class HospitalDao {
         } 
     }
 
+    //? Update
+    public function update($array) {
+        try {
+            $sql = 'UPDATE HOSPITAL SET nomeHospital = ?, ruaHospital = ?, bairroHospital = ?, cepHospital = ?, telefoneHospital = ? WHERE id = ?';
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->bindValue("1", $h->getNomeHospital());
+            $stmt->bindValue("2", $h->getRuaHospital());
+            $stmt->bindValue("3", $h->getBairroHospital());
+            $stmt->bindValue("4", $h->getCepHospital());
+            $stmt->bindValue("5", $h->getTelefoneHospital());
+
+            $stmt->execute();
+        } catch (\PDOException $e) {
+            echo $e->getCode();
+        }
+    }
+
     //? Delete
     public function delete($id) {
         try {
