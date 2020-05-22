@@ -1,6 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <link rel="stylesheet" href="../../../css/bootstrap.css">
-<link rel="stylesheet" href="libs/MaterialDesign/materialdesignicons.css">
+<link rel="stylesheet" href="../../../libs/DataTables/datatables.min.css">
 
 <div class="container">
     <div class="row mt-5">
@@ -18,18 +18,26 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Tipo</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Rua</th>
+                        <th scope="col">Bairro</th>
+                        <th scope="col">Cep</th>
+                        <th scope="col">Telefone</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead> 
-                <tbody>
+                <tbody class="">
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Tipo</th>
+                        <th scope="col" id="table-id"></th>
+                        <th scope="col" id="table-nome"></th>
+                        <th scope="col" id="table-rua"></th>
+                        <th scope="col" id="table-bairro"></th>
+                        <th scope="col" id="table-cep"></th>
+                        <th scope="col" id="table-telefone"></th>
                         <th scope="col">
-                            <button class="btn btn-primary">Visualizar</button>
-                            <button class="btn btn-success">Editar</button>
-                            <button class="btn btn-danger">Excluir</button>
+                            <button class="btn btn-primary visualizar">Visualizar</button>
+                            <button class="btn btn-success editar">Editar</button>
+                            <button class="btn btn-danger excluir">Excluir</button>
                         </th>
                     </tr>
                 </tbody>
@@ -54,5 +62,7 @@
 </div>
 
 
-<script src="js/jquery-3.4.1.js"></script>
-<script src="js/bootstrap.js"></script>
+<script src="../../../js/jquery-3.5.1.js"></script>
+<script src="../../../js/bootstrap.js"></script>
+<script src="../../../libs/DataTables/datatables.min.js"></script>
+<script src="../controle/list-hospital.js"></script>

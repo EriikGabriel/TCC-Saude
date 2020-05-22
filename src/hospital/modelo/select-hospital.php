@@ -2,8 +2,11 @@
 
 namespace conn;
 
-$id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_SPECIAL_CHARS);
+require_once("../modelo/hospitalDAO.php");
+require_once("../../../conexao/conn.php");
+
+$requestData = $_REQUEST;
 
 $HospitalDao = new HospitalDao;
 
-$HospitalDao->select($id);
+$HospitalDao->list($requestData);
