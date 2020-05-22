@@ -26,18 +26,54 @@ class HospitalDao {
     }
 
     //? Select
-    public function select($id) {
+    public function list($requestData) {
         try {
-            $sql = 'SELECT * FROM HOSPITAL WHERE id = ?';
+
+            $columnData = $requestData['columns'];
+
+            $columns = array(
+                array('0' => 'idHospital'),
+                array('1' => 'nomeHospital'),
+                array('2' => 'ruaHospital'),
+                array('3' => 'bairroHospital'),
+                array('4' => 'cepHospital'),
+                array('5' => 'telefoneHospital'),
+            );
+
+            $sql = 'SELECT * FROM HOSPITAL';
 
             $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
 
             $stmt->execute();
 
-            if($stmt->rowCount() > 0) {
-                $resultado = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-                return $resultado;
+            $registerCount = $stmt->rowCount();
+
+   
+            $columnOrder = $requestData['order'][0]['column']; 
+            $order = $columnData[$columnOrder]['data']; 
+            $direction = $requestData['order'][0]['dir'];
+
+            $limitStart = $requestData['start'];
+            $limitLenght = $requestData['length'];
+
+            $totalFiltred = 0;
+
+            $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
+
+            if($registerCount > 0) {
+                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+                $json_data = array(
+                    "draw" => intval($requestData['draw']),
+                    "recordsTotal" => intval($registerCount),
+                    "recordsFiltered" => intval($totalFiltred),
+                    "data" => $result[0]
+                );
+
+                echo json_encode($json_data);
+        
+            } else {
+                return [];
             }
         } catch (\PDOException $e) {
             echo $e->getCode();
