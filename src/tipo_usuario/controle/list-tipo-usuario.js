@@ -36,6 +36,38 @@ $(document).ready(function(){
         }]
     })
 
+    //? Função - Botão Editar
+    $(document).on('click', '.btn-edit', function() {
+        location.href = `../visao/edit-tipo-usuario.html?id=${$(this).attr("id")}`;  
+    })
+
+    $("#edit-tipo-usuario").submit(function (e) { 
+        e.preventDefault()
+
+        url = "../modelo/edit-tipo-usuario.php"
+        queryString = location.search
+        var urlParams = new URLSearchParams(queryString);
+
+        var dados = {
+            "id": urlParams.get('id'),
+            "tipo": $("#tipo").val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function(dados) {
+                if(dados == "true") {
+                    location.href = "list-tipo-usuario.html"
+                }
+            }
+        })
+    })
+
+    //? Função - Botão Deletar
     $(document).on('click', '.btn-delete', function(){
         Swal.fire({
             title: 'Você tem certeza?',
@@ -56,15 +88,18 @@ $(document).ready(function(){
                     url: url,
                     async: true,
                     data: dados,
-                    success: function(res){
-                        console.log(res)
-                        Swal.fire(
-                            'Deletado!',
-                            'Seu arquivo foi deletado.',
-                            'success'
-                        )
-                        
-                        location.reload()
+                    success: function(dados){
+                        if(dados == "true") {
+                            Swal.fire(
+                                'Deletado!',
+                                'Seu arquivo foi deletado.',
+                                'success'
+                            ).then((result) => {
+                                if(result.value) {
+                                    location.reload()
+                                }
+                            })
+                        }
                     }
                 })
             }

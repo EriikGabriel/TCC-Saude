@@ -70,17 +70,21 @@ class HospitalDao {
     }
 
     //? Update
-    public function update(Hospital $h, $array) {
+    public function edit($array) {
         try {
-            $sql = 'UPDATE HOSPITAL SET nomeHospital = ?, ruaHospital = ?, bairroHospital = ?, cepHospital = ?, telefoneHospital = ? WHERE id = ?';
+            $sql = "UPDATE HOSPITAL SET nomeHospital = ?, ruaHospital = ?, bairroHospital = ?, cepHospital = ?, telefoneHospital = ? WHERE idHospital = ?";
+            
             $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue("1", $h->getNomeHospital());
-            $stmt->bindValue("2", $h->getRuaHospital());
-            $stmt->bindValue("3", $h->getBairroHospital());
-            $stmt->bindValue("4", $h->getCepHospital());
-            $stmt->bindValue("5", $h->getTelefoneHospital());
+            $stmt->bindValue(1, $array[1]);
+            $stmt->bindValue(2, $array[2]);
+            $stmt->bindValue(3, $array[3]);
+            $stmt->bindValue(4, $array[4]);
+            $stmt->bindValue(5, $array[5]);
+            $stmt->bindValue(6, $array[0]);
 
             $stmt->execute();
+
+            echo "true";
         } catch (\PDOException $e) {
             echo $e->getCode();
         }
@@ -94,7 +98,9 @@ class HospitalDao {
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $id);
             
-            $stmt->execute();     
+            $stmt->execute();
+            
+            echo "true";
         } catch (\PDOException $e) {
             echo $e->getCode();
         }

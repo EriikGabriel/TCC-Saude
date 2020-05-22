@@ -72,14 +72,17 @@ class TipoUsuarioDao {
     }
 
     //? Update
-    public function update(TipoUsuario $tu, $array) {
+    public function edit($array) {
         try {
-            $sql = 'UPDATE TIPO_USUARIO SET nomeHospital = ?, ruaHospital = ?, bairroHospital = ?, cepHospital = ?, telefoneHospital = ? WHERE id = ?';
+            $sql = "UPDATE TIPO_USUARIO SET tipoUsuario = ? WHERE idTipoUsuario = ?";
+
             $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue("1", $tu->getIdTipoUsuario());
-            $stmt->bindValue("2", $tu->getTipoUsuario());
+            $stmt->bindValue(1, $array[1]);
+            $stmt->bindValue(2, $array[0]);
 
             $stmt->execute();
+
+            echo "true";
         } catch (\PDOException $e) {
             echo $e->getCode();
         }
@@ -93,7 +96,9 @@ class TipoUsuarioDao {
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $id);
             
-            $stmt->execute();     
+            $stmt->execute();   
+            
+            echo "true";
         } catch (\PDOException $e) {
             echo $e->getCode();
         }

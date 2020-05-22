@@ -49,8 +49,44 @@ $(document).ready(function(){
                 `
             }
         }]
-    });
+    })
 
+    //? Função - Botão Editar
+    $(document).on('click', '.btn-edit', function() {
+        location.href = `../visao/edit-hospital.html?id=${$(this).attr("id")}`;  
+    })
+
+    $("#edit-hospital").submit(function (e) { 
+        e.preventDefault()
+
+        url = "../modelo/edit-hospital.php"
+        queryString = location.search
+        var urlParams = new URLSearchParams(queryString);
+
+        var dados = {
+            "id": urlParams.get('id'),
+            "nome": $("#nome").val(),
+            "rua": $("#rua").val(),
+            "bairro": $("#bairro").val(),
+            "cep": $("#cep").val(),
+            "tel": $("#tel").val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function(dados) {
+                if(dados == "true") {
+                    location.href = "list-hospital.html"
+                }
+            }
+        })
+    })
+
+    //? Função - Botão Deletar
     $(document).on('click', '.btn-delete', function(){
         Swal.fire({
             title: 'Você tem certeza?',
@@ -71,13 +107,18 @@ $(document).ready(function(){
                     url: url,
                     async: true,
                     data: dados,
-                    success: function(){
-                        Swal.fire(
-                            'Deletado!',
-                            'Seu arquivo foi deletado.',
-                            'success'
-                        )
-                        location.reload()
+                    success: function(dados){
+                        if(dados == "true") {
+                            Swal.fire(
+                                'Deletado!',
+                                'Seu arquivo foi deletado.',
+                                'success'
+                            ).then((result) => {
+                                if(result.value) {
+                                    location.reload()
+                                }
+                            })
+                        }
                     }
                 })
             }
