@@ -10,7 +10,7 @@ $(document).ready(function(){
 
         var dados = $('#add-hospital').serialize()
         var url = "../modelo/create-hospital.php"
-
+        //
         $.ajax({
             type: 'POST',
             datatype: 'json',

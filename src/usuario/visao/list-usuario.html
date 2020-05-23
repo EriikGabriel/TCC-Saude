@@ -1,6 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <link rel="stylesheet" href="../../../css/bootstrap.css">
-<link rel="stylesheet" href="libs/MaterialDesign/materialdesignicons.css">
+<link rel="stylesheet" href="../../../libs/DataTables/datatables.min.css">
 
 <div class="container">
     <div class="row mt-5">
@@ -8,31 +8,24 @@
             <h4 class="text-danger">Gerenciar Usuário</h4>
         </div>
         <div class="col md-3 col-12 mt-2">
-            <a class="btn btn-dark btn-block" href="cadastro-usuario.html" role="button">Adicionar</a>
+            <button type="button" class="btn btn-dark btn-add btn-block">Cadastrar</button>
         </div>
     </div>
     <br>
     <div class="row">
         <div class="text-center">
-            <table class="table table-hover table-responsive compact call-border" id="table-tipo-usuario">
+            <table class="table table-hover table-responsive compact call-border" id="table-usuario">
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Tipo</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Senha</th>
+                        <th scope="col">Id Tipo Usuário</th>
+                        <th scope="col">Id Hospital</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead> 
-                <tbody>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">
-                            <button class="btn btn-primary">Visualizar</button>
-                            <button class="btn btn-success">Editar</button>
-                            <button class="btn btn-danger">Excluir</button>
-                        </th>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
     </div>
@@ -40,19 +33,21 @@
 </div>
 </div>
 </div>
-<div id="modal-tipo-usuario" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div id="modal-usuario" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title"></div>
             </div>
-            <div class="modal-body">
-                <p>Content</p>
-            </div>
+            <div class="modal-body"></div>
         </div>
     </div>
 </div>
 
-
-<script src="js/jquery-3.4.1.js"></script>
-<script src="js/bootstrap.js"></script>
+<script src="../../../js/jquery-3.5.1.js"></script>
+<script src="../../../js/bootstrap.js"></script>
+<script src="../../../libs/DataTables/datatables.min.js"></script>
+<script src="../../../libs/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="../controle/list-usuario.js"></script>
+<script src="../controle/edit-usuario.js"></script>
+<script src="../controle/add-usuario.js"></script>

@@ -1,10 +1,16 @@
-$(document).ready(function(){
-    $('.btn-add').click(function(add){
-        add.preventDefauly()
+$(document).ready(function(){   
+    $(document).on('click', '.btn-add', function() {
+        $("#modal-usuario .modal-body").load("cadastro-usuario.html")
+
+        $('#modal-usuario').modal('show')
+    })
     
+    $(document).on('submit', '#add-usuario', function(e){
+        e.preventDefault()
+
         var dados = $('#add-usuario').serialize()
-        var url = "src/usuario/modelo/add-usuario.php"
-    
+        var url = "../modelo/create-usuario.php"
+        //
         $.ajax({
             type: 'POST',
             datatype: 'json',
@@ -12,23 +18,28 @@ $(document).ready(function(){
             async: true,
             data: dados,
             success: function(dados){
-                if(dados.return == true){
+                if(dados == "true"){
                     Swal.fire({
                         title: 'TCC',
                         text: "Cadastro efetuado com sucesso",
-                        type: 'success',
+                        icon: 'success',
                         confirmButtonText: 'Feito' 
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload()
+                        }
                     })
                 }else{
                     Swal.fire({
                         title: 'TCC',
                         text: dados.return,
-                        type: 'error',
+                        icon: 'error',
                         confirmButtonText: 'Tente novamente' 
-                })
-            }
-            $('#add-usuario input').val("")
+                    })
                 }
+
+                
+            }
         })
     })
 })

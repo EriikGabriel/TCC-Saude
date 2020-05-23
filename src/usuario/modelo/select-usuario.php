@@ -5,16 +5,16 @@ namespace conn;
 $id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_SPECIAL_CHARS);
 $type = filter_input(INPUT_POST, "type", FILTER_SANITIZE_SPECIAL_CHARS);
 
-require_once("../modelo/hospitalDAO.php");
+require_once("../modelo/usuarioDAO.php");
 require_once("../../../conexao/conn.php");
 
-$hospitalDao = new HospitalDao;
+$usuarioDao = new UsuarioDao;
 
 if($type == "search-dados") {
-    $hospitalDao->search($id);
+    $usuarioDao->search($id);
 } else {
     $requestData = $_REQUEST;
     
-    $hospitalDao->list($requestData);
+    $usuarioDao->list($requestData);
 }
 
