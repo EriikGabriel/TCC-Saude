@@ -2,12 +2,13 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sistema Saúde - TCC</title>
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="libs/MaterialDesign/css/materialdesignicons.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-info bg-info fixed-top">
         <a class="navbar-brand text-white">TCC</a>
         <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -18,34 +19,54 @@
                     <a class="nav-link text-white" href="src/usuario/visao/list-usuario.html">Usuário</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="src/tipo_usuario/visao/list-tipo-usuario.html">Tipo de Usuário</a>
+                    <a class="nav-link text-white" href="src/tipo_usuario/visao/list-tipo-usuario.html">Tipo Usuário</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="src/hospital/visao/list-hospital.html">Hospital</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="src/especialidades/visao/list-especialidade.html">Especialidades</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="src/tipo_unidade/visao/list-tipo-unidade.html">Tipo Unidade</a>
                 </li>
             </ul> 
         </div>
     </nav>
 
     <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="container mt-2" id="content">
-            <div class="col-12">
-                <div class="row">
+        <div class="row">
+            <div class="col-8 col-sm-6 col-md-12">
                     <div class="container mt-5">
                         <div class="row">
-                            <div class="col-md-3 col-6">
-                                <a href="src/usuario/visao/list-usuario.html" class="btn btn-outline-dark p-3 btn-block">
+                            <div class="col-md-2 col-6">
+                                <a href="src/usuario/visao/list-usuario.html" class="btn btn-outline-info p-3">
                                     USUÁRIO
+                                    <h1 class="text-center"><i class="mdi mdi-account"></i></h1>
                                 </a>
                             </div>
-                            <div class="col-md-3 col-6">
-                                <a href="src/hospital/visao/list-hospital.html" class="btn btn-outline-dark p-3 btn-block">
+                            <div class="col-md-2 col-6">
+                                <a href="src/hospital/visao/list-hospital.html" class="btn btn-outline-info p-3 btn-block">
                                     HOSPITAL
+                                    <h1 class="text-center"><i class="mdi mdi-hospital-building"></i></h1>
                                 </a>
                             </div>
-                            <div class="col-md-3 col-6">
-                                <a href="src/tipo_usuario/visao/list-tipo-usuario.html" class="btn btn-outline-dark p-3 btn-block">
-                                    TIPO DE USUÁRIO
+                            <div class="col-md-2 col-6">
+                                <a href="src/tipo_usuario/visao/list-tipo-usuario.html" class="btn btn-outline-info p-3 btn-block">
+                                    TIPO USUÁRIO
+                                    <h1 class="text-center"><i class="mdi mdi-account-circle"></i></h1>
+                                </a>
+                            </div>
+                            <div class="col-md-2 col-6">
+                                <a href="src/especialidades/visao/list-especialidade.html" class="btn btn-outline-info p-3 btn-block">
+                                    ESPECIALIDADES
+                                    <h1 class="text-center"><i class="mdi mdi-human-child"></i></h1>
+                                </a>
+                            </div>
+                            <div class="col-md-2 col-6">
+                                <a href="src/tipo_usuario/visao/list-tipo-usuario.html" class="btn btn-outline-info p-3 btn-block">
+                                    TIPO UNIDADE
+                                    <h1 class="text-center"><i class="mdi mdi-hospital"></i></h1>
                                 </a>
                             </div>
                         </div>

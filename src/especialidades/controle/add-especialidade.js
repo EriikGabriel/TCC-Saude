@@ -1,15 +1,15 @@
 $(document).ready(function(){   
     $(document).on('click', '.btn-add', function() {
-        $("#modal-tipo-usuario .modal-body").load("cadastro-tipo-usuario.html")
+        $("#modal-especialidade .modal-body").load("cadastro-especialidade.html")
 
-        $('#modal-tipo-usuario').modal('show')
+        $('#modal-especialidade').modal('show')
     })
     
-    $(document).on('submit', '#add-tipo-usuario', function(e){
+    $(document).on('submit', '#add-especialidade', function(e){
         e.preventDefault()
 
-        var dados = $('#add-tipo-usuario').serialize()
-        var url = "../modelo/create_tipo_usuario.php"
+        var dados = $('#add-especialidade').serialize()
+        var url = "../modelo/create-especialidade.php"
         //
         $.ajax({
             type: 'POST',

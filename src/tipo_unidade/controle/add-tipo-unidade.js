@@ -1,15 +1,15 @@
 $(document).ready(function(){   
     $(document).on('click', '.btn-add', function() {
-        $("#modal-tipo-usuario .modal-body").load("cadastro-tipo-usuario.html")
+        $("#modal-tipo-unidade .modal-body").load("cadastro-tipo-unidade.html")
 
-        $('#modal-tipo-usuario').modal('show')
+        $('#modal-tipo-unidade').modal('show')
     })
     
-    $(document).on('submit', '#add-tipo-usuario', function(e){
+    $(document).on('submit', '#add-tipo-unidade', function(e){
         e.preventDefault()
 
-        var dados = $('#add-tipo-usuario').serialize()
-        var url = "../modelo/create_tipo_usuario.php"
+        var dados = $('#add-tipo-unidade').serialize()
+        var url = "../modelo/create_tipo_unidade.php"
         //
         $.ajax({
             type: 'POST',
