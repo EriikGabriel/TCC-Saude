@@ -1,31 +1,14 @@
-<meta charset="UTF-8">
-<link rel="stylesheet" href="../../../css/bootstrap.css">
-<link rel="stylesheet" href="../../../libs/sweetalert2/sweetalert2.css">
-
 <div class="row">
-    <div class="jumbotron jumbotron-fluid bg-danger col-12">
-        <h1 class="text-center text-white">Editar Tipo de Usuário</h1>
-        <p class="lead text-center text-white"></p>
+    <div class="col-md-6 col-12 mt-2">
+        <form id="edit-tipo-usuario" method="POST">
+            <div class="form group">
+                <label>Tipo de Usuário</label>
+                <input type="text" name="tipo" id="tipo" class="form-control">
+            </div>
+            <input type="hidden" name="id-tipo-usuario">
+            <button class="btn btn-dark mt-2 col-md-5" type="submit">Alterar</button>
+            <a href="../visao/list-hospital.html" class="btn btn-danger btn-block">Voltar</a>
+        </form>
     </div>
 </div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-12 mt-2">
-            <form id="edit-tipo-usuario" method="POST">
-                <div class="form group">
-                    <label>Tipo de Usuário</label>
-                    <input type="text" name="tipo" id="tipo" class="form-control">
-                </div>
-                <input type="hidden" name="idtipo-usuario">
-                <button class="btn btn-dark mt-2 col-md-5" type="submit">Cadastrar</button>
-            </form>    
-        </div>
-    </div>    
 </div>
-
-<script src="../../../js/jquery-3.5.1.js"></script>
-<script src="../../../libs/sweetalert2/sweetalert2.js"></script>
-<script src="../../../js/bootstrap.js"></script>
-<script src="../../../libs/DataTables/datatables.min.js"></script>
-<script src="../controle/list-tipo-usuario.js"></script>

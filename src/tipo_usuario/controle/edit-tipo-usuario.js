@@ -6,10 +6,10 @@ $(document).ready(function() {
         $('#modal-tipo-usuario').modal('show')
     })
 
-    $('#modal-tipo-usuario').on('show.bs.modal', function (e) {
+    $('#modal-tipo-usuario').on('show.bs.modal', function(e) {
         var url = '../modelo/select_tipo_usuario.php'
 
-        var dados = { 
+        var dados = {
             "id": $(".btn-view").attr("id"),
             "type": "search-dados"
         }
@@ -20,13 +20,13 @@ $(document).ready(function() {
             url: url,
             async: true,
             data: dados,
-            success: function(dados){
+            success: function(dados) {
                 var dados = JSON.parse(dados)[0]
 
                 $("#tipo").val(dados.tipoUsuario)
-  
+
             }
         })
-        
+
     })
 })
