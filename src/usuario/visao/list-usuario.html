@@ -4,11 +4,11 @@
 
 <div class="container">
     <div class="row mt-5">
-        <div class="col md-9 col-12 mt-2">
+        <div class="col-12 col-sm-12 col-md-6 mt-2">
             <h4 class="text-danger">Gerenciar Usuário</h4>
         </div>
-        <div class="col md-3 col-12 mt-2">
-            <button type="button" class="btn btn-dark btn-add btn-block">Cadastrar</button>
+        <div class="col-sm-12 col-md-3">
+            <button type="button" class="btn btn-dark btn-sm btn-add col-12 btn-block mt-2">Cadastrar</button>
         </div>
     </div>
     <br>
@@ -25,7 +25,20 @@
                         <th scope="col">Ações</th>
                     </tr>
                 </thead> 
-                <tbody></tbody>
+                <tbody>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Senha</th>
+                        <th scope="col">Id Tipo Usuário</th>
+                        <th scope="col">Id Hospital</th>
+                        <th scope="col">
+                            <button class="btn btn-primary">Visualizar</button>
+                            <button class="btn btn-success">Editar</button>
+                            <button class="btn btn-danger">Excluir</button>
+                        </th>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -37,9 +50,45 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title"></div>
+                <div class="modal-title text-danger">
+                    <h4>
+                        Cadastro do Usuário
+                    </h4>
+                </div>
             </div>
-            <div class="modal-body"></div>
+            <div class="modal-body">
+                <form method="post" action="">
+                    <div class="form-group row">
+                        <div class="col col-12">
+                            <label for="my-input">Nome:</label>
+                            <input id="my-input" class="form-control" type="text" name="nome-usuario">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4 col-12">
+                            <label for="my-input">Senha:</label>
+                            <input id="my-input" class="form-control" type="password" name="senha-usuario">
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <label for="">Tipo de Usuário:</label>
+                            <select id="" name="sexo" class="form-control">
+                                <option value="0">Selecione...</option>
+                                <option value="1">Usuário Hospital</option>
+                                <option value="2">Usuário Unidade</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <label for="my-input">Id Hospital:</label>
+                            <input id="my-input" class="form-control" type="text" name="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-md-9 col-md-3 col-12">
+                            <button class="btn btn-outline-danger btn-block">Cadastrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

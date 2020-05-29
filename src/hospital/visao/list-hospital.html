@@ -4,11 +4,11 @@
 
 <div class="container">
     <div class="row mt-5">
-        <div class="col-12 col-sm-6 col-md-4 mt-2">
+        <div class="col-12 col-sm-12 col-md-6 mt-2">
             <h4 class="text-danger">Gerenciar Hospital</h4>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 mt-2">
-            <button type="button" class="btn btn-dark btn-add col-12" btn-lg btn-block">Cadastrar</button>
+        <div class="col-sm-12 col-md-3">
+            <button type="button" class="btn btn-dark btn-sm btn-add col-12 btn-block mt-2">Cadastrar</button>
         </div>
     </div>
     <br>
@@ -26,7 +26,21 @@
                         <th scope="col">Ações</th>
                     </tr>
                 </thead> 
-                <tbody></tbody>
+                <tbody>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Rua</th>
+                        <th scope="col">Bairro</th>
+                        <th scope="col">Cep</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">
+                            <button class="btn btn-primary">Visualizar</button>
+                            <button class="btn btn-success">Editar</button>
+                            <button class="btn btn-danger">Excluir</button>
+                        </th>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -36,10 +50,46 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title"></div>
+                <div class="modal-title text-danger">
+                    <h4>
+                        Cadastro do Hospital
+                    </h4>
+                </div>
             </div>
             <div class="modal-body">
-                <p>Content</p>
+                <form method="post" action="">
+                    <div class="form-group row">
+                        <div class="col col-12">
+                            <label for="my-input">Nome:</label>
+                            <input id="my-input" class="form-control" type="text" name="nome-hospital">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 col-12">
+                            <label for="my-input">Rua:</label>
+                            <input id="my-input" class="form-control" type="text" name="rua-hospital">
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label for="my-input">Bairro:</label>
+                            <input id="my-input" class="form-control" type="text" name="bairro-hospital">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 col-12">
+                            <label for="my-input">CEP:</label>
+                            <input id="my-input" class="form-control" type="text" name="cep-hospital">
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label for="my-input">Telefone:</label>
+                            <input id="my-input" class="form-control" type="text" name="telefone-hospital">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-md-9 col-md-3 col-12">
+                            <button class="btn btn-outline-danger btn-block">Cadastrar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
