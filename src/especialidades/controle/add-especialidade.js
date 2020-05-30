@@ -1,7 +1,7 @@
 $(document).ready(function(){   
     $(document).on('click', '.btn-add', function() {
         $("#modal-especialidade .modal-body").load("cadastro-especialidade.html")
-
+        $("#modal-especialidade .modal-title h4").html("Cadastrar Especialidade")
         $('#modal-especialidade').modal('show')
     })
     
@@ -20,7 +20,7 @@ $(document).ready(function(){
             success: function(dados){
                 if(dados == "true"){
                     Swal.fire({
-                        title: 'TCC',
+                        title: 'Erro!',
                         text: "Cadastro efetuado com sucesso",
                         icon: 'success',
                         confirmButtonText: 'Feito' 
@@ -32,7 +32,7 @@ $(document).ready(function(){
                 }else{
                     Swal.fire({
                         title: 'TCC',
-                        text: dados.return,
+                        text: dados,
                         icon: 'error',
                         confirmButtonText: 'Tente novamente' 
                     })

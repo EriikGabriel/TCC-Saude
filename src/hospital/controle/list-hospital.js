@@ -8,6 +8,9 @@ $(document).ready(function(){
             "url": url,
             "type": "POST"
         },
+        "language": {
+            "url": "../../../libs/DataTables/dataTables.brazil.json"
+        },
         "columns": [
         {
             "data": 'idHospital',
@@ -58,7 +61,7 @@ $(document).ready(function(){
         url = "../modelo/edit-hospital.php"
 
         var dados = {
-            "id": $(".btn-edit").attr("id"),
+            "id": $(".modal-body").data("content"),
             "nome": $("#nome").val(),
             "rua": $("#rua").val(),
             "bairro": $("#bairro").val(),

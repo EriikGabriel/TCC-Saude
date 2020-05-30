@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    
     var url = "../modelo/select-usuario.php"
     $('#table-usuario').DataTable({
         "processing": true,
@@ -7,6 +7,9 @@ $(document).ready(function(){
         "ajax": {
             "url": url,
             "type": "POST"
+        },
+        "language": {
+            "url": "../../../libs/DataTables/dataTables.brazil.json"
         },
         "columns": [
         {
@@ -45,8 +48,8 @@ $(document).ready(function(){
                 `
             }
         }]
+
     })
-    
 
     $(document).on('submit', '#edit-usuario', function(e) { 
         e.preventDefault()
@@ -54,7 +57,7 @@ $(document).ready(function(){
         url = "../modelo/edit-usuario.php"
 
         var dados = {
-            "idUsuario": $(".btn-edit").attr("id"),
+            "idUsuario": $(".modal-body").data("content"),
             "nomeUsuario": $("#nome").val(),
             "senhaUsuario": $("#senha").val(),
             "idTipoUsuario": $("#idTipoUsuario").val(),

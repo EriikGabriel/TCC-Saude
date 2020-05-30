@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $(document).on('click', '.btn-edit', function() {
         $("#modal-tipo-unidade .modal-body").load("edit-tipo-unidade.html")
-        $("#modal-tipo-unidade .modal-body").data("content", "edit");
+        $("#modal-tipo-unidade .modal-body").data("content", $(this).attr("id"));
 
         $('#modal-tipo-unidade').modal('show')
     })
@@ -10,7 +10,7 @@ $(document).ready(function() {
         var url = '../modelo/select_tipo_unidade.php'
 
         var dados = { 
-            "id": $(".btn-view").attr("id"),
+            "id": $(".modal-body").data("content"),
             "type": "search-dados"
         }
 

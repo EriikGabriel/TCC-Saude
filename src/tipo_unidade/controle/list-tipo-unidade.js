@@ -8,6 +8,9 @@ $(document).ready(function(){
             "url": url,
             "type": "POST"
         },
+        "language": {
+            "url": "../../../libs/DataTables/dataTables.brazil.json"
+        },
         "columns": [
         {
             "data": 'idTipoUnidade',
@@ -42,7 +45,7 @@ $(document).ready(function(){
         url = "../modelo/edit-tipo-unidadel.php"
 
         var dados = {
-            "id": $(".btn-edit").attr("id"),
+            "id": $(".modal-body").data("content"),
             "tipo": $("#tipo").val(),
         }
 

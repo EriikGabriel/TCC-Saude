@@ -10,7 +10,7 @@ $(document).ready(function(){
 
         var dados = $('#add-tipo-unidade').serialize()
         var url = "../modelo/create_tipo_unidade.php"
-        //
+
         $.ajax({
             type: 'POST',
             datatype: 'json',
@@ -31,14 +31,12 @@ $(document).ready(function(){
                     })
                 }else{
                     Swal.fire({
-                        title: 'TCC',
-                        text: dados.return,
+                        title: 'Erro!',
+                        text: dados,
                         icon: 'error',
                         confirmButtonText: 'Tente novamente' 
                     })
-                }
-
-                
+                }    
             }
         })
     })

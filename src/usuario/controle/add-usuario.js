@@ -1,7 +1,7 @@
 $(document).ready(function(){   
     $(document).on('click', '.btn-add', function() {
         $("#modal-usuario .modal-body").load("cadastro-usuario.html")
-
+        $("#modal-usuario .modal-title h4").html("Cadastrar Usuário")
         $('#modal-usuario').modal('show')
     })
     
@@ -31,8 +31,8 @@ $(document).ready(function(){
                     })
                 }else{
                     Swal.fire({
-                        title: 'TCC',
-                        text: dados.return,
+                        title: 'Erro!',
+                        text: dados,
                         icon: 'error',
                         confirmButtonText: 'Tente novamente' 
                     })

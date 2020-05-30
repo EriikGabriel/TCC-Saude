@@ -1,8 +1,8 @@
 $(document).ready(function() {
     $(document).on('click', '.btn-edit', function() {
         $("#modal-especialidade .modal-body").load("edit-especialidade.html")
-        $("#modal-especialidade .modal-body").data("content", "edit");
-
+        $("#modal-especialidade .modal-body").data("content", $(this).attr("id"));
+        
         $('#modal-especialidade').modal('show')
     })
 
@@ -10,7 +10,7 @@ $(document).ready(function() {
         var url = '../modelo/select-especialidade.php'
 
         var dados = { 
-            "id": $(".btn-view").attr("id"),
+            "id": $(".modal-body").data("content"),
             "type": "search-dados"
         }
 

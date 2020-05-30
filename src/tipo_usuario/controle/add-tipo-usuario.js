@@ -1,7 +1,7 @@
 $(document).ready(function(){   
     $(document).on('click', '.btn-add', function() {
         $("#modal-tipo-usuario .modal-body").load("cadastro-tipo-usuario.html")
-
+        $("#modal-tipo-usuario .modal-title h4").html("Cadastrar Tipo de Usuário")
         $('#modal-tipo-usuario').modal('show')
     })
     
@@ -10,7 +10,7 @@ $(document).ready(function(){
 
         var dados = $('#add-tipo-usuario').serialize()
         var url = "../modelo/create_tipo_usuario.php"
-        //
+        
         $.ajax({
             type: 'POST',
             datatype: 'json',
@@ -31,8 +31,8 @@ $(document).ready(function(){
                     })
                 }else{
                     Swal.fire({
-                        title: 'TCC',
-                        text: dados.return,
+                        title: 'Erro!',
+                        text: dados,
                         icon: 'error',
                         confirmButtonText: 'Tente novamente' 
                     })

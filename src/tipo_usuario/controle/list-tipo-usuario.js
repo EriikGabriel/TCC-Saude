@@ -9,6 +9,9 @@ $(document).ready(function(){
             "url": url,
             "type": "POST"
         },
+        "language": {
+            "url": "../../../libs/DataTables/dataTables.brazil.json"
+        },
         "columns": [
         {
             "data": 'idTipoUsuario',
@@ -36,20 +39,14 @@ $(document).ready(function(){
         }]
     })
 
-    //? Função - Botão Editar
-    $(document).on('click', '.btn-edit', function() {
-        location.href = `../visao/edit-tipo-usuario.html?id=${$(this).attr("id")}`;  
-    })
-
-    $("#edit-tipo-usuario").submit(function (e) { 
+    
+    $(document).on('submit', '#edit-tipo-usuario', function(e) { 
         e.preventDefault()
-
+        console.log("eeeee: ")
         url = "../modelo/edit-tipo-usuario.php"
-        queryString = location.search
-        var urlParams = new URLSearchParams(queryString);
 
         var dados = {
-            "id": urlParams.get('id'),
+            "id": $(".modal-body").data("content"),
             "tipo": $("#tipo").val(),
         }
 

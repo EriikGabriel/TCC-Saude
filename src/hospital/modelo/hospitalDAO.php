@@ -48,22 +48,17 @@ class HospitalDao {
             $totalFiltred = 0;
 
             $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
+            
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-            if($registerCount > 0) {
-                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $json_data = array(
+                "draw" => intval($requestData['draw']),
+                "recordsTotal" => intval($registerCount),
+                "recordsFiltered" => intval($totalFiltred),
+                "data" => $result
+            );
 
-                $json_data = array(
-                    "draw" => intval($requestData['draw']),
-                    "recordsTotal" => intval($registerCount),
-                    "recordsFiltered" => intval($totalFiltred),
-                    "data" => $result
-                );
-
-                echo json_encode($json_data);
-        
-            } else {
-                echo [];
-            }
+            echo json_encode($json_data);
         } catch (\PDOException $e) {
             echo $e->getCode();
         } 

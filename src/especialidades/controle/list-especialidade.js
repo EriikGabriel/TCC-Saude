@@ -8,6 +8,9 @@ $(document).ready(function(){
             "url": url,
             "type": "POST"
         },
+        "language": {
+            "url": "../../../libs/DataTables/dataTables.brazil.json"
+        },
         "columns": [
         {
             "data": 'idEspecialidade',

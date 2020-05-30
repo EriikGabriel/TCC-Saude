@@ -51,24 +51,37 @@ class TipoUsuarioDao {
 
             $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
 
-            if($registerCount > 0) {
-                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-                $json_data = array(
-                    "draw" => intval($requestData['draw']),
-                    "recordsTotal" => intval($registerCount),
-                    "recordsFiltered" => intval($totalFiltred),
-                    "data" => $result
-                );
+            $json_data = array(
+                "draw" => intval($requestData['draw']),
+                "recordsTotal" => intval($registerCount),
+                "recordsFiltered" => intval($totalFiltred),
+                "data" => $result
+            );
 
-                echo json_encode($json_data);
-        
-            } else {
-                return [];
-            }
+            echo json_encode($json_data);
         } catch (\PDOException $e) {
             echo $e->getCode();
         } 
+    }
+
+    public function search($id) {
+        try {
+            $sql = 'SELECT * FROM TIPO_USUARIO WHERE idTipoUsuario = ?';
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->bindValue(1, $id);
+            $stmt->execute();
+
+            if($stmt->rowCount() > 0) {
+                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+                echo json_encode($result);
+            }
+        } catch (\PDOException $e) {
+            echo $e->getCode();
+        }
     }
 
     //? Update

@@ -2,46 +2,34 @@
 <link rel="stylesheet" href="../../../css/bootstrap.css">
 <link rel="stylesheet" href="../../../libs/DataTables/datatables.min.css">
 
-<div class="container">
+<div class="container-fluid">
     <div class="row mt-5">
-        <div class="col-12 col-sm-12 col-md-6 mt-2">
+        <div class="col-sm-12 col-md-8 mt-2">
             <h4 class="text-danger">Gerenciar Hospital</h4>
         </div>
         <div class="col-sm-12 col-md-3">
-            <button type="button" class="btn btn-dark btn-sm btn-add col-12 btn-block mt-2">Cadastrar</button>
+            <button type="button" class="btn btn-dark btn-sm btn-add btn-block mt-2">Cadastrar</button>
         </div>
     </div>
     <br>
     <div class="row">
-        <div class="text-center">
-            <table class="table table-hover table-responsive compact call-border" id="table-hospital">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Rua</th>
-                        <th scope="col">Bairro</th>
-                        <th scope="col">Cep</th>
-                        <th scope="col">Telefone</th>
-                        <th scope="col">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Rua</th>
-                        <th scope="col">Bairro</th>
-                        <th scope="col">Cep</th>
-                        <th scope="col">Telefone</th>
-                        <th scope="col">
-                            <button class="btn btn-primary">Visualizar</button>
-                            <button class="btn btn-success">Editar</button>
-                            <button class="btn btn-danger">Excluir</button>
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-12">
+            <div class="text-center">
+                <table class="table table-hover compact call-border" id="table-hospital">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Rua</th>
+                            <th scope="col">Bairro</th>
+                            <th scope="col">Cep</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -50,7 +38,9 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title text-danger"></div>
+                <div class="modal-title text-danger">
+                    <h4></h4>
+                </div>
             </div>
             <div class="modal-body"></div>
         </div>
