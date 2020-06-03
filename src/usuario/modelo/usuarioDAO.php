@@ -29,7 +29,10 @@ class UsuarioDao {
         try {
             $columnData = $requestData['columns'];
 
-            $sql = 'SELECT * FROM USUARIO';
+            $sql = 'SELECT `USUARIO`.`idUsuario`, `USUARIO`.`nomeUsuario`, `USUARIO`.`senhaUsuario`, `TIPO_USUARIO`.`tipoUsuario`, `HOSPITAL`.`nomeHospital`
+            FROM USUARIO 
+            INNER JOIN TIPO_USUARIO ON (`USUARIO`.`idTipoUsuario` = `TIPO_USUARIO`.`idTipoUsuario`)
+            INNER JOIN HOSPITAL ON (`USUARIO`.`idHospital` = `HOSPITAL`.`idHospital`)';
 
             $stmt = Conexao::getConn()->prepare($sql);
 

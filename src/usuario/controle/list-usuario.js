@@ -25,11 +25,11 @@ $(document).ready(function(){
             "className": 'text-center'
         },
         {
-            "data": 'idTipoUsuario',
+            "data": 'tipoUsuario',
             "className": 'text-center'
         },
         {
-            "data": 'idHospital',
+            "data": 'nomeHospital',
             "className": 'text-center'
         },
         {
