@@ -1,51 +1,67 @@
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<link rel="stylesheet" href="../../../css/bootstrap.css">
-<link rel="stylesheet" href="../../../libs/DataTables/datatables.min.css">
-
-<div class="container-fluid">
-    <div class="row mt-5">
-        <div class="col-sm-12 col-md-8 mt-2">
-            <h4 class="text-danger">Gerenciar Especialidade</h4>
-        </div>
-        <div class="col-sm-12 col-md-3">
-            <button type="button" class="btn btn-dark btn-sm btn-add btn-block mt-2">Cadastrar</button>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-12">
-            <div class="text-center">
-                <table class="table table-hover compact call-border" id="table-especialidade">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nome</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Especialidade</title>
+    <link rel="stylesheet" href="../../../css/bootstrap.css">
+    <link rel="stylesheet" href="../../../libs/DataTables/datatables.min.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row d-flex flex-column justify-content-center align-items-center">
+            <div class="col-sm-12 col-md-8 mt-4">
+                <h4 class="text-danger text-center">Gerenciar Especialidade</h4>
+            </div>
+            <div class="col-sm-8 col-md-4 mt-3">
+                <button type="button" class="btn btn-dark btn-sm btn-add btn-block">Cadastrar</button>
             </div>
         </div>
-    </div>
-</div>
-
-<div id="modal-especialidade" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title text-danger">
-                    <h4></h4>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center">
+                    <table class="table table-hover compact call-border" id="table-especialidade">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nome</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
-            <div class="modal-body"></div>
+        </div>
+
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-sm-4 col-md-2 mt-5">
+                <a class="btn btn-outline-dark btn-sm btn-add btn-block" href="../../../index.html" role="button">Voltar</a>
+            </div>
         </div>
     </div>
-</div>
+    
+    <div id="modal-especialidade" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title text-danger text-center w-100">
+                        <h4></h4>
+                    </div>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../../../js/jquery-3.5.1.js"></script>
+    <script src="../../../js/bootstrap.js"></script>
+    <script src="../../../libs/DataTables/datatables.min.js"></script>
+    <script src="../../../libs/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../controle/list-especialidade.js"></script>
+    <script src="../controle/edit-especialidade.js"></script>
+    <script src="../controle/add-especialidade.js"></script>
+</body>
+</html>
 
-<script src="../../../js/jquery-3.5.1.js"></script>
-<script src="../../../js/bootstrap.js"></script>
-<script src="../../../libs/DataTables/datatables.min.js"></script>
-<script src="../../../libs/sweetalert2/sweetalert2.all.min.js"></script>
-<script src="../controle/list-especialidade.js"></script>
-<script src="../controle/edit-especialidade.js"></script>
-<script src="../controle/add-especialidade.js"></script>
+

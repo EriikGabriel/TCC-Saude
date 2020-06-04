@@ -1,7 +1,7 @@
 $(document).ready(function(){   
     $(document).on('click', '.btn-add', function() {
         $("#modal-tipo-unidade .modal-body").load("cadastro-tipo-unidade.html")
-
+        $("#modal-tipo-unidade .modal-title h4").html("Cadastrar Tipo de Unidade")
         $('#modal-tipo-unidade').modal('show')
     })
     
