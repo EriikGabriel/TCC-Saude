@@ -1,7 +1,8 @@
 $(document).ready(function(){
 
-    var url = "../modelo/select_tipo_unidade.php"
-    $('#table-hospital').DataTable({
+    var url = "../modelo/select-tipo-unidade.php"
+    
+    $('#table-tipo-unidade').DataTable({
         "processing": true,
         "serverSide": true,
         "ajax": {
@@ -37,12 +38,11 @@ $(document).ready(function(){
             }
         }]
     })
-    
 
     $(document).on('submit', '#edit-tipo-unidade', function(e) { 
         e.preventDefault()
         
-        url = "../modelo/edit-tipo-unidadel.php"
+        url = "../modelo/edit-tipo-unidade.php"
 
         var dados = {
             "id": $(".modal-body").data("content"),
@@ -74,9 +74,9 @@ $(document).ready(function(){
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Sim, delete isso!'
-            }).then((result) => {
-                url = "../modelo/delete-tipo-unidade.php"
-                var dados = { "id": $(this).attr("id") }
+        }).then((result) => {
+            url = "../modelo/delete-tipo-unidade.php"
+            var dados = { "id": $(this).attr("id") }
 
             if (result.value) {
                 $.ajax({

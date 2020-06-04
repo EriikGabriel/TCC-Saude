@@ -9,10 +9,9 @@ $(document).ready(function() {
     $('#modal-usuario').on('show.bs.modal', function (e) {
         if($(".modal-body").data("content")) {
             var url = '../modelo/select-usuario.php'
-            console.log($(".modal-body").data("content"))
             var dados = { 
                 "id": $(".modal-body").data("content"),
-                "type": "search-dados"
+                "type": "search-data-usuario"
             }
     
             $.ajax({

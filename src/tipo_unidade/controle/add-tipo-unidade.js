@@ -9,7 +9,7 @@ $(document).ready(function(){
         e.preventDefault()
 
         var dados = $('#add-tipo-unidade').serialize()
-        var url = "../modelo/create_tipo_unidade.php"
+        var url = "../modelo/create-tipo-unidade.php"
 
         $.ajax({
             type: 'POST',

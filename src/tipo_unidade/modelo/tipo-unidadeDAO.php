@@ -2,19 +2,15 @@
 
 namespace conn;
 
-class UsuarioDao {
+class TipoUnidadeDao {
 
     //? Create
-    public function create(Usuario $u) {
+    public function create(TipoUnidade $tun) {
         try {
-            $sql = 'INSERT INTO USUARIO (nomeUsuario, senhaUsuario, idTipoUsuario, idHospital) 
-                    VALUES (?, ?, ?, ?)';
+            $sql = 'INSERT INTO TIPO_UNIDADE (tipoUnidade) VALUES (?)';
 
             $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $u->getNomeUsuario());
-            $stmt->bindValue(2, $u->getSenhaUsuario());
-            $stmt->bindValue(3, $u->getIdTipoUsuario());
-            $stmt->bindValue(4, $u->getIdHospital());
+            $stmt->bindValue(1, $tun->getTipoUnidade());
 
             $stmt->execute();
 
@@ -28,11 +24,8 @@ class UsuarioDao {
     public function list($requestData) {
         try {
             $columnData = $requestData['columns'];
-
-            $sql = 'SELECT `USUARIO`.`idUsuario`, `USUARIO`.`nomeUsuario`, `USUARIO`.`senhaUsuario`, `TIPO_USUARIO`.`tipoUsuario`, `HOSPITAL`.`nomeHospital`
-            FROM USUARIO 
-            INNER JOIN TIPO_USUARIO ON (`USUARIO`.`idTipoUsuario` = `TIPO_USUARIO`.`idTipoUsuario`)
-            INNER JOIN HOSPITAL ON (`USUARIO`.`idHospital` = `HOSPITAL`.`idHospital`)';
+            
+            $sql = 'SELECT * FROM TIPO_UNIDADE';
 
             $stmt = Conexao::getConn()->prepare($sql);
 
@@ -50,7 +43,7 @@ class UsuarioDao {
             $totalFiltred = 0;
 
             $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-
+            
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
             $json_data = array(
@@ -61,27 +54,18 @@ class UsuarioDao {
             );
 
             echo json_encode($json_data);
-
         } catch (\PDOException $e) {
             echo $e->getCode();
         } 
     }
 
-    public function search($id, $table, $isWhere, $where = null) {
+    public function search($id) {
         try {
-            if($isWhere == true) {
-                $sql = "SELECT * FROM {$table} WHERE {$where} = ?";
-                
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->bindValue(1, $id);
-                $stmt->execute();
+            $sql = 'SELECT * FROM TIPO_UNIDADE WHERE idTipoUnidade = ?';
 
-            } else {
-                $sql = "SELECT * FROM {$table}";
-
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->execute();
-            }
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->bindValue(1, $id);
+            $stmt->execute();
 
             if($stmt->rowCount() > 0) {
                 $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -96,14 +80,11 @@ class UsuarioDao {
     //? Update
     public function edit($array) {
         try {
-            $sql = "UPDATE USUARIO SET nomeUsuario = ?, senhaUsuario = ?, idTipoUsuario = ?, idHospital = ? WHERE idUsuario = ?";
-            
+            $sql = "UPDATE TIPO_UNIDADE SET tipoUnidade = ? WHERE idTipoUnidade = ?";
+
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $array[1]);
-            $stmt->bindValue(2, $array[2]);
-            $stmt->bindValue(3, $array[3]);
-            $stmt->bindValue(4, $array[4]);
-            $stmt->bindValue(5, $array[0]);
+            $stmt->bindValue(2, $array[0]);
 
             $stmt->execute();
 
@@ -116,7 +97,7 @@ class UsuarioDao {
     //? Delete
     public function delete($id) {
         try {
-            $sql = 'DELETE FROM USUARIO WHERE idUsuario = ?';
+            $sql = 'DELETE FROM TIPO_UNIDADE WHERE idTipoUnidade = ?';
     
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $id);

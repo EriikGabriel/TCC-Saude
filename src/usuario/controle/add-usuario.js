@@ -2,6 +2,44 @@ $(document).ready(function(){
     $(document).on('click', '.btn-add', function() {
         $("#modal-usuario .modal-body").load("cadastro-usuario.html")
         $("#modal-usuario .modal-title h4").html("Cadastrar Usuário")
+
+        var url = "../modelo/select-usuario.php"
+        var dados = { 
+            "type": "search-select-usuario",
+            "table": "TIPO_USUARIO" 
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function(dados){
+                var resTipo = JSON.parse(dados)
+                var dados = { 
+                    "type": "search-select-usuario",
+                    "table": "HOSPITAL" 
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    datatype: 'json',
+                    url: url,
+                    async: true,
+                    data: dados,
+                    success: function(dados){
+                        var resHosp = JSON.parse(dados)
+
+                        console.log(resTipo)
+                        console.log(resHosp)
+
+                        /* CONTINUAR A PARTIR DAQUI */
+                    }
+                })
+            }
+        })
+
         $('#modal-usuario').modal('show')
     })
     
@@ -37,8 +75,6 @@ $(document).ready(function(){
                         confirmButtonText: 'Tente novamente' 
                     })
                 }
-
-                
             }
         })
     })
