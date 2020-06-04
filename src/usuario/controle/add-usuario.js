@@ -31,10 +31,17 @@ $(document).ready(function(){
                     success: function(dados){
                         var resHosp = JSON.parse(dados)
 
-                        console.log(resTipo)
-                        console.log(resHosp)
+                        for (let i = 0; i < resTipo.length; i++) {
+                            $(
+                                `<option value="${resTipo[i].idTipoUsuario}">${resTipo[i].tipoUsuario}</option>`
+                            ).appendTo('select[name="idTipoUsuario"]')
+                        }
 
-                        /* CONTINUAR A PARTIR DAQUI */
+                        for (let i = 0; i < resHosp.length; i++) {
+                            $(
+                                `<option value="${resHosp[i].idHospital}">${resHosp[i].nomeHospital}</option>`
+                            ).appendTo('select[name="idHospital"]')
+                        }
                     }
                 })
             }

@@ -10,10 +10,10 @@ $(document).ready(function() {
         if($(".modal-body").data("content")) {
             var url = '../modelo/select-usuario.php'
             var dados = { 
-                "id": $(".modal-body").data("content"),
-                "type": "search-data-usuario"
+                "type": "search-select-usuario",
+                "table": "TIPO_USUARIO" 
             }
-    
+
             $.ajax({
                 type: 'POST',
                 datatype: 'json',
@@ -21,12 +21,55 @@ $(document).ready(function() {
                 async: true,
                 data: dados,
                 success: function(dados){
-                    var dados = JSON.parse(dados)[0]
+                    var resTipo = JSON.parse(dados)
+                    var dados = { 
+                        "type": "search-select-usuario",
+                        "table": "HOSPITAL" 
+                    }
     
-                    $("#nome").val(dados.nomeUsuario)
-                    $("#senha").val(dados.senhaUsuario)
-                    $("#idTipoUsuario").val(dados.idTipoUsuario)
-                    $("#idHospital").val(dados.idHospital)
+                    $.ajax({
+                        type: 'POST',
+                        datatype: 'json',
+                        url: url,
+                        async: true,
+                        data: dados,
+                        success: function(dados){
+                            var resHosp = JSON.parse(dados)
+    
+                            for (let i = 0; i < resTipo.length; i++) {
+                                $(
+                                    `<option value="${resTipo[i].idTipoUsuario}">${resTipo[i].tipoUsuario}</option>`
+                                ).appendTo('select[name="idTipoUsuario"]')
+                            }
+    
+                            for (let i = 0; i < resHosp.length; i++) {
+                                $(
+                                    `<option value="${resHosp[i].idHospital}">${resHosp[i].nomeHospital}</option>`
+                                ).appendTo('select[name="idHospital"]')
+                            }
+
+                            var dados = { 
+                                "id": $(".modal-body").data("content"),
+                                "type": "search-data-usuario"
+                            }
+
+                            $.ajax({
+                                type: 'POST',
+                                datatype: 'json',
+                                url: url,
+                                async: true,
+                                data: dados,
+                                success: function(dados){
+                                    var dados = JSON.parse(dados)[0]
+                                    
+                                    $("#nome").val(dados.nomeUsuario)
+                                    $("#senha").val(dados.senhaUsuario)
+                                    $("#idTipoUsuario").val(dados.idTipoUsuario)
+                                    $("#idHospital").val(dados.idHospital)
+                                }
+                            })
+                        }
+                    })
                 }
             })
         }

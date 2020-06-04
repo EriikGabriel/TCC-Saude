@@ -79,4 +79,4 @@ CREATE TABLE ENCAMINHAMENTO(
 )
 ENGINE INNODB;
 
-SELECT * FROM HOSPITAL;
+SELECT idTipoUsuario as idTipo, tipoUsuario as tipo FROM TIPO_USUARIO UNION SELECT idHospital as IdHosp, nomeHospital as NomeHosp FROM HOSPITAL;
