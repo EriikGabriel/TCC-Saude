@@ -7,14 +7,14 @@ $(document).ready(function() {
     })
 
     $('#modal-tipo-unidade').on('show.bs.modal', function(e) {
-        if($(".modal-body").data("content")) {
+        if ($(".modal-body").data("content")) {
             var url = '../modelo/select-tipo-unidade.php'
 
             var dados = {
                 "id": $(".modal-body").data("content"),
                 "type": "search-dados"
             }
-    
+
             $.ajax({
                 type: 'POST',
                 datatype: 'json',
@@ -23,11 +23,10 @@ $(document).ready(function() {
                 data: dados,
                 success: function(dados) {
                     var dados = JSON.parse(dados)[0]
-    
+
                     $("#tipo").val(dados.tipoUnidade)
                 }
             })
         }
-
     })
 })
