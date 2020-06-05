@@ -4,6 +4,7 @@ $(document).ready(function() {
     $('#table-especialidade').DataTable({
         "processing": true,
         "serverSide": true,
+        "responsive": true,
         "ajax": {
             "url": url,
             "type": "POST"

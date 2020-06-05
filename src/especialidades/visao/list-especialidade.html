@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Especialidade</title>
     <link rel="stylesheet" href="../../../css/bootstrap.css">
-    <link rel="stylesheet" href="../../../libs/DataTables/datatables.min.css">
+    <link rel="stylesheet" href="../../../libs/DataTables/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../../libs/DataTables/css/responsive.bootstrap4.min.css">
 </head>
-
 <body>
     <div class="container-fluid">
         <div class="row d-flex flex-column justify-content-center align-items-center">
@@ -22,8 +21,8 @@
         <br>
         <div class="row">
             <div class="col-12">
-                <div class="text-center">
-                    <table class="table table-hover compact call-border" id="table-especialidade">
+                <div class="text-center table-responsive">
+                    <table class="table table-hover dt-responsive call-border nowrap" id="table-especialidade">
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
@@ -31,7 +30,6 @@
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -59,11 +57,13 @@
 
     <script src="../../../js/jquery-3.5.1.js"></script>
     <script src="../../../js/bootstrap.js"></script>
-    <script src="../../../libs/DataTables/datatables.min.js"></script>
+    <script src="../../../libs/DataTables/js/jquery.dataTables.min.js"></script>
+    <script src="../../../libs/DataTables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../../../libs/DataTables/js/dataTables.responsive.min.js"></script>
+    <script src="../../../libs/DataTables/js/responsive.bootstrap4.min.js"></script>
     <script src="../../../libs/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../controle/add-especialidade.js"></script>
     <script src="../controle/list-especialidade.js"></script>
     <script src="../controle/edit-especialidade.js"></script>
 </body>
-
 </html>

@@ -4,6 +4,7 @@ $(document).ready(function(){
     $('#table-hospital').DataTable({
         "processing": true,
         "serverSide": true,
+        "responsive": true,
         "ajax": {
             "url": url,
             "type": "POST"
@@ -52,7 +53,7 @@ $(document).ready(function(){
                 `
             }
         }]
-    })
+    }).responsive.recalc();
     
 
     $(document).on('submit', '#edit-hospital', function(e) { 

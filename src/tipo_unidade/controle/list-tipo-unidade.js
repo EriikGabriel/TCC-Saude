@@ -5,6 +5,7 @@ $(document).ready(function(){
     $('#table-tipo-unidade').DataTable({
         "processing": true,
         "serverSide": true,
+        "responsive": true,
         "ajax": {
             "url": url,
             "type": "POST"
