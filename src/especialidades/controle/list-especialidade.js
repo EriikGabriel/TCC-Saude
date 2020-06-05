@@ -26,7 +26,6 @@ $(document).ready(function() {
                 "orderable": false, // Aqui iremos desabilitar a opção de ordenamento por essa coluna
                 "searchable": false, // Aqui também iremos desabilitar a possibilidade de busca por essa coluna
                 "className": 'text-center',
-                // Nesta linha iremos chamar a função render que pega os nossos elementos HTML e renderiza juntamente com as informações carregadas do objeto
                 "render": function(data, type, row, meta) {
                     return `
                         <button id="${data}" class="btn btn-primary btn btn-view">Visualizar</button>
