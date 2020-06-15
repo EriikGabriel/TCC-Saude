@@ -90,7 +90,7 @@ $(document).ready(function(){
                         if(dados == "true") {
                             Swal.fire(
                                 'Deletado!',
-                                'Seu arquivo foi deletado.',
+                                'Seus dados foram deletados.',
                                 'success'
                             ).then((result) => {
                                 if(result.value) {
