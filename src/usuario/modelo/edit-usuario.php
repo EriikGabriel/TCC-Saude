@@ -18,5 +18,3 @@ $usuario = new Usuario;
 $usuarioDao = new UsuarioDao;
 
 $usuarioDao->edit($new_values);
-
-?>
