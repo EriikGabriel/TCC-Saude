@@ -46,7 +46,7 @@ $(document).ready(function () {
             success: function (dados) {
                 if (dados == "true") {
                     Swal.fire({
-                        title: 'TCC',
+                        title: 'Sucesso!',
                         text: "Cadastro efetuado com sucesso",
                         icon: 'success',
                         confirmButtonText: 'Feito'
@@ -63,8 +63,6 @@ $(document).ready(function () {
                         confirmButtonText: 'Tente novamente'
                     })
                 }
-
-
             }
         })
     })

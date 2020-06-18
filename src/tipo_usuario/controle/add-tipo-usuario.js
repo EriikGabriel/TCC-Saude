@@ -1,11 +1,11 @@
-$(document).ready(function() {
-    $(document).on('click', '.btn-add', function() {
+$(document).ready(function () {
+    $(document).on('click', '.btn-add', function () {
         $("#modal-tipo-usuario .modal-body").load("cadastro-tipo-usuario.html")
         $("#modal-tipo-usuario .modal-title h4").html("Cadastrar Tipo de Usuário")
         $('#modal-tipo-usuario').modal('show')
     })
 
-    $(document).on('submit', '#add-tipo-usuario', function(e) {
+    $(document).on('submit', '#add-tipo-usuario', function (e) {
         e.preventDefault()
 
         var dados = $('#add-tipo-usuario').serialize()
@@ -17,10 +17,10 @@ $(document).ready(function() {
             url: url,
             async: true,
             data: dados,
-            success: function(dados) {
+            success: function (dados) {
                 if (dados == "true") {
                     Swal.fire({
-                        title: 'TCC',
+                        title: 'Sucesso!',
                         text: "Cadastro efetuado com sucesso",
                         icon: 'success',
                         confirmButtonText: 'Feito'

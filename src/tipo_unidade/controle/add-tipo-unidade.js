@@ -1,11 +1,11 @@
-$(document).ready(function(){   
-    $(document).on('click', '.btn-add', function() {
+$(document).ready(function () {
+    $(document).on('click', '.btn-add', function () {
         $("#modal-tipo-unidade .modal-body").load("cadastro-tipo-unidade.html")
         $("#modal-tipo-unidade .modal-title h4").html("Cadastrar Tipo de Unidade")
         $('#modal-tipo-unidade').modal('show')
     })
-    
-    $(document).on('submit', '#add-tipo-unidade', function(e){
+
+    $(document).on('submit', '#add-tipo-unidade', function (e) {
         e.preventDefault()
 
         var dados = $('#add-tipo-unidade').serialize()
@@ -17,26 +17,26 @@ $(document).ready(function(){
             url: url,
             async: true,
             data: dados,
-            success: function(dados){
-                if(dados == "true"){
+            success: function (dados) {
+                if (dados == "true") {
                     Swal.fire({
-                        title: 'TCC',
+                        title: 'Sucesso!',
                         text: "Cadastro efetuado com sucesso",
                         icon: 'success',
-                        confirmButtonText: 'Feito' 
+                        confirmButtonText: 'Feito'
                     }).then((result) => {
                         if (result.value) {
                             location.reload()
                         }
                     })
-                }else{
+                } else {
                     Swal.fire({
                         title: 'Erro!',
                         text: dados,
                         icon: 'error',
-                        confirmButtonText: 'Tente novamente' 
+                        confirmButtonText: 'Tente novamente'
                     })
-                }    
+                }
             }
         })
     })
