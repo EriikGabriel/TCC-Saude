@@ -8,13 +8,20 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-lg-5 col-md-5">
+                <div class="form-group col-lg-8 col-md-10">
+                    <label>CRM</label>
+                    <input type="text" name="crm" id="crm" class="form-control" maxlength="13" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-4 col-md-5">
                     <label>Horário</label>
-                    <input type="text" name="horario" id="horario" class="form-control" required>
+                    <input type="time" name="horario" id="horario" class="form-control" required>
                 </div>
                 <div class="form-group col-lg-4 col-md-5">
                     <label>Especialidade:</label>
                     <select name="idEspecialidade" id="idEspecialidade" class="form-control" required>
+                        <option value="">Selecione a especialidade</option>
                     </select>
                 </div>
             </div>
@@ -26,4 +33,3 @@
         </form>
     </div>
 </div>
-

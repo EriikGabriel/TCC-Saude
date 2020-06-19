@@ -2,6 +2,32 @@ $(document).ready(function () {
     $(document).on('click', '.btn-add', function () {
         $("#modal-medico .modal-body").load("cadastro-medico.html")
         $("#modal-medico .modal-title h4").html("Cadastrar Médico")
+
+        var url = "../modelo/select-medico.php"
+        var dados = {
+            "type": "search-select-medico",
+            "table": "ESPECIALIDADE"
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function (dados) {
+                if (dados != "") {
+                    var resEsp = JSON.parse(dados)
+
+                    for (let i = 0; i < resEsp.length; i++) {
+                        $(
+                            `<option value="${resEsp[i].idEspecialidade}">${resEsp[i].tipoEspecialidade}</option>`
+                        ).appendTo('select[name="idEspecialidade"]')
+                    }
+                }
+            }
+        })
+
         $('#modal-medico').modal('show')
     })
 
