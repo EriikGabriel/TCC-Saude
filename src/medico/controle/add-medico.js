@@ -55,6 +55,13 @@ $(document).ready(function () {
                             location.reload()
                         }
                     })
+                } else if (dados.includes("23000")) {
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: 'Esse CRM já foi cadastrado',
+                        icon: 'error',
+                        confirmButtonText: 'Tente novamente'
+                    })
                 } else {
                     Swal.fire({
                         title: 'Erro!',
