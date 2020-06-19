@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
     var url = "../modelo/select-paciente.php"
     $('#table-paciente').DataTable({
@@ -12,8 +12,7 @@ $(document).ready(function(){
         "language": {
             "url": "../../../libs/DataTables/dataTables.brazil.json"
         },
-        "columns": [
-        {
+        "columns": [{
             "data": 'idPaciente',
             "className": 'text-center'
         },
@@ -26,15 +25,20 @@ $(document).ready(function(){
             "className": 'text-center'
         },
         {
-            "data": 'numeroPaciente',
+            "data": 'bairroPaciente',
             "className": 'text-center'
         },
+
         {
             "data": 'telefonePaciente',
             "className": 'text-center'
         },
         {
-            "data": 'bairroPaciente',
+            "data": 'numeroSUS',
+            "className": 'text-center'
+        },
+        {
+            "data": 'gravidade',
             "className": 'text-center'
         },
         {
@@ -45,29 +49,31 @@ $(document).ready(function(){
             "searchable": false, // Aqui também iremos desabilitar a possibilidade de busca por essa coluna
             "className": 'text-center',
             // Nesta linha iremos chamar a função render que pega os nossos elementos HTML e renderiza juntamente com as informações carregadas do objeto
-            "render": function(data, type, row, meta) {
+            "render": function (data, type, row, meta) {
                 return `
                         <button id="${data}" class="btn btn-primary btn btn-view">Visualizar</button>
                         <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
                         <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
                 `
             }
-        }]
+        }
+        ]
     }).responsive.recalc();
-    
 
-    $(document).on('submit', '#edit-paciente', function(e) { 
+
+    $(document).on('submit', '#edit-paciente', function (e) {
         e.preventDefault()
-        
+
         url = "../modelo/edit-paciente.php"
 
         var dados = {
             "id": $(".modal-body").data("content"),
             "nome": $("#nome").val(),
             "rua": $("#rua").val(),
-            "numero": $("#numero").val(),
+            "numeroSUS": $("#numeroSUS").val(),
             "tel": $("#tel").val(),
             "bairro": $("#bairro").val(),
+            "gravidade": $("input[name='gravidade']:checked").val(),
         }
 
         $.ajax({
@@ -76,9 +82,9 @@ $(document).ready(function(){
             url: url,
             async: true,
             data: dados,
-            success: function(dados) {
+            success: function (dados) {
                 console.log(dados)
-                if(dados == "true") {
+                if (dados == "true") {
                     location.href = "list-paciente.html"
                 }
             }
@@ -86,7 +92,7 @@ $(document).ready(function(){
     })
 
     //? Função - Botão Deletar
-    $(document).on('click', '.btn-delete', function(){
+    $(document).on('click', '.btn-delete', function () {
         Swal.fire({
             title: 'Você tem certeza?',
             text: "O registro será deletado permanentemente!",
@@ -95,9 +101,9 @@ $(document).ready(function(){
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Sim, delete isso!'
-            }).then((result) => {
-                url = "../modelo/delete-paciente.php"
-                var dados = { "id": $(this).attr("id") }
+        }).then((result) => {
+            url = "../modelo/delete-paciente.php"
+            var dados = { "id": $(this).attr("id") }
 
             if (result.value) {
                 $.ajax({
@@ -106,14 +112,14 @@ $(document).ready(function(){
                     url: url,
                     async: true,
                     data: dados,
-                    success: function(dados){
-                        if(dados == "true") {
+                    success: function (dados) {
+                        if (dados == "true") {
                             Swal.fire(
                                 'Deletado!',
                                 'Seus dados foram deletados.',
                                 'success'
                             ).then((result) => {
-                                if(result.value) {
+                                if (result.value) {
                                     location.reload()
                                 }
                             })
