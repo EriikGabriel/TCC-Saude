@@ -55,4 +55,32 @@ $(document).ready(function () {
             })
         }
     })
+
+    $(document).on('submit', '#edit-medico', function (e) {
+        e.preventDefault()
+
+        url = "../modelo/edit-medico.php"
+
+        var dados = {
+            "id": $(".modal-body").data("content"),
+            "crm": $("#crm").val(),
+            "nome": $("#nome").val(),
+            "horario": $("#horario").val(),
+            "idEspecialidade": $("#idEspecialidade").val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function (dados) {
+                console.log(dados)
+                if (dados == "true") {
+                    location.href = "list-medico.html"
+                }
+            }
+        })
+    })
 })

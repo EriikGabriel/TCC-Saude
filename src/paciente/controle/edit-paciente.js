@@ -37,4 +37,34 @@ $(document).ready(function () {
             })
         }
     })
+
+    $(document).on('submit', '#edit-paciente', function (e) {
+        e.preventDefault()
+
+        url = "../modelo/edit-paciente.php"
+
+        var dados = {
+            "id": $(".modal-body").data("content"),
+            "nome": $("#nome").val(),
+            "rua": $("#rua").val(),
+            "numeroSUS": $("#numeroSUS").val(),
+            "tel": $("#tel").val(),
+            "bairro": $("#bairro").val(),
+            "gravidade": $("input[name='gravidade']:checked").val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function (dados) {
+                console.log(dados)
+                if (dados == "true") {
+                    location.href = "list-paciente.html"
+                }
+            }
+        })
+    })
 })

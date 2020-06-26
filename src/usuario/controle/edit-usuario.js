@@ -78,4 +78,32 @@ $(document).ready(function () {
             })
         }
     })
+
+    $(document).on('submit', '#edit-usuario', function (e) {
+        e.preventDefault()
+
+        url = "../modelo/edit-usuario.php"
+
+        var dados = {
+            "idUsuario": $(".modal-body").data("content"),
+            "nomeUsuario": $("#nome").val(),
+            "senhaUsuario": $("#senha").val(),
+            "idTipoUsuario": $("#idTipoUsuario").val(),
+            "idHospital": $("#idHospital").val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function (dados) {
+                console.log(dados)
+                if (dados == "true") {
+                    location.href = "list-usuario.html"
+                }
+            }
+        })
+    })
 })

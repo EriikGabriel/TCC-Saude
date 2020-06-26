@@ -56,4 +56,33 @@ $(document).ready(function () {
             })
         }
     })
+
+    $(document).on('submit', '#edit-unidade-saude', function (e) {
+        e.preventDefault()
+
+        url = "../modelo/edit-unidade-saude.php"
+
+        var dados = {
+            "id": $(".modal-body").data("content"),
+            "nome": $("#nome").val(),
+            "rua": $("#rua").val(),
+            "bairro": $("#bairro").val(),
+            "tel": $("#tel").val(),
+            "idTipoUnidade": $("#idTipoUnidade").val()
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function (dados) {
+                console.log(dados)
+                if (dados == "true") {
+                    location.href = "list-unidade-saude.html"
+                }
+            }
+        })
+    })
 })
