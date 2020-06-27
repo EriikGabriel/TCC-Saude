@@ -38,6 +38,10 @@ $(document).ready(function () {
                 "className": 'text-center'
             },
             {
+                "data": 'nomeUsuario',
+                "className": 'text-center'
+            },
+            {
                 // O último elemento a ser instânciado em nossa DataTable são os nossos botões de ações, ou seja, devemos criar os elementos em tela para
                 // podermos executar as funções do CRUD.
                 "data": 'idHospital',
@@ -52,6 +56,7 @@ $(document).ready(function () {
                         <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
                 `
                 }
-            }]
+            }
+        ]
     })
 })

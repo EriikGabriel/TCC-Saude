@@ -31,8 +31,8 @@ $(document).ready(function () {
                     }
 
                     var dados = {
-                        "type": "search-select-usuario",
-                        "table": "HOSPITAL"
+                        "id": $(".modal-body").data("content"),
+                        "type": "search-data-usuario"
                     }
 
                     $.ajax({
@@ -42,36 +42,12 @@ $(document).ready(function () {
                         async: true,
                         data: dados,
                         success: function (dados) {
-                            if (dados != "") {
-                                var resHosp = JSON.parse(dados)
-                                for (let i = 0; i < resHosp.length; i++) {
-                                    $(
-                                        `<option value="${resHosp[i].idHospital}">${resHosp[i].nomeHospital}</option>`
-                                    ).appendTo('select[name="idHospital"]')
-                                }
-                            }
+                            var dados = JSON.parse(dados)[0]
+                            console.log(dados)
 
-                            var dados = {
-                                "id": $(".modal-body").data("content"),
-                                "type": "search-data-usuario"
-                            }
-
-                            $.ajax({
-                                type: 'POST',
-                                datatype: 'json',
-                                url: url,
-                                async: true,
-                                data: dados,
-                                success: function (dados) {
-                                    var dados = JSON.parse(dados)[0]
-                                    console.log(dados)
-
-                                    $("#nome").val(dados.nomeUsuario)
-                                    $("#senha").val(dados.senhaUsuario)
-                                    $("#idTipoUsuario").val(dados.idTipoUsuario)
-                                    $("#idHospital").val(dados.idHospital)
-                                }
-                            })
+                            $("#nome").val(dados.nomeUsuario)
+                            $("#senha").val(dados.senhaUsuario)
+                            $("#idTipoUsuario").val(dados.idTipoUsuario)
                         }
                     })
                 }
@@ -89,7 +65,6 @@ $(document).ready(function () {
             "nomeUsuario": $("#nome").val(),
             "senhaUsuario": $("#senha").val(),
             "idTipoUsuario": $("#idTipoUsuario").val(),
-            "idHospital": $("#idHospital").val(),
         }
 
         $.ajax({

@@ -2,6 +2,31 @@ $(document).ready(function () {
     $(document).on('click', '.btn-add', function () {
         $("#modal-hospital .modal-body").load("cadastro-hospital.html")
         $("#modal-hospital .modal-title h4").html("Cadastrar Hospital")
+
+        var url = "../modelo/select-hospital.php"
+        var dados = {
+            "type": "search-select-hospital",
+            "table": "USUARIO"
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function (dados) {
+                if (dados != "") {
+                    var resUs = JSON.parse(dados)
+                    for (let i = 0; i < resUs.length; i++) {
+                        $(
+                            `<option value="${resUs[i].idUsuario}">${resUs[i].nomeUsuario}</option>`
+                        ).appendTo('select[name="idUsuario"]')
+                    }
+                }
+            }
+        })
+
         $('#modal-hospital').modal('show')
     })
 
@@ -10,7 +35,7 @@ $(document).ready(function () {
 
         var dados = $('#add-hospital').serialize()
         var url = "../modelo/create-hospital.php"
-        //
+
         $.ajax({
             type: 'POST',
             datatype: 'json',
@@ -37,8 +62,6 @@ $(document).ready(function () {
                         confirmButtonText: 'Tente novamente'
                     })
                 }
-
-
             }
         })
     })

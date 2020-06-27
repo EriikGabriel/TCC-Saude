@@ -10,9 +10,8 @@ $id = filter_input(INPUT_POST, "idUsuario", FILTER_SANITIZE_SPECIAL_CHARS);
 $nome = filter_input(INPUT_POST, "nomeUsuario", FILTER_SANITIZE_SPECIAL_CHARS);
 $senha = filter_input(INPUT_POST, "senhaUsuario", FILTER_SANITIZE_SPECIAL_CHARS);
 $idTipoUsuario = filter_input(INPUT_POST, "idTipoUsuario", FILTER_SANITIZE_SPECIAL_CHARS);
-$idHospital = filter_input(INPUT_POST, "idHospital", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$new_values = [$id, $nome, $senha, $idTipoUsuario, $idHospital];
+$new_values = [$id, $nome, $senha, $idTipoUsuario];
 
 $usuario = new Usuario;
 $usuarioDao = new UsuarioDao;

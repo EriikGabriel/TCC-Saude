@@ -9,10 +9,9 @@ $(document).ready(function () {
     $('#modal-hospital').on('show.bs.modal', function (e) {
         if ($(".modal-body").data("content")) {
             var url = '../modelo/select-hospital.php'
-            console.log($(".modal-body").data("content"))
             var dados = {
-                "id": $(".modal-body").data("content"),
-                "type": "search-dados"
+                "type": "search-select-hospital",
+                "table": "USUARIO"
             }
 
             $.ajax({
@@ -22,14 +21,37 @@ $(document).ready(function () {
                 async: true,
                 data: dados,
                 success: function (dados) {
-                    var dados = JSON.parse(dados)[0]
-                    console.log(dados)
+                    if (dados != "") {
+                        var resTipo = JSON.parse(dados)
+                        for (let i = 0; i < resTipo.length; i++) {
+                            $(
+                                `<option value="${resTipo[i].idUsuario}">${resTipo[i].nomeUsuario}</option>`
+                            ).appendTo('select[name="idUsuario"]')
+                        }
+                    }
 
-                    $("#nome").val(dados.nomeHospital)
-                    $("#rua").val(dados.ruaHospital)
-                    $("#bairro").val(dados.bairroHospital)
-                    $("#cep").val(dados.cepHospital)
-                    $("#tel").val(dados.telefoneHospital)
+                    var dados = {
+                        "id": $(".modal-body").data("content"),
+                        "type": "search-data-hospital"
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        datatype: 'json',
+                        url: url,
+                        async: true,
+                        data: dados,
+                        success: function (dados) {
+                            var dados = JSON.parse(dados)[0]
+
+                            $("#nome").val(dados.nomeHospital)
+                            $("#rua").val(dados.ruaHospital)
+                            $("#bairro").val(dados.bairroHospital)
+                            $("#cep").val(dados.cepHospital)
+                            $("#tel").val(dados.telefoneHospital)
+                            $("#idUsuario").val(dados.idUsuario)
+                        }
+                    })
                 }
             })
         }
@@ -47,6 +69,7 @@ $(document).ready(function () {
             "bairro": $("#bairro").val(),
             "cep": $("#cep").val(),
             "tel": $("#tel").val(),
+            "idUsuario": $("#idUsuario").val(),
         }
 
         $.ajax({
@@ -56,7 +79,6 @@ $(document).ready(function () {
             async: true,
             data: dados,
             success: function (dados) {
-                console.log(dados)
                 if (dados == "true") {
                     location.href = "list-hospital.html"
                 }

@@ -24,29 +24,6 @@ $(document).ready(function () {
                         ).appendTo('select[name="idTipoUsuario"]')
                     }
                 }
-
-                var dados = {
-                    "type": "search-select-usuario",
-                    "table": "HOSPITAL"
-                }
-
-                $.ajax({
-                    type: 'POST',
-                    datatype: 'json',
-                    url: url,
-                    async: true,
-                    data: dados,
-                    success: function (dados) {
-                        if (dados != "") {
-                            var resHosp = JSON.parse(dados)
-                            for (let i = 0; i < resHosp.length; i++) {
-                                $(
-                                    `<option value="${resHosp[i].idHospital}">${resHosp[i].nomeHospital}</option>`
-                                ).appendTo('select[name="idHospital"]')
-                            }
-                        }
-                    }
-                })
             }
         })
 
