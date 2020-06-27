@@ -36,7 +36,7 @@ $(document).ready(function () {
 
         var dados = $('#add-medico').serialize()
         var url = "../modelo/create-medico.php"
-        //
+
         $.ajax({
             type: 'POST',
             datatype: 'json',

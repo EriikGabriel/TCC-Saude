@@ -22,10 +22,6 @@ $(document).ready(function () {
                 "className": 'text-center'
             },
             {
-                "data": 'horarioMedico',
-                "className": 'text-center'
-            },
-            {
                 "data": 'tipoEspecialidade',
                 "className": 'text-center'
             },

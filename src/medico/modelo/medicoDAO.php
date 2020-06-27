@@ -9,14 +9,13 @@ class MedicoDao
     public function create(Medico $m)
     {
         try {
-            $sql = 'INSERT INTO MEDICO (CRM, nomeMedico, horarioMedico, idEspecialidade) 
-                    VALUES (?, ?, ?, ?)';
+            $sql = 'INSERT INTO MEDICO (CRM, nomeMedico, idEspecialidade) 
+                    VALUES (?, ?, ?)';
 
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $m->getCrm());
             $stmt->bindValue(2, $m->getNomeMedico());
-            $stmt->bindValue(3, $m->getHorarioMedico());
-            $stmt->bindValue(4, $m->getIdEspecialidade());
+            $stmt->bindValue(3, $m->getIdEspecialidade());
 
             $stmt->execute();
 
@@ -32,7 +31,7 @@ class MedicoDao
         try {
             $columnData = $requestData['columns'];
 
-            $sql = 'SELECT `MEDICO`.`CRM`, `MEDICO`.`nomeMedico`, DATE_FORMAT(`MEDICO`.`horarioMedico`, "%H:%i") AS horarioMedico, `ESPECIALIDADE`.`tipoEspecialidade`
+            $sql = 'SELECT `MEDICO`.`CRM`, `MEDICO`.`nomeMedico`, `ESPECIALIDADE`.`tipoEspecialidade`
             FROM MEDICO
             INNER JOIN ESPECIALIDADE ON (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`)';
 
@@ -98,14 +97,13 @@ class MedicoDao
     public function edit($array)
     {
         try {
-            $sql = "UPDATE MEDICO SET CRM = ?, nomeMedico = ?, horarioMedico = ?, idEspecialidade = ? WHERE CRM = ?";
+            $sql = "UPDATE MEDICO SET CRM = ?, nomeMedico = ?, idEspecialidade = ? WHERE CRM = ?";
 
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $array[1]);
             $stmt->bindValue(2, $array[2]);
             $stmt->bindValue(3, $array[3]);
-            $stmt->bindValue(4, $array[4]);
-            $stmt->bindValue(5, $array[0]);
+            $stmt->bindValue(4, $array[0]);
 
             $stmt->execute();
 

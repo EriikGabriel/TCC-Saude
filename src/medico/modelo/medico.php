@@ -4,7 +4,7 @@ namespace conn;
 
 class Medico
 {
-    private $crm, $nomeMedico, $horarioMedico, $idEspecialidade;
+    private $crm, $nomeMedico, $idEspecialidade;
 
     /**
      * Get the value of crm
@@ -42,26 +42,6 @@ class Medico
     public function setNomeMedico($nomeMedico)
     {
         $this->nomeMedico = $nomeMedico;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of horarioMedico
-     */
-    public function getHorarioMedico()
-    {
-        return $this->horarioMedico;
-    }
-
-    /**
-     * Set the value of horarioMedico
-     *
-     * @return  self
-     */
-    public function setHorarioMedico($horarioMedico)
-    {
-        $this->horarioMedico = $horarioMedico;
 
         return $this;
     }

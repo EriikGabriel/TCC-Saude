@@ -46,7 +46,6 @@ $(document).ready(function () {
 
                                 $("#crm").val(dados.CRM)
                                 $("#nome").val(dados.nomeMedico)
-                                $("#horario").val(dados.horarioMedico)
                                 $("#idEspecialidade").val(dados.idEspecialidade)
                             }
                         })
@@ -65,7 +64,6 @@ $(document).ready(function () {
             "id": $(".modal-body").data("content"),
             "crm": $("#crm").val(),
             "nome": $("#nome").val(),
-            "horario": $("#horario").val(),
             "idEspecialidade": $("#idEspecialidade").val(),
         }
 
@@ -76,7 +74,6 @@ $(document).ready(function () {
             async: true,
             data: dados,
             success: function (dados) {
-                console.log(dados)
                 if (dados == "true") {
                     location.href = "list-medico.html"
                 }
