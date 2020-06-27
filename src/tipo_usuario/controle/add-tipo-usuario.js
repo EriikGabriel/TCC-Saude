@@ -9,7 +9,7 @@ $(document).ready(function () {
         e.preventDefault()
 
         var dados = $('#add-tipo-usuario').serialize()
-        var url = "../modelo/create_tipo_usuario.php"
+        var url = "../modelo/create-tipo-usuario.php"
 
         $.ajax({
             type: 'POST',

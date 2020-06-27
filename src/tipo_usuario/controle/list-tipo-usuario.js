@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var url = "../modelo/select_tipo_usuario.php"
+    var url = "../modelo/select-tipo-usuario.php"
 
     $('#table-tipo-usuario').DataTable({
         "processing": true,

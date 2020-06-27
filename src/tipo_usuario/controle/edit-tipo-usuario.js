@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     $('#modal-tipo-usuario').on('show.bs.modal', function (e) {
         if ($(".modal-body").data("content")) {
-            var url = '../modelo/select_tipo_usuario.php'
+            var url = '../modelo/select-tipo-usuario.php'
 
             var dados = {
                 "id": $(".modal-body").data("content"),
