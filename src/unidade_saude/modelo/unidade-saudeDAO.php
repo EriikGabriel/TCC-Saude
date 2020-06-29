@@ -36,13 +36,29 @@ class UnidadeSaudeDao
             $sql = 'SELECT `UNIDADE_SAUDE`.`idUnidadeSaude`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, 
             `UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`, `UNIDADE_SAUDE`.`telefoneUnidadeSaude`, `TIPO_UNIDADE`.`tipoUnidade`
             FROM UNIDADE_SAUDE
-            INNER JOIN TIPO_UNIDADE ON (`UNIDADE_SAUDE`.`idTipoUnidade` = `TIPO_UNIDADE`.`idTipoUnidade`)';
+            INNER JOIN TIPO_UNIDADE ON (`UNIDADE_SAUDE`.`idTipoUnidade` = `TIPO_UNIDADE`.`idTipoUnidade`) 
+            WHERE 1 = 1 ';
 
             $stmt = Conexao::getConn()->prepare($sql);
-
             $stmt->execute();
 
             $registerCount = $stmt->rowCount();
+
+            $filter = $requestData['search']['value'];
+
+            if (!empty($filter)) {
+                $sql .= " AND (idUnidadeSaude LIKE '$filter%' 
+                          OR nomeUnidadeSaude LIKE '$filter%' 
+                          OR ruaUnidadeSaude LIKE '$filter%' 
+                          OR bairroUnidadeSaude LIKE '$filter%' 
+                          OR telefoneUnidadeSaude LIKE '$filter%' 
+                          OR tipoUnidade LIKE '$filter%') ";
+            }
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
+
+            $totalFiltred = $stmt->rowCount();
 
             $columnOrder = $requestData['order'][0]['column'];
             $order = $columnData[$columnOrder]['data'];
@@ -51,9 +67,10 @@ class UnidadeSaudeDao
             $limitStart = $requestData['start'];
             $limitLenght = $requestData['length'];
 
-            $totalFiltred = 0;
-
             $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
 
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 

@@ -2,10 +2,12 @@
 
 namespace conn;
 
-class TipoUsuarioDao {
+class TipoUsuarioDao
+{
 
     //? Create
-    public function create(TipoUsuario $tu) {
+    public function create(TipoUsuario $tu)
+    {
         try {
             $sql = 'INSERT INTO TIPO_USUARIO (tipoUsuario) VALUES (?)';
 
@@ -17,39 +19,46 @@ class TipoUsuarioDao {
             echo "true";
         } catch (\PDOException $e) {
             echo $e->getMessage();
-        } 
+        }
     }
 
     //? Select
-    public function list($requestData) {
+    public function list($requestData)
+    {
         try {
 
             $columnData = $requestData['columns'];
 
-            $columns = array(
-                array('0' => 'idTipoUsuario'),
-                array('1' => 'tipoUsuario'),
-            );
-
-            $sql = 'SELECT * FROM TIPO_USUARIO';
+            $sql = 'SELECT * FROM TIPO_USUARIO WHERE 1 = 1 ';
 
             $stmt = Conexao::getConn()->prepare($sql);
-
             $stmt->execute();
 
             $registerCount = $stmt->rowCount();
 
-   
-            $columnOrder = $requestData['order'][0]['column']; 
-            $order = $columnData[$columnOrder]['data']; 
+            $filter = $requestData['search']['value'];
+
+            if (!empty($filter)) {
+                $sql .= " AND (idTipoUsuario LIKE '$filter%'
+                          OR tipoUsuario LIKE '$filter%') ";
+            }
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
+
+            $totalFiltred = $stmt->rowCount();
+
+            $columnOrder = $requestData['order'][0]['column'];
+            $order = $columnData[$columnOrder]['data'];
             $direction = $requestData['order'][0]['dir'];
 
             $limitStart = $requestData['start'];
             $limitLenght = $requestData['length'];
 
-            $totalFiltred = 0;
-
             $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
 
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -63,10 +72,11 @@ class TipoUsuarioDao {
             echo json_encode($json_data);
         } catch (\PDOException $e) {
             echo $e->getCode();
-        } 
+        }
     }
 
-    public function search($id) {
+    public function search($id)
+    {
         try {
             $sql = 'SELECT * FROM TIPO_USUARIO WHERE idTipoUsuario = ?';
 
@@ -74,7 +84,7 @@ class TipoUsuarioDao {
             $stmt->bindValue(1, $id);
             $stmt->execute();
 
-            if($stmt->rowCount() > 0) {
+            if ($stmt->rowCount() > 0) {
                 $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
                 echo json_encode($result);
@@ -85,7 +95,8 @@ class TipoUsuarioDao {
     }
 
     //? Update
-    public function edit($array) {
+    public function edit($array)
+    {
         try {
             $sql = "UPDATE TIPO_USUARIO SET tipoUsuario = ? WHERE idTipoUsuario = ?";
 
@@ -102,15 +113,16 @@ class TipoUsuarioDao {
     }
 
     //? Delete
-    public function delete($id) {
+    public function delete($id)
+    {
         try {
             $sql = 'DELETE FROM TIPO_USUARIO WHERE idTipoUsuario = ?';
-    
+
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $id);
-            
-            $stmt->execute();   
-            
+
+            $stmt->execute();
+
             echo "true";
         } catch (\PDOException $e) {
             echo $e->getCode();

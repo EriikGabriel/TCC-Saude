@@ -34,13 +34,29 @@ class PacienteDao
         try {
             $columnData = $requestData['columns'];
 
-            $sql = 'SELECT * FROM PACIENTE';
+            $sql = 'SELECT * FROM PACIENTE WHERE 1 = 1 ';
 
             $stmt = Conexao::getConn()->prepare($sql);
-
             $stmt->execute();
 
             $registerCount = $stmt->rowCount();
+
+            $filter = $requestData['search']['value'];
+
+            if (!empty($filter)) {
+                $sql .= " AND (idPaciente LIKE '$filter%' 
+                          OR nomePaciente LIKE '$filter%' 
+                          OR ruaPaciente LIKE '$filter%' 
+                          OR bairroPaciente LIKE '$filter%' 
+                          OR telefonePaciente LIKE '$filter%' 
+                          OR numeroSUS LIKE '$filter%' 
+                          OR gravidade LIKE '$filter%') ";
+            }
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
+
+            $totalFiltred = $stmt->rowCount();
 
             $columnOrder = $requestData['order'][0]['column'];
             $order = $columnData[$columnOrder]['data'];
@@ -49,9 +65,10 @@ class PacienteDao
             $limitStart = $requestData['start'];
             $limitLenght = $requestData['length'];
 
-            $totalFiltred = 0;
-
             $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
 
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -91,7 +108,8 @@ class PacienteDao
     public function edit($array)
     {
         try {
-            $sql = "UPDATE PACIENTE SET nomePaciente = ?, ruaPaciente = ?, bairroPaciente = ?,  telefonePaciente = ?,  numeroSUS = ?, gravidade = ? WHERE idPaciente = ?";
+            $sql = "UPDATE PACIENTE SET nomePaciente = ?, ruaPaciente = ?, bairroPaciente = ?, 
+            telefonePaciente = ?,  numeroSUS = ?, gravidade = ? WHERE idPaciente = ?";
 
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $array[1]);

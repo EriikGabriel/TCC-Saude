@@ -37,13 +37,29 @@ class HospitalDao
             $sql = 'SELECT `HOSPITAL`.`idHospital`, `HOSPITAL`.`nomeHospital`, `HOSPITAL`.`ruaHospital`, `HOSPITAL`.`bairroHospital`, 
             `HOSPITAL`.`cepHospital`, `HOSPITAL`.`telefoneHospital`, `USUARIO`.`nomeUsuario`
             FROM HOSPITAL 
-            INNER JOIN USUARIO ON (`HOSPITAL`.`idUsuario` = `USUARIO`.`idUsuario`)';
+            INNER JOIN USUARIO ON (`HOSPITAL`.`idUsuario` = `USUARIO`.`idUsuario`) WHERE 1 = 1 ';
 
             $stmt = Conexao::getConn()->prepare($sql);
-
             $stmt->execute();
 
             $registerCount = $stmt->rowCount();
+
+            $filter = $requestData['search']['value'];
+
+            if (!empty($filter)) {
+                $sql .= " AND (idHospital LIKE '$filter%' 
+                          OR nomeHospital LIKE '$filter%'
+                          OR ruaHospital LIKE '$filter%'
+                          OR bairroHospital LIKE '$filter%'
+                          OR cepHospital LIKE '$filter%'
+                          OR telefoneHospital LIKE '$filter%' 
+                          OR nomeUsuario LIKE '$filter%') ";
+            }
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
+
+            $totalFiltred = $stmt->rowCount();
 
             $columnOrder = $requestData['order'][0]['column'];
             $order = $columnData[$columnOrder]['data'];
@@ -52,9 +68,10 @@ class HospitalDao
             $limitStart = $requestData['start'];
             $limitLenght = $requestData['length'];
 
-            $totalFiltred = 0;
-
             $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
 
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
