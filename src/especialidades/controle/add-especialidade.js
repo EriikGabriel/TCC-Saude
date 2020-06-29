@@ -45,8 +45,6 @@ $(document).ready(function () {
                         confirmButtonText: 'Tente novamente'
                     })
                 }
-
-
             }
         })
     })

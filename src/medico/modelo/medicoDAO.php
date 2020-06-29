@@ -33,13 +33,26 @@ class MedicoDao
 
             $sql = 'SELECT `MEDICO`.`CRM`, `MEDICO`.`nomeMedico`, `ESPECIALIDADE`.`tipoEspecialidade`
             FROM MEDICO
-            INNER JOIN ESPECIALIDADE ON (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`)';
+            INNER JOIN ESPECIALIDADE ON (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`)
+            WHERE 1 = 1 ';
 
             $stmt = Conexao::getConn()->prepare($sql);
-
             $stmt->execute();
 
             $registerCount = $stmt->rowCount();
+
+            $filter = $requestData['search']['value'];
+
+            if (!empty($filter)) {
+                $sql .= " AND (CRM LIKE '$filter%' 
+                          OR nomeMedico LIKE '$filter%' 
+                          OR tipoEspecialidade LIKE '$filter%') ";
+            }
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
+
+            $totalFiltred = $stmt->rowCount();
 
             $columnOrder = $requestData['order'][0]['column'];
             $order = $columnData[$columnOrder]['data'];
@@ -48,9 +61,10 @@ class MedicoDao
             $limitStart = $requestData['start'];
             $limitLenght = $requestData['length'];
 
-            $totalFiltred = 0;
-
             $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
 
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 

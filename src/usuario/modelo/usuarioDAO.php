@@ -33,13 +33,27 @@ class UsuarioDao
 
             $sql = 'SELECT `USUARIO`.`idUsuario`, `USUARIO`.`nomeUsuario`, `USUARIO`.`senhaUsuario`, `TIPO_USUARIO`.`tipoUsuario`
             FROM USUARIO 
-            INNER JOIN TIPO_USUARIO ON (`USUARIO`.`idTipoUsuario` = `TIPO_USUARIO`.`idTipoUsuario`)';
+            INNER JOIN TIPO_USUARIO ON (`USUARIO`.`idTipoUsuario` = `TIPO_USUARIO`.`idTipoUsuario`) 
+            WHERE 1 = 1 ';
 
             $stmt = Conexao::getConn()->prepare($sql);
-
             $stmt->execute();
 
             $registerCount = $stmt->rowCount();
+
+            $filter = $requestData['search']['value'];
+
+            if (!empty($filter)) {
+                $sql .= " AND (idUsuario LIKE '$filter%' 
+                          OR nomeUsuario LIKE '$filter%' 
+                          OR senhaUsuario LIKE '$filter%' 
+                          OR tipoUsuario LIKE '$filter%') ";
+            }
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
+
+            $totalFiltred = $stmt->rowCount();
 
             $columnOrder = $requestData['order'][0]['column'];
             $order = $columnData[$columnOrder]['data'];
@@ -48,9 +62,10 @@ class UsuarioDao
             $limitStart = $requestData['start'];
             $limitLenght = $requestData['length'];
 
-            $totalFiltred = 0;
-
             $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
 
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 

@@ -2,16 +2,18 @@
 
 namespace conn;
 
-class EspecialidadeDao {
+class EspecialidadeDao
+{
 
     //? Create
-    public function create(Especialidade $es) {
+    public function create(Especialidade $es)
+    {
         try {
             $sql = 'INSERT INTO ESPECIALIDADE (tipoEspecialidade) VALUES (?)';
 
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $es->getTipoEspecialidade());
-        
+
             $stmt->execute();
 
             echo "true";
@@ -21,29 +23,42 @@ class EspecialidadeDao {
     }
 
     //? Select  
-    public function list($requestData) {
+    public function list($requestData)
+    {
         try {
             $columnData = $requestData['columns'];
-            
-            $sql = 'SELECT * FROM ESPECIALIDADE';
+
+            $sql = 'SELECT * FROM ESPECIALIDADE WHERE 1 = 1 ';
 
             $stmt = Conexao::getConn()->prepare($sql);
-
             $stmt->execute();
 
             $registerCount = $stmt->rowCount();
-   
-            $columnOrder = $requestData['order'][0]['column']; 
-            $order = $columnData[$columnOrder]['data']; 
+
+            $filter = $requestData['search']['value'];
+
+            if (!empty($filter)) {
+                $sql .= " AND (idEspecialidade LIKE '$filter%' 
+                          OR tipoEspecialidade LIKE '$filter%') ";
+            }
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
+
+            $totalFiltred = $stmt->rowCount();
+
+            $columnOrder = $requestData['order'][0]['column'];
+            $order = $columnData[$columnOrder]['data'];
             $direction = $requestData['order'][0]['dir'];
 
             $limitStart = $requestData['start'];
             $limitLenght = $requestData['length'];
 
-            $totalFiltred = 0;
-
             $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-            
+
+            $stmt = Conexao::getConn()->prepare($sql);
+            $stmt->execute();
+
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
             $json_data = array(
@@ -56,11 +71,12 @@ class EspecialidadeDao {
             echo json_encode($json_data);
         } catch (\PDOException $e) {
             echo $e->getCode();
-        } 
+        }
     }
 
     //? Search
-    public function search($id) {
+    public function search($id)
+    {
         try {
             $sql = 'SELECT * FROM ESPECIALIDADE WHERE idEspecialidade = ?';
 
@@ -68,7 +84,7 @@ class EspecialidadeDao {
             $stmt->bindValue(1, $id);
             $stmt->execute();
 
-            if($stmt->rowCount() > 0) {
+            if ($stmt->rowCount() > 0) {
                 $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
                 echo json_encode($result);
@@ -79,8 +95,9 @@ class EspecialidadeDao {
     }
 
     //? Update
-    public function edit($array) {
-        try {         
+    public function edit($array)
+    {
+        try {
             $sql = "UPDATE ESPECIALIDADE SET tipoEspecialidade = ? WHERE idEspecialidade = ?";
 
             $stmt = Conexao::getConn()->prepare($sql);
@@ -96,15 +113,16 @@ class EspecialidadeDao {
     }
 
     //? Delete
-    public function delete($id) {
+    public function delete($id)
+    {
         try {
             $sql = 'DELETE FROM ESPECIALIDADE WHERE idEspecialidade = ?';
-    
+
             $stmt = Conexao::getConn()->prepare($sql);
             $stmt->bindValue(1, $id);
-            
+
             $stmt->execute();
-            
+
             echo "true";
         } catch (\PDOException $e) {
             echo $e->getCode();
