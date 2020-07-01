@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sistema Saúde - TCC</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="libs/fontawesome/css/all.min.css">
+</head>
+
+<div class="container w-100 vh-100" id="login-container">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="offset-lg-2 offset-md-1 col-12">
+                <form method="POST" id="login-usuario">
+                    <h1 class="text-danger text-center col-lg-8 col-md-12 mb-4">Login</h1>
+                    <div class="form-row">
+                        <div class="form-group col-lg-8 col-md-12">
+                            <label>Nome</label>
+                            <input class="form-control" type="text" name="nome" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-8 col-md-12">
+                            <label>Senha</label>
+                            <input class="form-control" type="password" name="senha" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-4 col-md-6 mt-2">
+                            <button type="submit" class="btn btn-danger btn-block">Entrar</button>
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 mt-2">
+                            <button type="button" class="btn btn-danger btn-block btn-cadastrar">Cadastrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery-3.5.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="libs/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="src/usuario/controle/add-usuario.js"></script>
+<script src="src/usuario/controle/search-usuario.js"></script>
+</body>
+
+</html>

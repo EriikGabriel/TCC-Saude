@@ -82,7 +82,7 @@ class UsuarioDao
         }
     }
 
-    public function search($id, $table, $isWhere, $where = null)
+    public function search($id, $senha, $table, $isWhere, $where = null)
     {
         try {
             if ($isWhere == true) {
@@ -101,7 +101,9 @@ class UsuarioDao
             if ($stmt->rowCount() > 0) {
                 $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-                echo json_encode($result);
+                if (password_verify($senha, $result[0]['senhaUsuario'])) {
+                    echo json_encode($result);
+                }
             }
         } catch (\PDOException $e) {
             echo $e->getCode();

@@ -13,7 +13,7 @@ $idTipoUsuario = filter_input(INPUT_POST, "idTipoUsuario", FILTER_SANITIZE_SPECI
 $usuario = new Usuario;
 
 $usuario->setNomeUsuario($nome);
-$usuario->setSenhaUsuario($senha);
+$usuario->setSenhaUsuario(password_hash($senha, PASSWORD_DEFAULT));
 $usuario->setIdTipoUsuario($idTipoUsuario);
 
 $usuarioDao = new UsuarioDao;

@@ -17,7 +17,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div id="navbar" class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto d-flex align-items-center h-100">
                 <li class="nav-item">
                     <a class="nav-link text-white" href="src/usuario/visao/list-usuario.html">Usuário</a>
                 </li>
@@ -47,6 +47,23 @@
                 <li class="nav-item">
                     <a class="nav-link text-white"
                         href="src/encaminhamento/visao/list-encaminhamento.html">Encaminhamento</a>
+                </li>
+
+            </ul>
+            <ul class="navbar-nav user-icon">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="login.html">
+                        <i class="fa fa-user-circle fa-2x user-icon" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown d-none dropleft">
+                    <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-danger exit" href="#">Sair do Sistema</a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -114,6 +131,7 @@
 
     <script src="js/jquery-3.5.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
