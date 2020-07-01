@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    var loginStatus = localStorage.getItem('login')
+    var loginStatus = localStorage.getItem('login') || 'false'
 
-    if (loginStatus == 'true') {
+    if (loginStatus != 'false') {
         $(".user-icon li:first-child").addClass('d-none')
         $(".user-icon li:last-child").removeClass('d-none')
     } else {

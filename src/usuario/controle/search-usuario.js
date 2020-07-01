@@ -17,7 +17,8 @@ $(document).ready(function () {
             data: dados,
             success: function (dados) {
                 if (dados != '') {
-                    localStorage.setItem('login', 'true')
+                    dados = JSON.parse(dados)[0]
+                    localStorage.setItem('login', dados.idUsuario)
                     location.href = 'index.html'
                 } else {
                     Swal.fire({
