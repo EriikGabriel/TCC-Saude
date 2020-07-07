@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciar Paciente</title>
+    <title>Gerenciar Hospital</title>
     <link rel="stylesheet" href="../../../css/bootstrap.css">
     <link rel="stylesheet" href="../../../libs/DataTables/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../../libs/DataTables/css/responsive.bootstrap4.min.css">
@@ -14,26 +14,24 @@
     <div class="container-fluid">
         <div class="row d-flex flex-column justify-content-center align-items-center">
             <div class="col-sm-12 col-md-8 mt-4">
-                <h4 class="text-danger text-center">Gerenciar Paciente</h4>
+                <h4 class="text-danger text-center">Gerenciar Atendimento do Médico</h4>
             </div>
             <div class="col-sm-8 col-md-4 mt-3">
-                <button type="button" class="btn btn-dark btn-sm btn-add btn-block">Cadastrar</button>
+                <button type="button" class="btn btn-dark btn-sm btn-add btn-block">Cadastrar Horário</button>
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-12">
                 <div class="text-center table-responsive">
-                    <table class="table table-hover dt-responsive call-border nowrap" id="table-paciente">
+                    <table class="table table-hover dt-responsive call-border nowrap" id="table-atendimento">
                         <thead>
                             <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Rua</th>
-                                <th scope="col">Bairro</th>
-                                <th scope="col">Telefone</th>
-                                <th scope="col">Número do SUS</th>
-                                <th scope="col">Gravidade</th>
+                                <th scope="col">CRM</th>
+                                <th scope="col">Médico</th>
+                                <th scope="col">Especialidade</th>
+                                <th scope="col">Horário</th>
+                                <th scope="col">Unidade de Saúde</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
@@ -44,15 +42,16 @@
 
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-sm-4 col-md-2 mt-5">
-                <a class="btn btn-outline-dark btn-sm btn-add btn-block" href="../../../index.html"
-                    role="button">Voltar</a>
+                <a class="btn btn-outline-dark btn-sm btn-add btn-block" href="../../../index.html" role="button">
+                    Voltar
+                </a>
             </div>
         </div>
     </div>
 
 
-    <div id="modal-paciente" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div id="modal-atendimento" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title text-danger text-center w-100">
@@ -71,11 +70,10 @@
     <script src="../../../libs/DataTables/js/dataTables.responsive.min.js"></script>
     <script src="../../../libs/DataTables/js/responsive.bootstrap4.min.js"></script>
     <script src="../../../libs/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="../controle/list-paciente.js"></script>
-    <script src="../controle/edit-paciente.js"></script>
-    <script src="../controle/add-paciente.js"></script>
-    <script src="../controle/delete-paciente.js"></script>
-    <script src="../controle/forward-paciente.js"></script>
+    <script src="../controle/list-atendimento.js"></script>
+    <script src="../controle/add-atendimento.js"></script>
+    <script src="../controle/edit-atendimento.js"></script>
+    <script src="../controle/delete-atendimento.js"></script>
 </body>
 
 </html>

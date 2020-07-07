@@ -51,7 +51,7 @@ $(document).ready(function () {
             // Nesta linha iremos chamar a função render que pega os nossos elementos HTML e renderiza juntamente com as informações carregadas do objeto
             "render": function (data, type, row, meta) {
                 return `
-                        <button id="${data}" class="btn btn-primary btn btn-view">Visualizar</button>
+                        <button id="${data}" class="btn btn-primary btn btn-forward">Encaminhar</button>
                         <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
                         <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
                 `
