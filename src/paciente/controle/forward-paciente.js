@@ -1,71 +1,67 @@
 $(document).ready(function () {
     $(document).on('click', '.btn-forward', function () {
         $("#modal-paciente .modal-body").load("forward-paciente.html")
-        $("#modal-paciente .modal-body").data("content", $(this).attr("id"));
+        $("#modal-paciente .modal-body").data("content", $(this).attr("id"))
         $("#modal-paciente .modal-title h4").html("Encaminhar Paciente")
+
+        var url = "../modelo/select-paciente.php"
+        var dados = {
+            "id": $(".modal-body").data("content"),
+            "type": "search-data-paciente",
+            "table": "PACIENTE",
+            "where": "idPaciente"
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function (dados) {
+                if (dados != "") {
+                    var resPac = JSON.parse(dados)
+
+                    for (let i = 0; i < resPac.length; i++) {
+                        var ruaPaciente = resPac[i].ruaPaciente
+                        var bairroPaciente = resPac[i].bairroPaciente
+
+                        $(
+                            `<option value="${resPac[i].idPaciente}">${ruaPaciente}</option>`
+                        ).appendTo('select[name="ruaPaciente"]')
+
+                        $(
+                            `<option value="${resPac[i].idPaciente}">${bairroPaciente}</option>`
+                        ).appendTo('select[name="bairroPaciente"]')
+                    }
+                }
+
+                var dados = {
+                    "id": `'${ruaPaciente}' AND bairroUnidadeSaude = '${bairroPaciente}'`,
+                    "type": "search-data-paciente",
+                    "table": "UNIDADE_SAUDE",
+                    "where": "ruaUnidadeSaude"
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    datatype: 'json',
+                    url: url,
+                    async: true,
+                    data: dados,
+                    success: function (res) {
+                        console.log(res)
+
+                    }
+                })
+            }
+        })
+
         $('#modal-paciente').modal('show')
     })
 
     $('#modal-paciente').on('show.bs.modal', function (e) {
-        var url = "../modelo/select-paciente.php"
-        $('#table-paciente').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "responsive": true,
-            "ajax": {
-                "url": url,
-                "type": "POST"
-            },
-            "language": {
-                "url": "../../../libs/DataTables/dataTables.brazil.json"
-            },
-            "columns": [{
-                "data": 'idPaciente',
-                "className": 'text-center'
-            },
-            {
-                "data": 'nomePaciente',
-                "className": 'text-center'
-            },
-            {
-                "data": 'ruaPaciente',
-                "className": 'text-center'
-            },
-            {
-                "data": 'bairroPaciente',
-                "className": 'text-center'
-            },
 
-            {
-                "data": 'telefonePaciente',
-                "className": 'text-center'
-            },
-            {
-                "data": 'numeroSUS',
-                "className": 'text-center'
-            },
-            {
-                "data": 'gravidade',
-                "className": 'text-center'
-            },
-            {
-                // O último elemento a ser instânciado em nossa DataTable são os nossos botões de ações, ou seja, devemos criar os elementos em tela para
-                // podermos executar as funções do CRUD.
-                "data": 'idPaciente',
-                "orderable": false, // Aqui iremos desabilitar a opção de ordenamento por essa coluna
-                "searchable": false, // Aqui também iremos desabilitar a possibilidade de busca por essa coluna
-                "className": 'text-center',
-                // Nesta linha iremos chamar a função render que pega os nossos elementos HTML e renderiza juntamente com as informações carregadas do objeto
-                "render": function (data, type, row, meta) {
-                    return `
-                        <button id="${data}" class="btn btn-primary btn btn-forward">Encaminhar</button>
-                        <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
-                        <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
-                `
-                }
-            }
-            ]
-        }).responsive.recalc();
     })
 
     $(document).on('submit', '#edit-paciente', function (e) {

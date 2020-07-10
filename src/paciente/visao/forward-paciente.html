@@ -1,44 +1,59 @@
 <div class="row">
-    <div class="text-center table-responsive">
-        <table class="table table-hover dt-responsive call-border nowrap" id="table-paciente">
-            <thead>
-                <tr>
-                    <th scope="col">Nome da Unidade</th>
-                    <th scope="col">Rua</th>
-                    <th scope="col">Bairro</th>
-                    <th scope="col">Tipo da Unidade</th>
-                    <th scope="col">Nome do Médico</th>
-                    <th scope="col">Especialidade</th>
-                    <th scope="col">Horário</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-        </table>
+    <div class="offset-lg-2 offset-md-1 col-12">
+        <form method="post" id="add-paciente">
+            <div class="form-row">
+                <div class="form-group col-lg-4 col-md-5">
+                    <label>Rua do Paciente:</label>
+                    <select name="ruaPaciente" class="form-control" required disabled></select>
+                </div>
+                <div class="form-group col-lg-4 col-md-5">
+                    <label>Bairro do Paciente:</label>
+                    <select name="bairroPaciente" class="form-control" required disabled></select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-8 col-md-10">
+                    <label>Tipo da Unidade:</label>
+                    <select name="idTipoUnidade" class="form-control" required>
+                        <option value="">Selecione o tipo da unidade:</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row d-none">
+                <div class="form-group col-lg-8 col-md-10">
+                    <label>Unidade de Saúde:</label>
+                    <select name="idUnidadeSaude" class="form-control" required>
+                        <option value="">Selecione a unidade:</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row d-none">
+                <div class="form-group col-lg-4 col-md-5">
+                    <label>Especialidade:</label>
+                    <select name="idEspecialidade" class="form-control" required>
+                        <option value="">Selecione a especialidade:</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-4 col-md-5">
+                    <label>Médico:</label>
+                    <select name="CRM" class="form-control" required>
+                        <option value="">Selecione o médico:</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row d-none">
+                <div class="form-group col-lg-8 col-md-10">
+                    <label>Horário:</label>
+                    <select name="horario" class="form-control" required>
+                        <option value="">Selecione o horário:</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-8 col-md-10 mt-2">
+                    <button type="submit" class="btn btn-danger btn-block">Encaminhar</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-
-<style>
-    input[type="radio"]:checked~.custom-control-label[for="g1"]::before {
-        color: #fff;
-        border-color: #33b5e5;
-        background-color: #33b5e5;
-    }
-
-    input[type="radio"]:checked~.custom-control-label[for="g2"]::before {
-        color: #fff;
-        border-color: #00C851;
-        background-color: #00C851;
-    }
-
-    input[type="radio"]:checked~.custom-control-label[for="g3"]::before {
-        color: #fff;
-        border-color: #ffbb33;
-        background-color: #ffbb33;
-    }
-
-    input[type="radio"]:checked~.custom-control-label[for="g4"]::before {
-        color: #fff;
-        border-color: #ff4444;
-        background-color: #ff4444;
-    }
-</style>

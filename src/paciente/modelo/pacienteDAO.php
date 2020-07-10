@@ -85,70 +85,21 @@ class PacienteDao
         }
     }
 
-    public function listForward($requestData)
+    public function search($id, $table, $isWhere, $where = null)
     {
         try {
-            $columnData = $requestData['columns'];
+            if ($isWhere == true) {
+                $sql = "SELECT * FROM {$table} WHERE {$where} = ?";
 
-            $sql = 'SELECT * FROM PACIENTE WHERE 1 = 1 ';
+                $stmt = Conexao::getConn()->prepare($sql);
+                $stmt->bindValue(1, $id);
+                $stmt->execute();
+            } else {
+                $sql = "SELECT * FROM {$table}";
 
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $registerCount = $stmt->rowCount();
-
-            $filter = $requestData['search']['value'];
-
-            if (!empty($filter)) {
-                $sql .= " AND (idPaciente LIKE '$filter%' 
-                          OR nomePaciente LIKE '$filter%' 
-                          OR ruaPaciente LIKE '$filter%' 
-                          OR bairroPaciente LIKE '$filter%' 
-                          OR telefonePaciente LIKE '$filter%' 
-                          OR numeroSUS LIKE '$filter%' 
-                          OR gravidade LIKE '$filter%') ";
+                $stmt = Conexao::getConn()->prepare($sql);
+                $stmt->execute();
             }
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $totalFiltred = $stmt->rowCount();
-
-            $columnOrder = $requestData['order'][0]['column'];
-            $order = $columnData[$columnOrder]['data'];
-            $direction = $requestData['order'][0]['dir'];
-
-            $limitStart = $requestData['start'];
-            $limitLenght = $requestData['length'];
-
-            $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-            $json_data = array(
-                "draw" => intval($requestData['draw']),
-                "recordsTotal" => intval($registerCount),
-                "recordsFiltered" => intval($totalFiltred),
-                "data" => $result
-            );
-
-            echo json_encode($json_data);
-        } catch (\PDOException $e) {
-            echo $e->getCode();
-        }
-    }
-
-    public function search($id)
-    {
-        try {
-            $sql = 'SELECT * FROM PACIENTE WHERE idPaciente = ?';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-            $stmt->execute();
 
             if ($stmt->rowCount() > 0) {
                 $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);

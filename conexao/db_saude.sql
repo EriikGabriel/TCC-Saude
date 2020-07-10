@@ -85,15 +85,17 @@ CREATE TABLE ENCAMINHAMENTO(
 )
 ENGINE INNODB;
 
-/*SELECT * FROM MEDICO_ATENDE_UNIDADE;
+SELECT * FROM MEDICO_ATENDE_UNIDADE;
 SELECT * FROM USUARIO;
 SELECT * FROM UNIDADE_SAUDE;
 SELECT `UNIDADE_SAUDE`.`nomeUnidadeSaude`, `UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`, 
-			`TIPO_UNIDADE`.`tipoUnidade`, `ESPECIALIDADE`.`tipoEspecialidade`, `MEDICO`.`nomeMedico`
+			`TIPO_UNIDADE`.`tipoUnidade`, `MEDICO`.`nomeMedico`, `ESPECIALIDADE`.`tipoEspecialidade`, 
+            DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, "%d/%m/%Y") AS horario
             FROM UNIDADE_SAUDE 
             INNER JOIN TIPO_UNIDADE ON (`UNIDADE_SAUDE`.`idTipoUnidade` = `TIPO_UNIDADE`.`idTipoUnidade`)
             INNER JOIN MEDICO_ATENDE_UNIDADE ON (`MEDICO_ATENDE_UNIDADE`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
             INNER JOIN MEDICO ON (`MEDICO`.`CRM` = `MEDICO_ATENDE_UNIDADE`.`CRM`) 
             INNER JOIN ESPECIALIDADE ON (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) 
             WHERE 1 = 1;
-*/
+            
+SELECT * FROM UNIDADE_SAUDE WHERE ruaUnidadeSaude = 'Guadalupe' AND bairroUnidadeSaude = 'Junqueira 2';

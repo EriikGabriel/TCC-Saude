@@ -10,8 +10,8 @@ $(document).ready(function () {
         if ($(".modal-body").data("content")) {
             var url = '../modelo/select-paciente.php'
             var dados = {
-                "id": $(".modal-body").data("content"),
-                "type": "search-dados"
+                "type": "search-select-paciente",
+                "table": "PACIENTE"
             }
 
             $.ajax({

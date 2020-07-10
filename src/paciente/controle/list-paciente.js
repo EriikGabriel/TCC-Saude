@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     var url = "../modelo/select-paciente.php"
     $('#table-paciente').DataTable({
         "processing": true,
