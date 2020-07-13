@@ -2,7 +2,7 @@
 
 namespace conn;
 
-$id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_SPECIAL_CHARS);
+$id = filter_input(INPUT_POST, "id");
 $type = filter_input(INPUT_POST, "type", FILTER_SANITIZE_SPECIAL_CHARS);
 $table = filter_input(INPUT_POST, "table", FILTER_SANITIZE_SPECIAL_CHARS);
 $where = filter_input(INPUT_POST, "where", FILTER_SANITIZE_SPECIAL_CHARS);

@@ -98,4 +98,15 @@ SELECT `UNIDADE_SAUDE`.`nomeUnidadeSaude`, `UNIDADE_SAUDE`.`ruaUnidadeSaude`, `U
             INNER JOIN ESPECIALIDADE ON (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) 
             WHERE 1 = 1;
             
+SELECT `UNIDADE_SAUDE`.`nomeUnidadeSaude`, `UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`, 
+			`PACIENTE`.`nomePaciente`, `MEDICO`.`nomeMedico`, `ESPECIALIDADE`.`tipoEspecialidade`, 
+            DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, "%d/%m/%Y") AS horario,
+            `HOSPITAL`.`nomeHospital`, `USUARIO`.`nomeUsuario`
+            FROM ENCAMINHAMENTO 
+            INNER JOIN PACIENTE ON (`ENCAMINHAMENTO`.`idTipoUnidade` = `TIPO_UNIDADE`.`idTipoUnidade`)
+            INNER JOIN MEDICO_ATENDE_UNIDADE ON (`MEDICO_ATENDE_UNIDADE`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
+            INNER JOIN MEDICO ON (`MEDICO`.`CRM` = `MEDICO_ATENDE_UNIDADE`.`CRM`) 
+            INNER JOIN ESPECIALIDADE ON (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) 
+            WHERE 1 = 1;
+            
 SELECT * FROM UNIDADE_SAUDE WHERE ruaUnidadeSaude = 'Guadalupe' AND bairroUnidadeSaude = 'Junqueira 2';

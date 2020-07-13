@@ -3,32 +3,45 @@
         <form method="post" id="add-encaminhamento">
             <div class="form-row">
                 <div class="form-group col-lg-8 col-md-10">
-                    <label>Paciente</label>
-                    <input type="text" name="paciente" class="form-control" required>
+                    <label>Paciente:</label>
+                    <select name="idPaciente" class="form-control" required>
+                        <option value="">Selecione o paciente</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-8 col-md-10">
+                    <label>Tipo da Unidade de Saúde:</label>
+                    <select name="idTipoUnidade" class="form-control" required disabled>
+                        <option value="">Selecione o tipo da unidade</option>
+                    </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-lg-4 col-md-5">
+                    <label>Especialidade do Médico:</label>
+                    <select name="idTipoUnidade" class="form-control" required disabled>
+                        <option value="">Selecione o tipo da unidade</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-4 col-md-5">
+                    <label>Horário:</label>
+                    <select name="idHorario" class="form-control" required disabled>
+                        <option value="">Selecione o horário</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-8 col-md-10">
                     <label>Unidade de Saúde:</label>
-                    <select name="idUnidadeSaude" class="form-control" required>
-                        <option value="">Selecione a unidade</option>
-                    </select>
-                </div>
-                <div class="form-group col-lg-4 col-md-5">
-                    <label>Hospital:</label>
-                    <select name="idHospital" class="form-control" required>
-                        <option value="">Selecione o hospital</option>
+                    <select name="idUnidadeSaude" class="form-control" required disabled>
+                        <option value="">Selecione a unidade de saúde</option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-lg-8 col-md-10">
-                    <label>Data</label>
-                    <input type="date" name="data" class="form-control" required>
-                </div>
-                <div class="form-group col-lg-8 col-md-10">
-                    <label>Hora</label>
-                    <input type="time" name="hora" class="form-control" required>
+                <div class="form-group col-lg-8 col-md-10 mt-2">
+                    <button type="submit" class="btn btn-danger btn-block">Encaminhar</button>
                 </div>
             </div>
         </form>

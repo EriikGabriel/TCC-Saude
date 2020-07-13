@@ -9,7 +9,7 @@ $(document).ready(function () {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Sim, delete isso!'
         }).then((result) => {
-            url = "../modelo/delete-atendimento.php"
+            url = "../modelo/delete-encaminhamento.php"
             var dados = { "id": $(this).attr("id") }
 
             if (result.value) {

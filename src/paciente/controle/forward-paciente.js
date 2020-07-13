@@ -22,6 +22,63 @@ $(document).ready(function () {
                 if (dados != "") {
                     var resPac = JSON.parse(dados)
 
+
+                    var ruaPaciente = resPac[0].ruaPaciente
+                    var bairroPaciente = resPac[0].bairroPaciente
+
+                    $(
+                        `<option value="${resPac[0].idPaciente}">${ruaPaciente}</option>`
+                    ).appendTo('select[name="ruaPaciente"]')
+
+                    $(
+                        `<option value="${resPac[0].idPaciente}">${bairroPaciente}</option>`
+                    ).appendTo('select[name="bairroPaciente"]')
+
+                }
+
+                var dados = {
+                    "id": `'${ruaPaciente}' AND bairroUnidadeSaude = '${bairroPaciente}'`,
+                    "type": "search-forward-paciente",
+                    "table": "UNIDADE_SAUDE",
+                    "where": "ruaUnidadeSaude"
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    datatype: 'json',
+                    url: url,
+                    async: true,
+                    data: dados,
+                    success: function (dados) {
+                        console.log(dados)
+                        if (dados != "") {
+
+                        }
+                    }
+                })
+            }
+        })
+
+        /*
+
+        var url = "../modelo/select-paciente.php"
+        var dados = {
+            "id": $(".modal-body").data("content"),
+            "type": "search-data-paciente",
+            "table": "PACIENTE",
+            "where": "idPaciente"
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'json',
+            url: url,
+            async: true,
+            data: dados,
+            success: function (dados) {
+                if (dados != "") {
+                    var resPac = JSON.parse(dados)
+
                     for (let i = 0; i < resPac.length; i++) {
                         var ruaPaciente = resPac[i].ruaPaciente
                         var bairroPaciente = resPac[i].bairroPaciente
@@ -56,6 +113,7 @@ $(document).ready(function () {
                 })
             }
         })
+        */
 
         $('#modal-paciente').modal('show')
     })
