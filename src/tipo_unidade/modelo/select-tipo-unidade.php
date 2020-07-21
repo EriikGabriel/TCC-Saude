@@ -10,11 +10,9 @@ require_once("../../../conexao/conn.php");
 
 $tipoUnidadeDao = new TipoUnidadeDao;
 
-if($type == "search-dados") {
+if ($type == "search-dados") {
     $tipoUnidadeDao->search($id);
 } else {
     $requestData = $_REQUEST;
-    
     $tipoUnidadeDao->list($requestData);
 }
-

@@ -2,19 +2,25 @@
 
 namespace conn;
 
+require_once("../../crud/crud.php");
+
 class TipoUnidadeDao
 {
+    private $crud = null;
+
+    public function __construct()
+    {
+        $pdo = Conexao::getConn();
+        $this->crud = Crud::getInstance($pdo, 'TIPO_UNIDADE');
+    }
+
 
     //? Create
     public function create(TipoUnidade $tun)
     {
         try {
-            $sql = 'INSERT INTO TIPO_UNIDADE (tipoUnidade) VALUES (?)';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $tun->getTipoUnidade());
-
-            $stmt->execute();
+            $arrayCreate = array("tipoUnidade" => "{$tun->getTipoUnidade()}");
+            $this->crud->insert($arrayCreate);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -26,49 +32,8 @@ class TipoUnidadeDao
     public function list($requestData)
     {
         try {
-            $columnData = $requestData['columns'];
-
-            $sql = 'SELECT * FROM TIPO_UNIDADE WHERE 1 = 1 ';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $registerCount = $stmt->rowCount();
-
-            $filter = $requestData['search']['value'];
-
-            if (!empty($filter)) {
-                $sql .= " AND (idTipoUnidade LIKE '$filter%' 
-                          OR tipoUnidade LIKE '$filter%') ";
-            }
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $totalFiltred = $stmt->rowCount();
-
-            $columnOrder = $requestData['order'][0]['column'];
-            $order = $columnData[$columnOrder]['data'];
-            $direction = $requestData['order'][0]['dir'];
-
-            $limitStart = $requestData['start'];
-            $limitLenght = $requestData['length'];
-
-            $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-            $json_data = array(
-                "draw" => intval($requestData['draw']),
-                "recordsTotal" => intval($registerCount),
-                "recordsFiltered" => intval($totalFiltred),
-                "data" => $result
-            );
-
-            echo json_encode($json_data);
+            $arrayFilterParams = array("idTipoUnidade", "tipoUnidade");
+            $this->crud->getSQLDataTable($requestData, $arrayFilterParams);
         } catch (\PDOException $e) {
             echo $e->getCode();
         }
@@ -77,19 +42,14 @@ class TipoUnidadeDao
     public function search($id)
     {
         try {
-            $sql = 'SELECT * FROM TIPO_UNIDADE WHERE idTipoUnidade = ?';
+            $sql = "SELECT * FROM TIPO_UNIDADE WHERE idTipoUnidade = ?";
 
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-            $stmt->execute();
+            $arrayParam = array($id);
+            $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
-            if ($stmt->rowCount() > 0) {
-                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-                echo json_encode($result);
-            }
+            if ($retorno > 0) echo json_encode($retorno);
         } catch (\PDOException $e) {
-            echo $e->getCode();
+            echo $e->getMessage();
         }
     }
 
@@ -97,13 +57,9 @@ class TipoUnidadeDao
     public function edit($array)
     {
         try {
-            $sql = "UPDATE TIPO_UNIDADE SET tipoUnidade = ? WHERE idTipoUnidade = ?";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $array[1]);
-            $stmt->bindValue(2, $array[0]);
-
-            $stmt->execute();
+            $arrayUpdate = array("tipoUnidade" => "{$array[1]}");
+            $arrayCond = array("id" => "idTipoUnidade=$array[0]");
+            $this->crud->update($arrayUpdate, $arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -115,12 +71,8 @@ class TipoUnidadeDao
     public function delete($id)
     {
         try {
-            $sql = 'DELETE FROM TIPO_UNIDADE WHERE idTipoUnidade = ?';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-
-            $stmt->execute();
+            $arrayCond = array('idTipoUnidade=' => "$id");
+            $this->crud->delete($arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {

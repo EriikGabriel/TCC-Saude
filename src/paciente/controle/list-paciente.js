@@ -49,11 +49,19 @@ $(document).ready(function () {
             "className": 'text-center',
             // Nesta linha iremos chamar a função render que pega os nossos elementos HTML e renderiza juntamente com as informações carregadas do objeto
             "render": function (data, type, row, meta) {
-                return `
-                        <button id="${data}" class="btn btn-primary btn btn-forward">Encaminhar</button>
-                        <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
-                        <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
+                if (row.gravidade == "Não Urgente" || row.gravidade == "Pouco Urgente") {
+                    return ` 
+                    <button id="${data}" class="btn btn-primary btn btn-forward">Encaminhar</button>
+                    <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
+                    <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
                 `
+                } else {
+                    return ` 
+                    <button id="${data}" class="btn btn-primary btn btn-forward" disabled>Encaminhar</button>
+                    <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
+                    <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
+                    `
+                }
             }
         }
         ]

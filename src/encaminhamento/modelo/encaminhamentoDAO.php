@@ -91,14 +91,23 @@ class EncaminhamentoDao
         }
     }
 
-    public function search($id, $table, $isWhere, $where = null)
+    public function search($id, $table, $isWhere, $where = null, $operator = "")
     {
         try {
             if ($isWhere == true) {
-                $sql = "SELECT * FROM {$table} WHERE {$where} = ?";
+                if ($operator == "") {
+                    $sql = "SELECT * FROM {$table} WHERE {$where} = ?";
 
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->bindValue(1, $id);
+                    $stmt = Conexao::getConn()->prepare($sql);
+                    $stmt->bindValue(1, $id);
+                } else {
+                    $sql = "SELECT * FROM {$table} WHERE {$where[0]} = ? {$operator} {$where[1]} = ?";
+
+                    $stmt = Conexao::getConn()->prepare($sql);
+                    $stmt->bindValue(1, $id[0]);
+                    $stmt->bindValue(2, $id[1]);
+                }
+
                 $stmt->execute();
             } else {
                 $sql = "SELECT * FROM {$table}";
