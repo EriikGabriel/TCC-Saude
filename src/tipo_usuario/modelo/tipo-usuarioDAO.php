@@ -2,19 +2,24 @@
 
 namespace conn;
 
+require_once("../../crud/crud.php");
+
 class TipoUsuarioDao
 {
+    private $crud = null;
+
+    public function __construct()
+    {
+        $pdo = Conexao::getConn();
+        $this->crud = Crud::getInstance($pdo, 'TIPO_USUARIO');
+    }
 
     //? Create
-    public function create(TipoUsuario $tu)
+    public function create(TipoUsuario $tus)
     {
         try {
-            $sql = 'INSERT INTO TIPO_USUARIO (tipoUsuario) VALUES (?)';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $tu->getTipoUsuario());
-
-            $stmt->execute();
+            $arrayCreate = array("tipoUsuario" => "{$tus->getTipoUsuario()}");
+            $this->crud->insert($arrayCreate);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -26,50 +31,8 @@ class TipoUsuarioDao
     public function list($requestData)
     {
         try {
-
-            $columnData = $requestData['columns'];
-
-            $sql = 'SELECT * FROM TIPO_USUARIO WHERE 1 = 1 ';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $registerCount = $stmt->rowCount();
-
-            $filter = $requestData['search']['value'];
-
-            if (!empty($filter)) {
-                $sql .= " AND (idTipoUsuario LIKE '$filter%'
-                          OR tipoUsuario LIKE '$filter%') ";
-            }
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $totalFiltred = $stmt->rowCount();
-
-            $columnOrder = $requestData['order'][0]['column'];
-            $order = $columnData[$columnOrder]['data'];
-            $direction = $requestData['order'][0]['dir'];
-
-            $limitStart = $requestData['start'];
-            $limitLenght = $requestData['length'];
-
-            $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-            $json_data = array(
-                "draw" => intval($requestData['draw']),
-                "recordsTotal" => intval($registerCount),
-                "recordsFiltered" => intval($totalFiltred),
-                "data" => $result
-            );
-
-            echo json_encode($json_data);
+            $arrayFilterParams = array("idTipoUsuario", "tipoUsuario");
+            $this->crud->getSQLDataTable($requestData, $arrayFilterParams);
         } catch (\PDOException $e) {
             echo $e->getCode();
         }
@@ -78,19 +41,14 @@ class TipoUsuarioDao
     public function search($id)
     {
         try {
-            $sql = 'SELECT * FROM TIPO_USUARIO WHERE idTipoUsuario = ?';
+            $sql = "SELECT * FROM TIPO_USUARIO WHERE idTipoUsuario = ?";
 
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-            $stmt->execute();
+            $arrayParam = array($id);
+            $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
-            if ($stmt->rowCount() > 0) {
-                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-                echo json_encode($result);
-            }
+            if ($retorno > 0) echo json_encode($retorno);
         } catch (\PDOException $e) {
-            echo $e->getCode();
+            echo $e->getMessage();
         }
     }
 
@@ -98,13 +56,9 @@ class TipoUsuarioDao
     public function edit($array)
     {
         try {
-            $sql = "UPDATE TIPO_USUARIO SET tipoUsuario = ? WHERE idTipoUsuario = ?";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $array[1]);
-            $stmt->bindValue(2, $array[0]);
-
-            $stmt->execute();
+            $arrayUpdate = array("tipoUsuario" => "{$array[1]}");
+            $arrayCond = array("id" => "idTipoUsuario=$array[0]");
+            $this->crud->update($arrayUpdate, $arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -116,12 +70,8 @@ class TipoUsuarioDao
     public function delete($id)
     {
         try {
-            $sql = 'DELETE FROM TIPO_USUARIO WHERE idTipoUsuario = ?';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-
-            $stmt->execute();
+            $arrayCond = array('idTipoUsuario=' => "$id");
+            $this->crud->delete($arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {

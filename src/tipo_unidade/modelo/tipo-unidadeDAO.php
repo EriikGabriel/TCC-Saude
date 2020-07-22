@@ -14,7 +14,6 @@ class TipoUnidadeDao
         $this->crud = Crud::getInstance($pdo, 'TIPO_UNIDADE');
     }
 
-
     //? Create
     public function create(TipoUnidade $tun)
     {
