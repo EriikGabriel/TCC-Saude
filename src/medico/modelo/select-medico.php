@@ -12,9 +12,10 @@ require_once("../../../conexao/conn.php");
 $medicoDao = new MedicoDao;
 
 if ($type == "search-data-medico") {
-    $medicoDao->search($id, 'MEDICO', true, 'CRM');
+    $medicoDao->search($id);
 } else if ($type == "search-select-medico") {
-    $medicoDao->search($id, "{$table}", false);
+    $sql = "SELECT * FROM ESPECIALIDADE";
+    $medicoDao->search($id, $sql);
 } else {
     $requestData = $_REQUEST;
 

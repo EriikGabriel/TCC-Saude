@@ -2,19 +2,24 @@
 
 namespace conn;
 
+require_once("../../crud/crud.php");
+
 class EspecialidadeDao
 {
+    private $crud = null;
+
+    public function __construct()
+    {
+        $pdo = Conexao::getConn();
+        $this->crud = Crud::getInstance($pdo, 'ESPECIALIDADE');
+    }
 
     //? Create
     public function create(Especialidade $es)
     {
         try {
-            $sql = 'INSERT INTO ESPECIALIDADE (tipoEspecialidade) VALUES (?)';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $es->getTipoEspecialidade());
-
-            $stmt->execute();
+            $arrayCreate = array("tipoEspecialidade" => "{$es->getTipoEspecialidade()}");
+            $this->crud->insert($arrayCreate);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -22,53 +27,11 @@ class EspecialidadeDao
         }
     }
 
-    //? Select  
     public function list($requestData)
     {
         try {
-            $columnData = $requestData['columns'];
-
-            $sql = 'SELECT * FROM ESPECIALIDADE WHERE 1 = 1 ';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $registerCount = $stmt->rowCount();
-
-            $filter = $requestData['search']['value'];
-
-            if (!empty($filter)) {
-                $sql .= " AND (idEspecialidade LIKE '$filter%' 
-                          OR tipoEspecialidade LIKE '$filter%') ";
-            }
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $totalFiltred = $stmt->rowCount();
-
-            $columnOrder = $requestData['order'][0]['column'];
-            $order = $columnData[$columnOrder]['data'];
-            $direction = $requestData['order'][0]['dir'];
-
-            $limitStart = $requestData['start'];
-            $limitLenght = $requestData['length'];
-
-            $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-            $json_data = array(
-                "draw" => intval($requestData['draw']),
-                "recordsTotal" => intval($registerCount),
-                "recordsFiltered" => intval($totalFiltred),
-                "data" => $result
-            );
-
-            echo json_encode($json_data);
+            $arrayFilterParams = array("idEspecialidade", "tipoEspecialidade");
+            $this->crud->getSQLDataTable($requestData, $arrayFilterParams);
         } catch (\PDOException $e) {
             echo $e->getCode();
         }
@@ -78,19 +41,14 @@ class EspecialidadeDao
     public function search($id)
     {
         try {
-            $sql = 'SELECT * FROM ESPECIALIDADE WHERE idEspecialidade = ?';
+            $sql = "SELECT * FROM ESPECIALIDADE WHERE idEspecialidade = ?";
 
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-            $stmt->execute();
+            $arrayParam = array($id);
+            $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
-            if ($stmt->rowCount() > 0) {
-                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-                echo json_encode($result);
-            }
+            if ($retorno > 0) echo json_encode($retorno);
         } catch (\PDOException $e) {
-            echo $e->getCode();
+            echo $e->getMessage();
         }
     }
 
@@ -98,13 +56,9 @@ class EspecialidadeDao
     public function edit($array)
     {
         try {
-            $sql = "UPDATE ESPECIALIDADE SET tipoEspecialidade = ? WHERE idEspecialidade = ?";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $array[1]);
-            $stmt->bindValue(2, $array[0]);
-
-            $stmt->execute();
+            $arrayUpdate = array("tipoEspecialidade" => "{$array[1]}");
+            $arrayCond = array("id" => "idEspecialidade=$array[0]");
+            $this->crud->update($arrayUpdate, $arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -116,12 +70,8 @@ class EspecialidadeDao
     public function delete($id)
     {
         try {
-            $sql = 'DELETE FROM ESPECIALIDADE WHERE idEspecialidade = ?';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-
-            $stmt->execute();
+            $arrayCond = array('idEspecialidade=' => "$id");
+            $this->crud->delete($arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {

@@ -2,24 +2,30 @@
 
 namespace conn;
 
+require_once("../../crud/crud.php");
+
 class UnidadeSaudeDao
 {
+    private $crud = null;
+
+    public function __construct()
+    {
+        $pdo = Conexao::getConn();
+        $this->crud = Crud::getInstance($pdo, 'UNIDADE_SAUDE');
+    }
 
     //? Create
-    public function create(UnidadeSaude $un)
+    public function create(UnidadeSaude $u)
     {
         try {
-            $sql = 'INSERT INTO UNIDADE_SAUDE (nomeUnidadeSaude, ruaUnidadeSaude, bairroUnidadeSaude, telefoneUnidadeSaude, idTipoUnidade) 
-                    VALUES (?, ?, ?, ?, ?)';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $un->getNomeUnidadeSaude());
-            $stmt->bindValue(2, $un->getRuaUnidadeSaude());
-            $stmt->bindValue(3, $un->getBairroUnidadeSaude());
-            $stmt->bindValue(4, $un->getTelefoneUnidadeSaude());
-            $stmt->bindValue(5, $un->getIdTipoUnidade());
-
-            $stmt->execute();
+            $arrayCreate = array(
+                "nomeUnidadeSaude" => "{$u->getNomeUnidadeSaude()}",
+                "ruaUnidadeSaude" => "{$u->getRuaUnidadeSaude()}",
+                "bairroUnidadeSaude" => "{$u->getBairroUnidadeSaude()}",
+                "telefoneUnidadeSaude" => "{$u->getTelefoneUnidadeSaude()}",
+                "idTipoUnidade" => "{$u->getIdTipoUnidade()}"
+            );
+            $this->crud->insert($arrayCreate);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -31,85 +37,39 @@ class UnidadeSaudeDao
     public function list($requestData)
     {
         try {
-            $columnData = $requestData['columns'];
-
             $sql = 'SELECT `UNIDADE_SAUDE`.`idUnidadeSaude`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, 
             `UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`, `UNIDADE_SAUDE`.`telefoneUnidadeSaude`, `TIPO_UNIDADE`.`tipoUnidade`
             FROM UNIDADE_SAUDE
             INNER JOIN TIPO_UNIDADE ON (`UNIDADE_SAUDE`.`idTipoUnidade` = `TIPO_UNIDADE`.`idTipoUnidade`) 
             WHERE 1 = 1 ';
 
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $registerCount = $stmt->rowCount();
-
-            $filter = $requestData['search']['value'];
-
-            if (!empty($filter)) {
-                $sql .= " AND (idUnidadeSaude LIKE '$filter%' 
-                          OR nomeUnidadeSaude LIKE '$filter%' 
-                          OR ruaUnidadeSaude LIKE '$filter%' 
-                          OR bairroUnidadeSaude LIKE '$filter%' 
-                          OR telefoneUnidadeSaude LIKE '$filter%' 
-                          OR tipoUnidade LIKE '$filter%') ";
-            }
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $totalFiltred = $stmt->rowCount();
-
-            $columnOrder = $requestData['order'][0]['column'];
-            $order = $columnData[$columnOrder]['data'];
-            $direction = $requestData['order'][0]['dir'];
-
-            $limitStart = $requestData['start'];
-            $limitLenght = $requestData['length'];
-
-            $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-            $json_data = array(
-                "draw" => intval($requestData['draw']),
-                "recordsTotal" => intval($registerCount),
-                "recordsFiltered" => intval($totalFiltred),
-                "data" => $result
+            $arrayFilterParams = array(
+                "idUnidadeSaude",
+                "nomeUnidadeSaude",
+                "ruaUnidadeSaude",
+                "bairroUnidadeSaude",
+                "telefoneUnidadeSaude",
+                "tipoUnidade",
             );
-
-            echo json_encode($json_data);
+            $this->crud->getSQLDataTable($requestData, $arrayFilterParams, $sql);
         } catch (\PDOException $e) {
             echo $e->getCode();
         }
     }
 
-    public function search($id, $table, $isWhere, $where = null)
+    public function search($id, $sql = null)
     {
         try {
-            if ($isWhere == true) {
-                $sql = "SELECT * FROM {$table} WHERE {$where} = ?";
-
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->bindValue(1, $id);
-                $stmt->execute();
-            } else {
-                $sql = "SELECT * FROM {$table}";
-
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->execute();
+            if (empty($sql)) {
+                $sql = "SELECT * FROM UNIDADE_SAUDE WHERE idUnidadeSaude = ?";
             }
 
-            if ($stmt->rowCount() > 0) {
-                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $arrayParam = array($id);
+            $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
-                echo json_encode($result);
-            }
+            if ($retorno > 0) echo json_encode($retorno);
         } catch (\PDOException $e) {
-            echo $e->getCode();
+            echo $e->getMessage();
         }
     }
 
@@ -117,17 +77,15 @@ class UnidadeSaudeDao
     public function edit($array)
     {
         try {
-            $sql = "UPDATE UNIDADE_SAUDE SET nomeUnidadeSaude = ?, ruaUnidadeSaude = ?, bairroUnidadeSaude = ?, telefoneUnidadeSaude = ?, idTipoUnidade = ? WHERE idUnidadeSaude = ?";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $array[1]);
-            $stmt->bindValue(2, $array[2]);
-            $stmt->bindValue(3, $array[3]);
-            $stmt->bindValue(4, $array[4]);
-            $stmt->bindValue(5, $array[5]);
-            $stmt->bindValue(6, $array[0]);
-
-            $stmt->execute();
+            $arrayUpdate = array(
+                "nomeUnidadeSaude" => "{$array[1]}",
+                "ruaUnidadeSaude" => "{$array[2]}",
+                "bairroUnidadeSaude" => "{$array[3]}",
+                "telefoneUnidadeSaude" => "{$array[4]}",
+                "idTipoUnidade" => "{$array[5]}",
+            );
+            $arrayCond = array("id" => "idUnidadeSaude=$array[0]");
+            $this->crud->update($arrayUpdate, $arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -139,12 +97,8 @@ class UnidadeSaudeDao
     public function delete($id)
     {
         try {
-            $sql = 'DELETE FROM UNIDADE_SAUDE WHERE idUnidadeSaude = ?';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-
-            $stmt->execute();
+            $arrayCond = array('idUnidadeSaude=' => "$id");
+            $this->crud->delete($arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {

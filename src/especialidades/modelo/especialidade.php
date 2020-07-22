@@ -2,12 +2,13 @@
 
 namespace conn;
 
-class Especialidade{
+class Especialidade
+{
     private $idEspecialidade, $tipoEspecialidade;
 
     /**
      * Get the value of idEspecialidade
-     */ 
+     */
     public function getIdEspecialidade()
     {
         return $this->idEspecialidade;
@@ -17,7 +18,7 @@ class Especialidade{
      * Set the value of idEspecialidade
      *
      * @return  self
-     */ 
+     */
     public function setIdEspecialidade($idEspecialidade)
     {
         $this->idEspecialidade = $idEspecialidade;
@@ -27,7 +28,7 @@ class Especialidade{
 
     /**
      * Get the value of tipoEspecialidade
-     */ 
+     */
     public function getTipoEspecialidade()
     {
         return $this->tipoEspecialidade;
@@ -37,7 +38,7 @@ class Especialidade{
      * Set the value of tipoEspecialidade
      *
      * @return  self
-     */ 
+     */
     public function setTipoEspecialidade($tipoEspecialidade)
     {
         $this->tipoEspecialidade = $tipoEspecialidade;

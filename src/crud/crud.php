@@ -235,10 +235,10 @@ class Crud
         }
     }
 
-    public function getSQLDataTable($requestData, $arrayFilterParams = null)
+    public function getSQLDataTable($requestData, $arrayFilterParams = null, $genericSql = null)
     {
         // Inicializa variáveis   
-        $sql = "";
+        (!empty($genericSql)) ? $sql = $genericSql : $sql = "";
         $campos = "";
         $valores = "";
 
@@ -257,7 +257,7 @@ class Crud
         $valores = (substr($valores, -2) == ', ') ? trim(substr($valores, 0, (strlen($valores) - 2))) : $valores;
 
         // Concatena todas as variáveis e finaliza a instrução   
-        $sql .= "SELECT * FROM {$this->tabela} WHERE 1 = 1";
+        if (empty($genericSql)) $sql .= "SELECT * FROM {$this->tabela} WHERE 1 = 1";
 
         // Passa a instrução para o PDO
         $stmt = $this->pdo->prepare($sql);

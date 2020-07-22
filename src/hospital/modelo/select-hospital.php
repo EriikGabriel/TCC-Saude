@@ -12,11 +12,11 @@ require_once("../../../conexao/conn.php");
 $hospitalDao = new HospitalDao;
 
 if ($type == "search-data-hospital") {
-    $hospitalDao->search($id, 'HOSPITAL', true, 'idHospital');
+    $hospitalDao->search($id);
 } else if ($type == "search-select-hospital") {
-    $hospitalDao->search($id, "{$table}", false);
+    $sql = "SELECT * FROM USUARIO";
+    $hospitalDao->search($id, $sql);
 } else {
     $requestData = $_REQUEST;
-
     $hospitalDao->list($requestData);
 }

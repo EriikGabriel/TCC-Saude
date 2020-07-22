@@ -10,11 +10,10 @@ require_once("../../../conexao/conn.php");
 
 $especialidadeDao = new EspecialidadeDao;
 
-if($type == "search-dados") {
+if ($type == "search-dados") {
     $especialidadeDao->search($id);
 } else {
     $requestData = $_REQUEST;
-    
+
     $especialidadeDao->list($requestData);
 }
-

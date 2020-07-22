@@ -12,9 +12,10 @@ require_once("../../../conexao/conn.php");
 $unidadeDao = new UnidadeSaudeDao;
 
 if ($type == "search-data-unidade") {
-    $unidadeDao->search($id, 'UNIDADE_SAUDE', true, 'idUnidadeSaude');
+    $unidadeDao->search($id);
 } else if ($type == "search-select-unidade") {
-    $unidadeDao->search($id, "{$table}", false);
+    $sql = "SELECT * FROM TIPO_UNIDADE";
+    $unidadeDao->search($id, $sql);
 } else {
     $requestData = $_REQUEST;
 

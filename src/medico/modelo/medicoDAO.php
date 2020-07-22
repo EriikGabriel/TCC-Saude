@@ -2,22 +2,28 @@
 
 namespace conn;
 
+require_once("../../crud/crud.php");
+
 class MedicoDao
 {
+    private $crud = null;
+
+    public function __construct()
+    {
+        $pdo = Conexao::getConn();
+        $this->crud = Crud::getInstance($pdo, 'MEDICO');
+    }
 
     //? Create
-    public function create(Medico $m)
+    public function create(Medico $u)
     {
         try {
-            $sql = 'INSERT INTO MEDICO (CRM, nomeMedico, idEspecialidade) 
-                    VALUES (?, ?, ?)';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $m->getCrm());
-            $stmt->bindValue(2, $m->getNomeMedico());
-            $stmt->bindValue(3, $m->getIdEspecialidade());
-
-            $stmt->execute();
+            $arrayCreate = array(
+                "CRM" => "{$u->getCrm()}",
+                "nomeMedico" => "{$u->getNomeMedico()}",
+                "idEspecialidade" => "{$u->getIdEspecialidade()}"
+            );
+            $this->crud->insert($arrayCreate);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -29,81 +35,31 @@ class MedicoDao
     public function list($requestData)
     {
         try {
-            $columnData = $requestData['columns'];
-
             $sql = 'SELECT `MEDICO`.`CRM`, `MEDICO`.`nomeMedico`, `ESPECIALIDADE`.`tipoEspecialidade`
             FROM MEDICO
             INNER JOIN ESPECIALIDADE ON (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`)
             WHERE 1 = 1 ';
 
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $registerCount = $stmt->rowCount();
-
-            $filter = $requestData['search']['value'];
-
-            if (!empty($filter)) {
-                $sql .= " AND (CRM LIKE '$filter%' 
-                          OR nomeMedico LIKE '$filter%' 
-                          OR tipoEspecialidade LIKE '$filter%') ";
-            }
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $totalFiltred = $stmt->rowCount();
-
-            $columnOrder = $requestData['order'][0]['column'];
-            $order = $columnData[$columnOrder]['data'];
-            $direction = $requestData['order'][0]['dir'];
-
-            $limitStart = $requestData['start'];
-            $limitLenght = $requestData['length'];
-
-            $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-            $json_data = array(
-                "draw" => intval($requestData['draw']),
-                "recordsTotal" => intval($registerCount),
-                "recordsFiltered" => intval($totalFiltred),
-                "data" => $result
-            );
-
-            echo json_encode($json_data);
+            $arrayFilterParams = array("idTipoUnidade", "tipoUnidade");
+            $this->crud->getSQLDataTable($requestData, $arrayFilterParams, $sql);
         } catch (\PDOException $e) {
             echo $e->getCode();
         }
     }
 
-    public function search($id, $table, $isWhere, $where = null)
+    public function search($id, $sql = null)
     {
         try {
-            if ($isWhere == true) {
-                $sql = "SELECT * FROM {$table} WHERE {$where} = ?";
-
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->bindValue(1, $id);
-                $stmt->execute();
-            } else {
-                $sql = "SELECT * FROM {$table}";
-
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->execute();
+            if (empty($sql)) {
+                $sql = "SELECT * FROM MEDICO WHERE CRM = ?";
             }
 
-            if ($stmt->rowCount() > 0) {
-                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $arrayParam = array($id);
+            $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
-                echo json_encode($result);
-            }
+            if ($retorno > 0) echo json_encode($retorno);
         } catch (\PDOException $e) {
-            echo $e->getCode();
+            echo $e->getMessage();
         }
     }
 
@@ -111,15 +67,13 @@ class MedicoDao
     public function edit($array)
     {
         try {
-            $sql = "UPDATE MEDICO SET CRM = ?, nomeMedico = ?, idEspecialidade = ? WHERE CRM = ?";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $array[1]);
-            $stmt->bindValue(2, $array[2]);
-            $stmt->bindValue(3, $array[3]);
-            $stmt->bindValue(4, $array[0]);
-
-            $stmt->execute();
+            $arrayUpdate = array(
+                "CRM" => "{$array[1]}",
+                "nomeMedico" => "{$array[2]}",
+                "idEspecialidade" => "{$array[3]}"
+            );
+            $arrayCond = array("id" => "CRM=$array[0]");
+            $this->crud->update($arrayUpdate, $arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -131,12 +85,8 @@ class MedicoDao
     public function delete($id)
     {
         try {
-            $sql = 'DELETE FROM MEDICO WHERE CRM = ?';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-
-            $stmt->execute();
+            $arrayCond = array('CRM=' => "$id");
+            $this->crud->delete($arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
