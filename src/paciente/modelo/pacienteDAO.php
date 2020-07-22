@@ -2,25 +2,31 @@
 
 namespace conn;
 
+require_once("../../crud/crud.php");
+
 class PacienteDao
 {
+    private $crud = null;
+
+    public function __construct()
+    {
+        $pdo = Conexao::getConn();
+        $this->crud = Crud::getInstance($pdo, 'PACIENTE');
+    }
 
     //? Create
-    public function create(Paciente $p)
+    public function create(Paciente $u)
     {
         try {
-            $sql = 'INSERT INTO PACIENTE (nomePaciente, ruaPaciente, bairroPaciente, telefonePaciente, numeroSUS, gravidade) 
-                    VALUES (?, ?, ?, ?, ?, ?)';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $p->getNomePaciente());
-            $stmt->bindValue(2, $p->getRuaPaciente());
-            $stmt->bindValue(3, $p->getBairroPaciente());
-            $stmt->bindValue(4, $p->getTelefonePaciente());
-            $stmt->bindValue(5, $p->getNumeroSUS());
-            $stmt->bindValue(6, $p->getGravidade());
-
-            $stmt->execute();
+            $arrayCreate = array(
+                "nomePaciente" => "{$u->getNomePaciente()}",
+                "ruaPaciente" => "{$u->getRuaPaciente()}",
+                "bairroPaciente" => "{$u->getBairroPaciente()}",
+                "telefonePaciente" => "{$u->getTelefonePaciente()}",
+                "numeroSUS" => "{$u->getNumeroSUS()}",  
+                "gravidade" => "{$u->getGravidade()}"
+            );
+            $this->crud->insert($arrayCreate);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -32,82 +38,36 @@ class PacienteDao
     public function list($requestData)
     {
         try {
-            $columnData = $requestData['columns'];
+            $sql = 'SELECT * FROM PACIENTE';
 
-            $sql = 'SELECT * FROM PACIENTE WHERE 1 = 1 ';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $registerCount = $stmt->rowCount();
-
-            $filter = $requestData['search']['value'];
-
-            if (!empty($filter)) {
-                $sql .= " AND (idPaciente LIKE '$filter%' 
-                          OR nomePaciente LIKE '$filter%' 
-                          OR ruaPaciente LIKE '$filter%' 
-                          OR bairroPaciente LIKE '$filter%' 
-                          OR telefonePaciente LIKE '$filter%' 
-                          OR numeroSUS LIKE '$filter%' 
-                          OR gravidade LIKE '$filter%') ";
-            }
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $totalFiltred = $stmt->rowCount();
-
-            $columnOrder = $requestData['order'][0]['column'];
-            $order = $columnData[$columnOrder]['data'];
-            $direction = $requestData['order'][0]['dir'];
-
-            $limitStart = $requestData['start'];
-            $limitLenght = $requestData['length'];
-
-            $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-            $json_data = array(
-                "draw" => intval($requestData['draw']),
-                "recordsTotal" => intval($registerCount),
-                "recordsFiltered" => intval($totalFiltred),
-                "data" => $result
+            $arrayFilterParams = array(
+                "idPaciente",
+                "nomePaciente",
+                "ruaPaciente",
+                "bairroPaciente",
+                "telefonePaciente",
+                "numeroSUS",              
+                "gravidade"
             );
-
-            echo json_encode($json_data);
+            $this->crud->getSQLDataTable($requestData, $arrayFilterParams, $sql);
         } catch (\PDOException $e) {
             echo $e->getCode();
         }
     }
 
-    public function search($id, $table, $isWhere, $where = null)
+    public function search($id, $sql = null)
     {
         try {
-            if ($isWhere == true) {
-                $sql = "SELECT * FROM {$table} WHERE {$where} = ?";
-
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->bindValue(1, $id);
-                $stmt->execute();
-            } else {
-                $sql = "SELECT * FROM {$table}";
-
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->execute();
+            if (empty($sql)) {
+                $sql = "SELECT * FROM PACIENTE WHERE idPaciente = ?";
             }
 
-            if ($stmt->rowCount() > 0) {
-                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $arrayParam = array($id);
+            $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
-                echo json_encode($result);
-            }
+            if ($retorno > 0) echo json_encode($retorno);
         } catch (\PDOException $e) {
-            echo $e->getCode();
+            echo $e->getMessage();
         }
     }
 
@@ -115,19 +75,16 @@ class PacienteDao
     public function edit($array)
     {
         try {
-            $sql = "UPDATE PACIENTE SET nomePaciente = ?, ruaPaciente = ?, bairroPaciente = ?, 
-            telefonePaciente = ?,  numeroSUS = ?, gravidade = ? WHERE idPaciente = ?";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $array[1]);
-            $stmt->bindValue(2, $array[2]);
-            $stmt->bindValue(3, $array[3]);
-            $stmt->bindValue(4, $array[4]);
-            $stmt->bindValue(5, $array[5]);
-            $stmt->bindValue(6, $array[6]);
-            $stmt->bindValue(7, $array[0]);
-
-            $stmt->execute();
+            $arrayUpdate = array(
+                "nomePaciente" => "{$array[1]}",
+                "ruaPaciente" => "{$array[2]}",
+                "bairroPaciente" => "{$array[3]}",
+                "telefonePaciente" => "{$array[4]}",
+                "numeroSUS" => "{$array[5]}",           
+                "gravidade" => "{$array[6]}",
+            );
+            $arrayCond = array("id" => "idPaciente=$array[0]");
+            $this->crud->update($arrayUpdate, $arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -139,12 +96,8 @@ class PacienteDao
     public function delete($id)
     {
         try {
-            $sql = 'DELETE FROM PACIENTE WHERE idPaciente = ?';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-
-            $stmt->execute();
+            $arrayCond = array('idPaciente=' => "$id");
+            $this->crud->delete($arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
