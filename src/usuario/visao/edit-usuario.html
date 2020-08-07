@@ -1,31 +1,36 @@
 <div class="row">
-    <div class="offset-lg-2 offset-md-1 col-12">
-        <form id="edit-usuario" method="POST">
-            <div class="form-row">
-                <div class="form-group col-lg-8 col-md-10">
-                    <label>Nome:</label>
-                    <input type="text" name="nome" id="nome" class="form-control" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-lg-8 col-md-10">
-                    <label>Senha:</label>
-                    <input type="password" name="senha" id="senha" class="form-control" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-lg-8 col-md-10">
-                    <label>Tipo de Usuário:</label>
-                    <select name="idTipoUsuario" id="idTipoUsuario" class="form-control" required>
-                        <option value="">Selecione o tipo de usuário</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-lg-8 col-md-10 mt-2">
-                    <button type="submit" class="btn btn-danger btn-block">Alterar</button>
-                </div>
-            </div>
-        </form>
-    </div>
+  <div class="offset-lg-2 offset-md-1 col-12">
+    <form id="edit-usuario" method="POST">
+      <div class="form-row">
+        <div class="form-group col-lg-8 col-md-10">
+          <label>Nome:</label>
+          <input type="text" name="nome" id="nome" class="form-control" required />
+        </div>
+      </div>
+      <label>Senha</label>
+      <div class="form-row">
+        <div class="form-group input-group col-lg-8 col-md-12">
+          <input class="form-control" type="password" name="senha" id="senha" required />
+          <div class="input-group-append">
+            <span class="input-group-text bg-transparent" id="eye-password" style="cursor: pointer;">
+              <i class="fa fa-eye-slash" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-lg-8 col-md-10">
+          <label>Tipo de Usuário:</label>
+          <select name="idTipoUsuario" id="idTipoUsuario" class="form-control" required>
+            <option value="">Selecione o tipo de usuário</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-lg-8 col-md-10 mt-2">
+          <button type="submit" class="btn btn-danger btn-block">Alterar</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

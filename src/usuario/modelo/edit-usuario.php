@@ -11,7 +11,7 @@ $nome = filter_input(INPUT_POST, "nomeUsuario", FILTER_SANITIZE_SPECIAL_CHARS);
 $senha = filter_input(INPUT_POST, "senhaUsuario", FILTER_SANITIZE_SPECIAL_CHARS);
 $idTipoUsuario = filter_input(INPUT_POST, "idTipoUsuario", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$new_values = [$id, $nome, $senha, $idTipoUsuario];
+$new_values = [$id, $nome, password_hash($senha, PASSWORD_DEFAULT), $idTipoUsuario];
 
 $usuario = new Usuario;
 $usuarioDao = new UsuarioDao;

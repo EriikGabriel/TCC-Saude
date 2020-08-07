@@ -2,22 +2,28 @@
 
 namespace conn;
 
+require_once("../../crud/crud.php");
+
 class UsuarioDao
 {
+    private $crud = null;
+
+    public function __construct()
+    {
+        $pdo = Conexao::getConn();
+        $this->crud = Crud::getInstance($pdo, 'USUARIO');
+    }
 
     //? Create
     public function create(Usuario $u)
     {
         try {
-            $sql = 'INSERT INTO USUARIO (nomeUsuario, senhaUsuario, idTipoUsuario) 
-                    VALUES (?, ?, ?)';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $u->getNomeUsuario());
-            $stmt->bindValue(2, $u->getSenhaUsuario());
-            $stmt->bindValue(3, $u->getIdTipoUsuario());
-
-            $stmt->execute();
+            $arrayCreate = array(
+                "nomeUsuario" => "{$u->getNomeUsuario()}",
+                "senhaUsuario" => "{$u->getSenhaUsuario()}",
+                "idTipoUsuario" => "{$u->getIdTipoUsuario()}"
+            );
+            $this->crud->insert($arrayCreate);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -29,84 +35,40 @@ class UsuarioDao
     public function list($requestData)
     {
         try {
-            $columnData = $requestData['columns'];
-
             $sql = 'SELECT `USUARIO`.`idUsuario`, `USUARIO`.`nomeUsuario`, `USUARIO`.`senhaUsuario`, `TIPO_USUARIO`.`tipoUsuario`
             FROM USUARIO 
             INNER JOIN TIPO_USUARIO ON (`USUARIO`.`idTipoUsuario` = `TIPO_USUARIO`.`idTipoUsuario`) 
             WHERE 1 = 1 ';
 
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $registerCount = $stmt->rowCount();
-
-            $filter = $requestData['search']['value'];
-
-            if (!empty($filter)) {
-                $sql .= " AND (idUsuario LIKE '$filter%' 
-                          OR nomeUsuario LIKE '$filter%' 
-                          OR senhaUsuario LIKE '$filter%' 
-                          OR tipoUsuario LIKE '$filter%') ";
-            }
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $totalFiltred = $stmt->rowCount();
-
-            $columnOrder = $requestData['order'][0]['column'];
-            $order = $columnData[$columnOrder]['data'];
-            $direction = $requestData['order'][0]['dir'];
-
-            $limitStart = $requestData['start'];
-            $limitLenght = $requestData['length'];
-
-            $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-            $json_data = array(
-                "draw" => intval($requestData['draw']),
-                "recordsTotal" => intval($registerCount),
-                "recordsFiltered" => intval($totalFiltred),
-                "data" => $result
-            );
-
-            echo json_encode($json_data);
+            $arrayFilterParams = array("idUsuario", "nomeUsuario", "senhaUsuario", "tipoUsuario");
+            $this->crud->getSQLDataTable($requestData, $arrayFilterParams, $sql);
         } catch (\PDOException $e) {
             echo $e->getCode();
         }
     }
 
-    public function search($id, $senha, $table, $isWhere, $where = null)
+    public function search($id, $sql = null, $senha = null)
     {
         try {
-            if ($isWhere == true) {
-                $sql = "SELECT * FROM {$table} WHERE {$where} = ?";
+            $check_password = false;
 
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->bindValue(1, $id);
-                $stmt->execute();
-            } else {
-                $sql = "SELECT * FROM {$table}";
-
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->execute();
+            if (empty($sql) && $senha == null) {
+                $sql = "SELECT * FROM USUARIO WHERE idUsuario = ?";
+            } else if ($senha != null) {
+                $sql = "SELECT * FROM USUARIO WHERE nomeUsuario = ?";
+                $check_password = true;
             }
 
-            if ($stmt->rowCount() > 0) {
-                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $arrayParam = array($id);
+            $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
-                if (password_verify($senha, $result[0]['senhaUsuario'])) {
-                    echo json_encode($result);
-                }
+            if ($retorno > 0 && $check_password) {
+                if (password_verify($senha, $retorno[0]->senhaUsuario)) echo json_encode($retorno);
+            } else {
+                if ($retorno > 0) echo json_encode($retorno);
             }
         } catch (\PDOException $e) {
-            echo $e->getCode();
+            echo $e->getMessage();
         }
     }
 
@@ -114,15 +76,13 @@ class UsuarioDao
     public function edit($array)
     {
         try {
-            $sql = "UPDATE USUARIO SET nomeUsuario = ?, senhaUsuario = ?, idTipoUsuario = ? WHERE idUsuario = ?";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $array[1]);
-            $stmt->bindValue(2, $array[2]);
-            $stmt->bindValue(3, $array[3]);
-            $stmt->bindValue(4, $array[0]);
-
-            $stmt->execute();
+            $arrayUpdate = array(
+                "nomeUsuario" => "{$array[1]}",
+                "senhaUsuario" => "{$array[2]}",
+                "idTipoUsuario" => "{$array[3]}"
+            );
+            $arrayCond = array("id" => "idUsuario=$array[0]");
+            $this->crud->update($arrayUpdate, $arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -134,12 +94,8 @@ class UsuarioDao
     public function delete($id)
     {
         try {
-            $sql = 'DELETE FROM USUARIO WHERE idUsuario = ?';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-
-            $stmt->execute();
+            $arrayCond = array('idUsuario=' => "$id");
+            $this->crud->delete($arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {

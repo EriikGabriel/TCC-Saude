@@ -13,11 +13,11 @@ require_once("../../../conexao/conn.php");
 $usuarioDao = new UsuarioDao;
 
 if ($type == "search-data-usuario") {
-    $usuarioDao->search($id, $senha, 'USUARIO', true, 'nomeUsuario');
+    $usuarioDao->search($id, null, $senha);
 } else if ($type == "search-select-usuario") {
-    $usuarioDao->search($id, $senha, "{$table}", false);
+    $sql = "SELECT * FROM TIPO_USUARIO";
+    $usuarioDao->search($id, $sql);
 } else {
     $requestData = $_REQUEST;
-
     $usuarioDao->list($requestData);
 }

@@ -1,45 +1,39 @@
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="col-12 col-md-8 col-lg-6">
-        <div class="offset-lg-2 offset-md-1 col-12">
-            <form id="add-usuario" method="POST">
-                <h1 class="text-danger text-center col-lg-8 col-md-12 mb-4">Cadastrar</h1>
-                <div class="form-row">
-                    <div class="form-group col-lg-8 col-md-12">
-                        <label>Nome de Usuário:</label>
-                        <input type="text" name="nome" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-lg-8 col-md-12">
-                        <label>Senha:</label>
-                        <input type="password" name="senha" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-lg-8 col-md-12">
-                        <label>Confirmar Senha</label>
-                        <input type="password" name="confirmarSenha" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-lg-8 col-md-12">
-                        <label>Tipo de Usuário:</label>
-                        <select name="idTipoUsuario" class="form-control" required>
-                            <option value="">Selecione o tipo de usuário</option>
-                            <option value="1">Usuário de Hospital</option>
-                            <option value="2">Usuário de Unidade</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-lg-4 col-md-6 mt-2">
-                        <button type="submit" class="btn btn-danger btn-block">Cadastrar</button>
-                    </div>
-                    <div class="form-group col-lg-4 col-md-6 mt-2">
-                        <a href="login.html" class="btn btn-danger btn-block">Voltar</a>
-                    </div>
-                </div>
-            </form>
+<div class="container">
+  <div class="row">
+    <div class="offset-lg-2 offset-md-1 col-12">
+      <form id="add-usuario" method="POST">
+        <div class="form-row">
+          <div class="form-group col-lg-8 col-md-10">
+            <label>Nome de Usuário:</label>
+            <input type="text" name="nome" class="form-control" required />
+          </div>
         </div>
+        <div class="form-row">
+          <div class="form-group col-lg-8 col-md-10">
+            <label>Senha:</label>
+            <input type="password" name="senha" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-8 col-md-10">
+            <label>Confirmar Senha</label>
+            <input type="password" name="confirmarSenha" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-8 col-md-10">
+            <label>Tipo de Usuário:</label>
+            <select name="idTipoUsuario" class="form-control" required>
+              <option value="">Selecione o tipo de usuário</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-8 col-md-10 mt-2">
+            <button type="submit" class="btn btn-danger btn-block">Cadastrar</button>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
