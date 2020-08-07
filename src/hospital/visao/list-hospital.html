@@ -1,67 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gerenciar Hospital</title>
-    <link rel="stylesheet" href="../../../css/bootstrap.css">
-    <link rel="stylesheet" href="../../../libs/DataTables/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../../libs/DataTables/css/responsive.bootstrap4.min.css">
-</head>
+    <link rel="stylesheet" href="../../../css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../libs/DataTables/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="../../../libs/DataTables/css/responsive.bootstrap4.min.css" />
+  </head>
 
-<body>
+  <body>
     <div class="container-fluid">
-        <div class="row d-flex flex-column justify-content-center align-items-center">
-            <div class="col-sm-12 col-md-8 mt-4">
-                <h4 class="text-danger text-center">Gerenciar Hospital</h4>
-            </div>
-            <div class="col-sm-8 col-md-4 mt-3">
-                <button type="button" class="btn btn-dark btn-sm btn-add btn-block">Cadastrar</button>
-            </div>
+      <div class="row d-flex flex-column justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-8 mt-4">
+          <h4 class="text-danger text-center">Gerenciar Hospital</h4>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-12">
-                <div class="text-center table-responsive">
-                    <table class="table table-hover dt-responsive call-border nowrap" id="table-hospital">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Rua</th>
-                                <th scope="col">Bairro</th>
-                                <th scope="col">Cep</th>
-                                <th scope="col">Telefone</th>
-                                <th scope="col">Usuário</th>
-                                <th scope="col">Ações</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
+        <div class="col-sm-8 col-md-4 mt-3">
+          <button type="button" class="btn btn-dark btn-sm btn-add btn-block">Cadastrar</button>
         </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-12">
+          <div class="text-center table-responsive">
+            <table class="table table-hover dt-responsive call-border nowrap" id="table-hospital">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Rua</th>
+                  <th scope="col">Bairro</th>
+                  <th scope="col">Cep</th>
+                  <th scope="col">Telefone</th>
+                  <th scope="col">Usuário</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
 
-        <div class="row d-flex justify-content-center align-items-center">
-            <div class="col-sm-4 col-md-2 mt-5">
-                <a class="btn btn-outline-dark btn-sm btn-add btn-block" href="../../../index.html"
-                    role="button">Voltar</a>
-            </div>
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-sm-4 col-md-2 mt-5">
+          <a class="btn btn-outline-dark btn-sm btn-add btn-block" href="../../../index.html" role="button">Voltar</a>
         </div>
+      </div>
     </div>
 
-
     <div id="modal-hospital" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title text-danger text-center w-100">
-                        <h4></h4>
-                    </div>
-                </div>
-                <div class="modal-body"></div>
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-title text-danger text-center w-100">
+              <h4></h4>
             </div>
+          </div>
+          <div class="modal-body"></div>
         </div>
+      </div>
     </div>
 
     <script src="../../../js/jquery-3.5.1.js"></script>
@@ -75,6 +72,5 @@
     <script src="../controle/edit-hospital.js"></script>
     <script src="../controle/add-hospital.js"></script>
     <script src="../controle/delete-hospital.js"></script>
-</body>
-
+  </body>
 </html>
