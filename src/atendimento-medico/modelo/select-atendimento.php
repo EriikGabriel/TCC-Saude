@@ -12,9 +12,10 @@ require_once("../../../conexao/conn.php");
 $atendimentoDao = new AtendimentoMedicoDao;
 
 if ($type == "search-data-atendimento") {
-    $atendimentoDao->search($id, 'MEDICO_ATENDE_UNIDADE', true, 'CRM');
+    $atendimentoDao->search($id);
 } else if ($type == "search-select-atendimento") {
-    $atendimentoDao->search($id, "{$table}", false);
+    $sql = "SELECT * FROM {$table}";
+    $atendimentoDao->search($id, $sql);
 } else {
     $requestData = $_REQUEST;
 

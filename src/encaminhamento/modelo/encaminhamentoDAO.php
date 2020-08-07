@@ -2,24 +2,30 @@
 
 namespace conn;
 
+require_once("../../crud/crud.php");
+
 class EncaminhamentoDao
 {
+    private $crud = null;
+
+    public function __construct()
+    {
+        $pdo = Conexao::getConn();
+        $this->crud = Crud::getInstance($pdo, 'ENCAMINHAMENTO');
+    }
 
     //? Create
-    public function create(Encaminhamento $en)
+    public function create(Encaminhamento $u)
     {
         try {
-            $sql = 'INSERT INTO ENCAMINHAMENTO (dataEncaminhamento, idUnidadeSaude, idPaciente, idHospital, idUsuario) 
-                    VALUES (?, ?, ?, ?, ?)';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $en->getDataEncaminhamento());
-            $stmt->bindValue(2, $en->getIdUnidadeSaude());
-            $stmt->bindValue(3, $en->getIdPaciente());
-            $stmt->bindValue(4, $en->getIdHospital());
-            $stmt->bindValue(5, $en->getIdUsuario());
-
-            $stmt->execute();
+            $arrayCreate = array(
+                "dataEncaminhamento" => "{$u->getDataEncaminhamento()}",
+                "idUnidadeSaude" => "{$u->getIdUnidadeSaude()}",
+                "idPaciente" => "{$u->getIdPaciente()}",
+                "idHospital" => "{$u->getIdHospital()}",
+                "idUsuario" => "{$u->getIdUsuario()}"
+            );
+            $this->crud->insert($arrayCreate);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -31,98 +37,82 @@ class EncaminhamentoDao
     public function list($requestData)
     {
         try {
-            $columnData = $requestData['columns'];
-
             $sql = 'SELECT `ENCAMINHAMENTO`.`idEncaminhamento`, `PACIENTE`.`nomePaciente`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, 
-			`UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`, `MEDICO`.`nomeMedico`,
-            DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, "%d/%m/%Y") AS horario,
+			`UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`,
             `HOSPITAL`.`nomeHospital`, `USUARIO`.`nomeUsuario`
             FROM ENCAMINHAMENTO
             INNER JOIN UNIDADE_SAUDE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
             INNER JOIN PACIENTE ON (`ENCAMINHAMENTO`.`idPaciente` = `PACIENTE`.`idPaciente`)
-            INNER JOIN MEDICO_ATENDE_UNIDADE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
-            INNER JOIN MEDICO ON (`MEDICO`.`CRM` = `MEDICO_ATENDE_UNIDADE`.`CRM`) 
             INNER JOIN HOSPITAL ON (`ENCAMINHAMENTO`.`idHospital` = `HOSPITAL`.`idHospital`) 
             INNER JOIN USUARIO ON (`ENCAMINHAMENTO`.`idUsuario` = `USUARIO`.`idUsuario`)
             WHERE 1 = 1 ';
 
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $registerCount = $stmt->rowCount();
-
-            $filter = $requestData['search']['value'];
-
-            if (!empty($filter)) {
-                $sql .= " AND (CRM LIKE '$filter%' 
-                          OR nomeMedico LIKE '$filter%' 
-                          OR tipoEspecialidade LIKE '$filter%') ";
-            }
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $totalFiltred = $stmt->rowCount();
-
-            $columnOrder = $requestData['order'][0]['column'];
-            $order = $columnData[$columnOrder]['data'];
-            $direction = $requestData['order'][0]['dir'];
-
-            $limitStart = $requestData['start'];
-            $limitLenght = $requestData['length'];
-
-            $sql .= " ORDER BY $order $direction LIMIT $limitStart, $limitLenght ";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->execute();
-
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-            $json_data = array(
-                "draw" => intval($requestData['draw']),
-                "recordsTotal" => intval($registerCount),
-                "recordsFiltered" => intval($totalFiltred),
-                "data" => $result
+            $arrayFilterParams = array(
+                "idEncaminhamento",
+                "nomePaciente",
+                "nomeUnidadeSaude",
+                "ruaUnidadeSaude",
+                "bairroUnidadeSaude",
+                "nomeHospital",
+                "nomeUsuario"
             );
-
-            echo json_encode($json_data);
+            $this->crud->getSQLDataTable($requestData, $arrayFilterParams, $sql);
         } catch (\PDOException $e) {
             echo $e->getCode();
         }
     }
 
-    public function search($id, $table, $isWhere, $where = null, $operator = "")
+    public function search($id, $sql = null)
     {
         try {
-            if ($isWhere == true) {
-                if ($operator == "") {
-                    $sql = "SELECT * FROM {$table} WHERE {$where} = ?";
 
-                    $stmt = Conexao::getConn()->prepare($sql);
-                    $stmt->bindValue(1, $id);
-                } else {
-                    $sql = "SELECT * FROM {$table} WHERE {$where[0]} = ? {$operator} {$where[1]} = ?";
+            if (empty($sql)) $sql = "SELECT * FROM ENCAMINHAMENTO WHERE idEncaminhamento = ?";
+            if ($sql == ":encaminhamento") {
+                $id = json_decode(json_encode($id), true);
+                $array_size = count($id);
+                $where = "WHERE ";
+                $cont = 1;
 
-                    $stmt = Conexao::getConn()->prepare($sql);
-                    $stmt->bindValue(1, $id[0]);
-                    $stmt->bindValue(2, $id[1]);
+                foreach ($id as $key => $value) {
+                    if ($array_size > 1) {
+                        if ($array_size == 2) {
+                            ($cont == 1) ? $where .= "$key = ? AND " : $where .= "$key = ?";
+                        }
+                        if ($array_size == 3) {
+                            ($cont == 1 || $cont == 2) ? $where .= "$key = ? AND " : $where .= "$key = ?";
+                        }
+                    } else {
+                        $where .= "$key = ?";
+                    }
+                    $cont++;
                 }
-
-                $stmt->execute();
-            } else {
-                $sql = "SELECT * FROM {$table}";
-
-                $stmt = Conexao::getConn()->prepare($sql);
-                $stmt->execute();
+                $sql = "SELECT `UNIDADE_SAUDE`.`idUnidadeSaude`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, `ESPECIALIDADE`.`tipoEspecialidade`,
+                DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, '%d/%m/%Y %H:%i') as horarioMedico
+                FROM PACIENTE
+                INNER JOIN UNIDADE_SAUDE ON 
+                (`UNIDADE_SAUDE`.`ruaUnidadeSaude` = `PACIENTE`.`ruaPaciente` AND `UNIDADE_SAUDE`.`bairroUnidadeSaude` = `PACIENTE`.`bairroPaciente`)
+                INNER JOIN MEDICO_ATENDE_UNIDADE ON 
+                (`MEDICO_ATENDE_UNIDADE`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
+                INNER JOIN MEDICO ON 
+                (`MEDICO`.`CRM` = `MEDICO_ATENDE_UNIDADE`.`CRM`)
+                INNER JOIN ESPECIALIDADE ON 
+                (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) {$where}";
             }
 
-            if ($stmt->rowCount() > 0) {
-                $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-                echo json_encode($result);
+            if ($sql == ":edit-encaminhamento") {
+                $sql = "SELECT `PACIENTE`.`idPaciente`, `UNIDADE_SAUDE`.`idUnidadeSaude`, `PACIENTE`.`nomePaciente`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`
+                FROM ENCAMINHAMENTO
+                INNER JOIN UNIDADE_SAUDE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
+                INNER JOIN PACIENTE ON (`ENCAMINHAMENTO`.`idPaciente` = `PACIENTE`.`idPaciente`)
+                WHERE idEncaminhamento = ?";
             }
+
+            $arrayParam = (is_array($id)) ? $id : array($id);
+            $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
+
+            if ($retorno > 0) echo json_encode($retorno);
         } catch (\PDOException $e) {
-            echo $e->getCode();
+            echo $e->getMessage();
         }
     }
 
@@ -130,15 +120,14 @@ class EncaminhamentoDao
     public function edit($array)
     {
         try {
-            $sql = "UPDATE MEDICO SET CRM = ?, nomeMedico = ?, idEspecialidade = ? WHERE CRM = ?";
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $array[1]);
-            $stmt->bindValue(2, $array[2]);
-            $stmt->bindValue(3, $array[3]);
-            $stmt->bindValue(4, $array[0]);
-
-            $stmt->execute();
+            $arrayUpdate = array(
+                "idUnidadeSaude" => "{$array[1]}",
+                "idPaciente" => "{$array[2]}",
+                "idHospital" => "{$array[3]}",
+                "idUsuario" => "{$array[4]}"
+            );
+            $arrayCond = array("id" => "idEncaminhamento=$array[0]");
+            $this->crud->update($arrayUpdate, $arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
@@ -150,12 +139,8 @@ class EncaminhamentoDao
     public function delete($id)
     {
         try {
-            $sql = 'DELETE FROM ENCAMINHAMENTO WHERE idEncaminhamento = ?';
-
-            $stmt = Conexao::getConn()->prepare($sql);
-            $stmt->bindValue(1, $id);
-
-            $stmt->execute();
+            $arrayCond = array('idEncaminhamento=' => "$id");
+            $this->crud->delete($arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {

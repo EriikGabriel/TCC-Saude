@@ -1,33 +1,37 @@
 <div class="row">
-    <div class="offset-lg-2 offset-md-1 col-12">
-        <form method="post" id="add-atendimento">
-            <div class="form-row">
-                <div class="form-group col-lg-8 col-md-10">
-                    <label>Horário de Atendimento</label>
-                    <input type="datetime-local" name="horario" class="form-control" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-lg-8 col-md-12">
-                    <label>Médico:</label>
-                    <select name="CRM" class="form-control" required>
-                        <option value="">Selecione o médico</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-lg-8 col-md-12">
-                    <label>Unidade de Saúde:</label>
-                    <select name="idUnidadeSaude" class="form-control" required>
-                        <option value="">Selecione a unidade de saúde</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-lg-8 col-md-10 mt-2">
-                    <button type="submit" class="btn btn-danger btn-block">Cadastrar</button>
-                </div>
-            </div>
-        </form>
-    </div>
+  <div class="offset-lg-2 offset-md-1 col-12">
+    <form method="post" id="add-atendimento">
+      <div class="form-row">
+        <div class="form-group col-lg-4 col-md-5">
+          <label>Data de Atendimento</label>
+          <input type="date" name="data" class="form-control" required />
+        </div>
+        <div class="form-group col-lg-4 col-md-5">
+          <label>Horário de Atendimento</label>
+          <input type="time" name="horario" class="form-control" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-lg-8 col-md-12">
+          <label>Médico:</label>
+          <select name="CRM" class="form-control" required>
+            <option value="">Selecione o médico</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-lg-8 col-md-12">
+          <label>Unidade de Saúde:</label>
+          <select name="idUnidadeSaude" class="form-control" required>
+            <option value="">Selecione a unidade de saúde</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-lg-8 col-md-10 mt-2">
+          <button type="submit" class="btn btn-danger btn-block">Cadastrar</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

@@ -1,30 +1,44 @@
 <div class="row">
-    <div class="offset-lg-2 offset-md-1 col-12">
-        <form id="edit-encaminhamento" method="POST">
-            <div class="form-row">
-                <div class="form-group col-lg-8 col-md-10">
-                    <label>Paciente</label>
-                    <input type="text" name="paciente" id="paciente" class="form-control" required>
-                </div>
-                <div class="form-group col-lg-8 col-md-10">
-                    <label>Data</label>
-                    <input type="date" name="data" id="data" class="form-control" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-lg-4 col-md-5">
-                    <label>Unidade de Saúde:</label>
-                    <select name="idUnidadeSaude" id="idUnidadeSaude" class="form-control" required>
-                        <option value="">Selecione a unidade</option>
-                    </select>
-                </div>
-                <div class="form-group col-lg-4 col-md-5">
-                    <label>Hospital:</label>
-                    <select name="idHospital" id="idHospital" class="form-control" required>
-                        <option value="">Selecione o hospital</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-    </div>
+  <div class="offset-lg-2 offset-md-1 col-12">
+    <form id="edit-encaminhamento" method="POST">
+      <div class="form-row">
+        <div class="form-group col-lg-8 col-md-10">
+          <label>Paciente:</label>
+          <select name="idPaciente" id="idPaciente" class="form-control" required>
+            <option value="">Selecione o paciente</option>
+          </select>
+        </div>
+      </div>
+      <label class="mt-2">Campos de Busca:</label>
+      <div class="form-row">
+        <div class="bg-light border border-secundary rounded col-lg-8 col-md-10 d-lg-flex pt-2 mb-2">
+          <div class="form-group col-lg-6 col-md-12">
+            <label>Especialidade do Médico:</label>
+            <select name="idEspecialidade" id="idEspecialidade" class="form-control">
+              <option value="">Qualquer especialidade</option>
+            </select>
+          </div>
+          <div class="form-group col-lg-6 col-md-12">
+            <label>Horário:</label>
+            <select name="idHorario" id="idHorario" class="form-control">
+              <option value="">Qualquer horário</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-row mt-3">
+        <div class="form-group col-lg-8 col-md-10">
+          <label>Unidade de Saúde:</label>
+          <select name="idUnidadeSaude" id="idUnidadeSaude" class="form-control" required>
+            <option value="">Selecione a unidade de saúde</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-lg-8 col-md-10 mt-2">
+          <button type="submit" class="btn btn-danger btn-block">Alterar Encaminhamento</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

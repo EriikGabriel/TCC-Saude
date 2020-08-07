@@ -2,11 +2,11 @@
 
 namespace conn;
 
-require_once("../modelo/medicoDAO.php");
+require_once("../modelo/encaminhamentoDAO.php");
 require_once("../../../conexao/conn.php");
 
 $id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$medicoDao = new MedicoDao;
+$encaminhamentoDAO = new EncaminhamentoDao;
 
-$medicoDao->delete($id);
+$encaminhamentoDAO->delete($id);
