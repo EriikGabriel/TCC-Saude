@@ -60,7 +60,6 @@ $(document).ready(function () {
       async: true,
       data: dados,
       success: function (dados) {
-        console.log(dados);
         if (dados == "true") location.href = "list-paciente.html";
       },
     });

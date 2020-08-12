@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     var dados = $("#add-especialidade").serialize();
     var url = "../modelo/create-especialidade.php";
-    //
+
     $.ajax({
       type: "POST",
       datatype: "json",
