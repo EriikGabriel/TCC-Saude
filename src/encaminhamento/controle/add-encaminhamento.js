@@ -1,6 +1,6 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    if (localStorage.getItem("login") != "false") {
+    if (JSON.parse(localStorage.getItem("login")).id != "false") {
       $("#modal-encaminhamento .modal-body").load("cadastro-encaminhamento.html");
       $("#modal-encaminhamento .modal-title h4").html("Fazer Encaminhamento");
 
@@ -129,7 +129,7 @@ $(document).ready(function () {
     var dados = {
       type: "search-select-encaminhamento",
       sql: "SELECT idHospital FROM HOSPITAL WHERE idUsuario = ?",
-      id: localStorage.getItem("login"),
+      id: JSON.parse(localStorage.getItem("login")).id,
     };
 
     $.ajax({
@@ -146,7 +146,7 @@ $(document).ready(function () {
           idUnidadeSaude: $('select[name="idUnidadeSaude"]').val(),
           idPaciente: $('select[name="idPaciente"]').val(),
           idHospital: dados.idHospital,
-          idUsuario: localStorage.getItem("login"),
+          idUsuario: JSON.parse(localStorage.getItem("login")).id,
         };
 
         $.ajax({

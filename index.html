@@ -1,155 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sistema Saúde - TCC</title>
-    <link rel="stylesheet" href="css/bootstrap.css" />
-    <link rel="stylesheet" href="libs/fontawesome/css/all.min.css" />
-  </head>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="libs/fontawesome/css/all.min.css">
+</head>
 
-  <body>
-    <nav class="navbar navbar-dark navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand text-white" href="#">TCC</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbar"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto d-flex align-items-center h-100">
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/usuario/visao/list-usuario.html">Usuário</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/tipo_usuario/visao/list-tipo-usuario.html">Tipo Usuário</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/hospital/visao/list-hospital.html">Hospital</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/especialidades/visao/list-especialidade.html">Especialidades</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/tipo_unidade/visao/list-tipo-unidade.html">Tipo Unidade</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/unidade_saude/visao/list-unidade-saude.html">Unidade de Saúde</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/paciente/visao/list-paciente.html">Paciente</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/paciente/visao/list-medico.html">Médico</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/encaminhamento/visao/list-encaminhamento.html">Encaminhamento</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/atendimento-medico/visao/list-atendimento.html"
-              >Atendimento Médico</a
-            >
-          </li>
-        </ul>
-        <ul class="navbar-nav user-icon">
-          <li class="nav-item">
-            <a class="nav-link text-white" href="login.html">
-              <i class="fa fa-user-circle fa-2x user-icon" aria-hidden="true"></i>
-            </a>
-          </li>
-          <li class="nav-item dropdown d-none dropleft">
-            <a
-              class="nav-link text-white"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item text-danger exit" href="#">Sair do Sistema</a>
+<div class="container w-100 vh-100" id="login-container">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="offset-lg-2 offset-md-1 col-12">
+                <form method="POST" id="login-usuario">
+                    <h1 class="text-danger text-center col-lg-8 col-md-12 mb-4">Login</h1>
+                    <div class="form-row">
+                        <div class="form-group col-lg-8 col-md-12">
+                            <label>Nome</label>
+                            <input class="form-control" type="text" name="nome" required>
+                        </div>
+                    </div>
+                    <label>Senha</label>
+                    <div class="form-row">
+                        <div class="form-group input-group col-lg-8 col-md-12">
+                            <input class="form-control" type="password" name="senha" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-transparent" id="eye-password" style="cursor: pointer;">
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-8 col-md-12 mt-2">
+                            <button type="submit" class="btn btn-danger btn-block">Entrar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="container-fluid d-flex justify-content-center align-items-center vh-100 vw-100">
-      <div class="row w-100 justify-content-center">
-        <div class="col-sm-12 col-md-3 mt-4">
-          <a href="src/usuario/visao/list-usuario.html" class="btn btn-outline-danger p-2 btn-block">
-            <p class="m-1">USUÁRIO</p>
-            <i class="fas fa-user fa-lg"></i>
-          </a>
         </div>
-        <div class="col-sm-12 col-md-3 mt-4">
-          <a href="src/hospital/visao/list-hospital.html" class="btn btn-outline-danger p-2 btn-block">
-            <p class="m-1">HOSPITAL</p>
-            <i class="fas fa-hospital fa-lg"></i>
-          </a>
-        </div>
-        <div class="col-sm-12 col-md-3 mt-4">
-          <a href="src/tipo_usuario/visao/list-tipo-usuario.html" class="btn btn-outline-danger p-2 btn-block">
-            <p class="m-1">TIPO USUÁRIO</p>
-            <i class="fas fa-user-circle fa-lg"></i>
-          </a>
-        </div>
-        <div class="col-sm-12 col-md-3 mt-4">
-          <a href="src/especialidades/visao/list-especialidade.html" class="btn btn-outline-danger p-2 btn-block">
-            <p class="m-1">ESPECIALIDADE</p>
-            <i class="fa fa-stethoscope fa-lg"></i>
-          </a>
-        </div>
-        <div class="col-sm-12 col-md-3 mt-4">
-          <a href="src/tipo_unidade/visao/list-tipo-unidade.html" class="btn btn-outline-danger p-2 btn-block">
-            <p class="m-1">TIPO UNIDADE</p>
-            <i class="fas fa-plus-square fa-lg"></i>
-          </a>
-        </div>
-        <div class="col-sm-12 col-md-3 mt-4">
-          <a href="src/unidade_saude/visao/list-unidade-saude.html" class="btn btn-outline-danger p-2 btn-block">
-            <p class="m-1">UNIDADE DE SAÚDE</p>
-            <i class="fas fa-clinic-medical fa-lg"></i>
-          </a>
-        </div>
-        <div class="col-sm-12 col-md-3 mt-4">
-          <a href="src/paciente/visao/list-paciente.html" class="btn btn-outline-danger p-2 btn-block">
-            <p class="m-1">PACIENTE</p>
-            <i class="fas fa-male fa-lg"></i>
-          </a>
-        </div>
-        <div class="col-sm-12 col-md-3 mt-4">
-          <a href="src/medico/visao/list-medico.html" class="btn btn-outline-danger p-2 btn-block">
-            <p class="m-1">MÉDICO</p>
-            <i class="fas fa-user-md fa-lg"></i>
-          </a>
-        </div>
-        <div class="col-sm-12 col-md-3 mt-4">
-          <a href="src/encaminhamento/visao/list-encaminhamento.html" class="btn btn-outline-danger p-2 btn-block">
-            <p class="m-1">ENCAMINHAMENTO</p>
-            <i class="fas fa-ambulance fa-lg"></i>
-          </a>
-        </div>
-        <div class="col-sm-12 col-md-3 mt-4">
-          <a href="src/atendimento-medico/visao/list-atendimento.html" class="btn btn-outline-danger p-2 btn-block">
-            <p class="m-1">ATENDIMENTO MEDICO</p>
-            <i class="fas fa-address-book fa-lg"></i>
-          </a>
-        </div>
-      </div>
     </div>
+</div>
 
-    <script src="js/jquery-3.5.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-  </body>
+<script src="js/jquery-3.5.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="libs/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="src/usuario/controle/add-usuario.js"></script>
+<script src="src/usuario/controle/search-usuario.js"></script>
+</body>
+
 </html>

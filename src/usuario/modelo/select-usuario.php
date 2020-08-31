@@ -13,7 +13,17 @@ require_once("../../../conexao/conn.php");
 $usuarioDao = new UsuarioDao;
 
 if ($type == "search-data-usuario") {
-    $usuarioDao->search($id, null, $senha);
+    $return = $usuarioDao->search($id, null, $senha);
+    if ($return != "") {
+        session_start();
+
+        $_SESSION["user"] = [
+            "id" => json_decode($return)[0]->idUsuario,
+            "idTipoUsuario" => json_decode($return)[0]->idTipoUsuario
+        ];
+
+        echo $return;
+    }
 } else if ($type == "search-select-usuario") {
     $sql = "SELECT * FROM TIPO_USUARIO";
     $usuarioDao->search($id, $sql);

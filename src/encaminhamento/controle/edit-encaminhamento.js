@@ -179,7 +179,7 @@ $(document).ready(function () {
     var dados = {
       type: "search-select-encaminhamento",
       sql: "SELECT idHospital FROM HOSPITAL WHERE idUsuario = ?",
-      id: localStorage.getItem("login"),
+      id: JSON.parse(localStorage.getItem("login")).id,
     };
 
     $.ajax({

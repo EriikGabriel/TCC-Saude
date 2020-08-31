@@ -19,6 +19,7 @@ $encaminhamento->setIdUnidadeSaude($idUnidadeSaude);
 $encaminhamento->setIdPaciente($idPaciente);
 $encaminhamento->setIdHospital($idHospital);
 $encaminhamento->setIdUsuario($idUsuario);
+$encaminhamento->setSituacao('Pendente');
 
 $encaminhamentoDao = new EncaminhamentoDao;
 

@@ -1,17 +1,33 @@
 $(document).ready(function () {
-    var loginStatus = localStorage.getItem('login') || 'false'
+  $.ajax({
+    type: "POST",
+    datatype: "json",
+    url: "conexao/conn-session.php",
+    async: true,
+    success: function (response) {
+      if (response != false) {
+        response = JSON.parse(response);
+        if (response.idTipoUsuario == 2) {
+          $(".manage-hospital").addClass("d-none");
+          $(".manage-paciente").addClass("d-none");
+        }
+      }
+    },
+  });
 
-    if (loginStatus != 'false') {
-        $(".user-icon li:first-child").addClass('d-none')
-        $(".user-icon li:last-child").removeClass('d-none')
-    } else {
-        $(".user-icon li:first-child").removeClass('d-none')
-        $(".user-icon li:last-child").addClass('d-none')
-    }
-
-    $(".exit").click(function () {
-        localStorage.setItem('login', 'false')
-        location.reload()
-    })
-
-})
+  $(".exit").click(function () {
+    $.ajax({
+      type: "POST",
+      datatype: "json",
+      url: "conexao/conn-session.php",
+      async: true,
+      data: { destroy: true },
+      success: function (response) {
+        if (response == "") {
+          localStorage.setItem("login", "false");
+          location.href = "index.html";
+        }
+      },
+    });
+  });
+});

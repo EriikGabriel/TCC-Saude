@@ -4,7 +4,7 @@ namespace conn;
 
 class Encaminhamento
 {
-    private $idEncaminhamento, $dataEncaminhamento, $idUnidadeSaude, $idPaciente, $idHospital, $idUsuario;
+    private $idEncaminhamento, $dataEncaminhamento, $idUnidadeSaude, $idPaciente, $idHospital, $idUsuario, $situacao;
 
     /**
      * Get the value of idEncaminhamento
@@ -122,6 +122,26 @@ class Encaminhamento
     public function setIdUsuario($idUsuario)
     {
         $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of situacao
+     */
+    public function getSituacao()
+    {
+        return $this->situacao;
+    }
+
+    /**
+     * Set the value of situacao
+     *
+     * @return  self
+     */
+    public function setSituacao($situacao)
+    {
+        $this->situacao = $situacao;
 
         return $this;
     }

@@ -63,7 +63,7 @@ class UsuarioDao
             $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
             if ($retorno > 0 && $check_password) {
-                if (password_verify($senha, $retorno[0]->senhaUsuario)) echo json_encode($retorno);
+                if (password_verify($senha, $retorno[0]->senhaUsuario)) return json_encode($retorno);
             } else {
                 if ($retorno > 0) echo json_encode($retorno);
             }

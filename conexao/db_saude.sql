@@ -70,6 +70,7 @@ ENGINE INNODB;
 
 CREATE TABLE MEDICO_ATENDE_UNIDADE(
 	horarioMedico DATETIME NOT NULL,
+    vagas INT,
     idUnidadeSaude INT NOT NULL REFERENCES TIPO_UNIDADE(idTipoUnidade),
     CRM VARCHAR(13) NOT NULL REFERENCES MEDICO(CRM),
     CONSTRAINT PRIMARY KEY(idUnidadeSaude, CRM)
@@ -78,6 +79,7 @@ CREATE TABLE MEDICO_ATENDE_UNIDADE(
 CREATE TABLE ENCAMINHAMENTO(
 	idEncaminhamento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     dataEncaminhamento DATETIME NOT NULL,
+    situacao VARCHAR(20),
     idUnidadeSaude INT NOT NULL REFERENCES UNIDADE_SAUDE(idUnidadeSaude), 
     idPaciente INT NOT NULL REFERENCES PACIENTE(idPaciente),
     idHospital INT NOT NULL REFERENCES HOSPITAL(idHospital),
@@ -85,40 +87,6 @@ CREATE TABLE ENCAMINHAMENTO(
 )
 ENGINE INNODB;
 
-SELECT * FROM MEDICO_ATENDE_UNIDADE;
-SELECT * FROM USUARIO;
-SELECT * FROM UNIDADE_SAUDE;
-SELECT `UNIDADE_SAUDE`.`nomeUnidadeSaude`, `UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`, 
-			`TIPO_UNIDADE`.`tipoUnidade`, `MEDICO`.`nomeMedico`, `ESPECIALIDADE`.`tipoEspecialidade`, 
-            DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, "%d/%m/%Y") AS horario
-            FROM UNIDADE_SAUDE 
-            INNER JOIN TIPO_UNIDADE ON (`UNIDADE_SAUDE`.`idTipoUnidade` = `TIPO_UNIDADE`.`idTipoUnidade`)
-            INNER JOIN MEDICO_ATENDE_UNIDADE ON (`MEDICO_ATENDE_UNIDADE`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
-            INNER JOIN MEDICO ON (`MEDICO`.`CRM` = `MEDICO_ATENDE_UNIDADE`.`CRM`) 
-            INNER JOIN ESPECIALIDADE ON (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) 
-            WHERE 1 = 1;
-            
-SELECT `ENCAMINHAMENTO`.`idEncaminhamento`, `PACIENTE`.`nomePaciente`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, 
-			`UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`, `MEDICO`.`nomeMedico`,
-            DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, "%d/%m/%Y") AS horario,
-            `HOSPITAL`.`nomeHospital`, `USUARIO`.`nomeUsuario`
-            FROM ENCAMINHAMENTO
-            INNER JOIN UNIDADE_SAUDE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
-            INNER JOIN PACIENTE ON (`ENCAMINHAMENTO`.`idPaciente` = `PACIENTE`.`idPaciente`)
-            INNER JOIN MEDICO_ATENDE_UNIDADE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
-            INNER JOIN MEDICO ON (`MEDICO`.`CRM` = `MEDICO_ATENDE_UNIDADE`.`CRM`) 
-            INNER JOIN HOSPITAL ON (`ENCAMINHAMENTO`.`idHospital` = `HOSPITAL`.`idHospital`) 
-            INNER JOIN USUARIO ON (`ENCAMINHAMENTO`.`idUsuario` = `USUARIO`.`idUsuario`)
-            WHERE 1 = 1;
-            
-SELECT `ESPECIALIDADE`.`tipoEspecialidade`
-            FROM UNIDADE_SAUDE 
-            INNER JOIN TIPO_UNIDADE ON (`UNIDADE_SAUDE`.`idTipoUnidade` = `TIPO_UNIDADE`.`idTipoUnidade`)
-            INNER JOIN MEDICO_ATENDE_UNIDADE ON (`MEDICO_ATENDE_UNIDADE`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
-            INNER JOIN MEDICO ON (`MEDICO`.`CRM` = `MEDICO_ATENDE_UNIDADE`.`CRM`) 
-            INNER JOIN ESPECIALIDADE ON (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) 
-            WHERE 1 = 1;
-            
-SELECT * FROM UNIDADE_SAUDE WHERE ruaUnidadeSaude = 'Guadalupe' AND bairroUnidadeSaude = 'Junqueira 2';
-
-SELECT * FROM PACIENTE WHERE gravidade = 'Pouco Urgente' OR 'Não Urgente';
+INSERT INTO TIPO_USUARIO VALUES (NULL, "usuario-hospital");
+INSERT INTO TIPO_USUARIO VALUES (NULL, "usuario-unidade");
+INSERT INTO USUARIO VALUES (NULL, "Administrador", "admin", 1);

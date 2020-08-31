@@ -18,8 +18,8 @@ $(document).ready(function () {
       success: function (dados) {
         if (dados != "") {
           dados = JSON.parse(dados)[0];
-          localStorage.setItem("login", dados.idUsuario);
-          location.href = "index.html";
+          localStorage.setItem("login", JSON.stringify({ id: dados.idUsuario, tipo: dados.idTipoUsuario }));
+          location.href = "home.html";
         } else {
           Swal.fire({
             title: "Erro!",

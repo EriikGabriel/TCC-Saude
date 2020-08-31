@@ -23,7 +23,8 @@ class EncaminhamentoDao
                 "idUnidadeSaude" => "{$u->getIdUnidadeSaude()}",
                 "idPaciente" => "{$u->getIdPaciente()}",
                 "idHospital" => "{$u->getIdHospital()}",
-                "idUsuario" => "{$u->getIdUsuario()}"
+                "idUsuario" => "{$u->getIdUsuario()}",
+                "situacao" => "{$u->getSituacao()}"
             );
             $this->crud->insert($arrayCreate);
 
@@ -39,7 +40,7 @@ class EncaminhamentoDao
         try {
             $sql = 'SELECT `ENCAMINHAMENTO`.`idEncaminhamento`, `PACIENTE`.`nomePaciente`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, 
 			`UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`,
-            `HOSPITAL`.`nomeHospital`, `USUARIO`.`nomeUsuario`
+            `HOSPITAL`.`nomeHospital`, `USUARIO`.`nomeUsuario`, `ENCAMINHAMENTO`.`situacao`
             FROM ENCAMINHAMENTO
             INNER JOIN UNIDADE_SAUDE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
             INNER JOIN PACIENTE ON (`ENCAMINHAMENTO`.`idPaciente` = `PACIENTE`.`idPaciente`)
@@ -54,7 +55,8 @@ class EncaminhamentoDao
                 "ruaUnidadeSaude",
                 "bairroUnidadeSaude",
                 "nomeHospital",
-                "nomeUsuario"
+                "nomeUsuario",
+                "situacao"
             );
             $this->crud->getSQLDataTable($requestData, $arrayFilterParams, $sql);
         } catch (\PDOException $e) {
@@ -141,6 +143,18 @@ class EncaminhamentoDao
         try {
             $arrayCond = array('idEncaminhamento=' => "$id");
             $this->crud->delete($arrayCond);
+
+            echo "true";
+        } catch (\PDOException $e) {
+            echo $e->getCode();
+        }
+    }
+
+    public function finish($array)
+    {
+        try {
+            $arrayCond = array("id" => "idEncaminhamento=$array[0]");
+            $this->crud->update(array("situacao" => "{$array[1]}"), $arrayCond);
 
             echo "true";
         } catch (\PDOException $e) {
