@@ -11,7 +11,7 @@ class Dashboard
     public function __construct()
     {
         $pdo = Conexao::getConn();
-        $this->crud = Crud::getInstance($pdo, 'ESPECIALIDADE');
+        $this->crud = Crud::getInstance($pdo);
     }
 
     public function count($array)
