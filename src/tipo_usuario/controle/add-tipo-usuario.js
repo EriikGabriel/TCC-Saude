@@ -1,14 +1,17 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    $("#modal-tipo-usuario .modal-body").load("cadastro-tipo-usuario.html");
+    $("#modal-tipo-usuario .modal-body").load("form-tipo-usuario.html");
     $("#modal-tipo-usuario .modal-title h4").html("Cadastrar Tipo de Usuário");
-    $("#modal-tipo-usuario").modal("show");
+    $("#modal-tipo-usuario .modal-footer #btn-cad").removeClass("d-none");
+    $("#modal-tipo-usuario .modal-footer #btn-alt").addClass("d-none");
+    $("#modal-tipo-usuario").modal("show"); 
   });
 
-  $(document).on("submit", "#add-tipo-usuario", function (e) {
+
+  $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
-    var dados = $("#add-tipo-usuario").serialize();
+    var dados = $("#form-tipo-usuario").serialize();
     var url = "../modelo/create-tipo-usuario.php";
 
     $.ajax({

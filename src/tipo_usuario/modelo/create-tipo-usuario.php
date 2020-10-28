@@ -7,11 +7,14 @@ require_once("../modelo/tipo-usuarioDAO.php");
 require_once("../../../conexao/conn.php");
 
 $tipo = filter_input(INPUT_POST, "tipo", FILTER_SANITIZE_SPECIAL_CHARS);
+if (!empty($tipo)) {
+    $tipoUsuario = new TipoUsuario;
 
-$tipoUsuario = new TipoUsuario;
+    $tipoUsuario->setTipoUsuario($tipo);
 
-$tipoUsuario->setTipoUsuario($tipo);
+    $tipoUsuarioDao = new TipoUsuarioDao;
 
-$tipoUsuarioDao = new TipoUsuarioDao;
-
-$tipoUsuarioDao->create($tipoUsuario);
+    $tipoUsuarioDao->create($tipoUsuario);
+} else {
+    echo "Campos não preenchidos corretamente!";
+}

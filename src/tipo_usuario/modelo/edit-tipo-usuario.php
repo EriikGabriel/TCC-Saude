@@ -9,9 +9,11 @@ require_once("../../../conexao/conn.php");
 $id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_SPECIAL_CHARS);
 $tipo = filter_input(INPUT_POST, "tipo", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$new_values = [$id, $tipo];
+if (!empty($tipo)) {
+    $new_values = [$id, $tipo];
 
-$tipoUsuario = new TipoUsuario;
-$tipoUsuarioDao = new TipoUsuarioDao;
+    $tipoUsuario = new TipoUsuario;
+    $tipoUsuarioDao = new TipoUsuarioDao;
 
-$tipoUsuarioDao->edit($new_values);
+    $tipoUsuarioDao->edit($new_values);
+}

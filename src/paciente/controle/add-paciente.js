@@ -1,14 +1,16 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    $("#modal-paciente .modal-body").load("cadastro-paciente.html");
+    $("#modal-paciente .modal-body").load("form-paciente.html");
     $("#modal-paciente .modal-title h4").html("Cadastrar Paciente");
+    $("#modal-paciente .modal-footer #btn-cad").removeClass("d-none");
+    $("#modal-paciente .modal-footer #btn-alt").addClass("d-none");
     $("#modal-paciente").modal("show");
   });
 
-  $(document).on("submit", "#add-paciente", function (e) {
+  $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
-    var dados = $("#add-paciente").serialize();
+    var dados = $("#form-paciente").serialize();
     var url = "../modelo/create-paciente.php";
 
     $.ajax({

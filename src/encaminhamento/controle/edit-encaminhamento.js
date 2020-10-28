@@ -1,13 +1,15 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-edit", function () {
-    $("#modal-encaminhamento .modal-body").load("edit-encaminhamento.html");
+    $("#modal-encaminhamento .modal-body").load("form-encaminhamento.html");
     $("#modal-encaminhamento .modal-body").data("content", $(this).attr("id"));
     $("#modal-encaminhamento .modal-title h4").html("Editar Encaminhamento");
+    $("#modal-encaminhamento .modal-footer #btn-alt").removeClass("d-none");
+      $("#modal-encaminhamento .modal-footer #btn-cad").addClass("d-none");
     $("#modal-encaminhamento").modal("show");
   });
 
   $("#modal-encaminhamento").on("show.bs.modal", function (e) {
-    if ($(".modal-body").data("content")) {
+    if ($(".modal-body").data("content") && $("#btn-cad").hasClass('d-none')) {
       var url = "../modelo/select-encaminhamento.php";
 
       for (let i = 1; i <= 2; i++) {
@@ -89,14 +91,14 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on("change", "#edit-encaminhamento select", function (e) {
+  $(document).on("change", "#form-encaminhamento select", function (e) {
     if (e.target.name == "idPaciente") {
-      $("#edit-encaminhamento .form-row:not(:first-child) select").removeAttr("disabled");
+      $("#form-encaminhamento .form-row:not(:first-child) select").removeAttr("disabled");
       $(".options").remove();
     }
 
     if (e.target.name == "idPaciente" && $(this)[0].value == "")
-      $("#edit-encaminhamento .form-row:not(:first-child) select").attr("disabled", "disable");
+      $("#form-encaminhamento .form-row:not(:first-child) select").attr("disabled", "disable");
 
     if ($("#idPaciente")[0].value != "" && e.target.name != "idUnidadeSaude") {
       $(".response-unidade").remove();
@@ -172,7 +174,7 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on("submit", "#edit-encaminhamento", function (e) {
+  $(document).on("click", "#btn-alt", function (e) {
     e.preventDefault();
 
     var url = "../modelo/select-encaminhamento.php";
@@ -197,7 +199,7 @@ $(document).ready(function () {
           idUnidadeSaude: $("#idUnidadeSaude").val(),
           idPaciente: $("#idPaciente").val(),
           idHospital: dados.idHospital,
-          idUsuario: localStorage.getItem("login"),
+          idUsuario: JSON.parse(localStorage.getItem("login")).id,
         };
 
         $.ajax({
@@ -207,9 +209,7 @@ $(document).ready(function () {
           async: true,
           data: dados,
           success: function (dados) {
-            if (dados == "true") {
-              location.href = "list-encaminhamento.html";
-            }
+            if (dados == "true") location.href = "list-encaminhamento.html";
           },
         });
       },

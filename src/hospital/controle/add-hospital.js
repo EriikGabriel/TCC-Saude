@@ -1,7 +1,9 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    $("#modal-hospital .modal-body").load("cadastro-hospital.html");
+    $("#modal-hospital .modal-body").load("form-hospital.html");
     $("#modal-hospital .modal-title h4").html("Cadastrar Hospital");
+    $("#modal-hospital .modal-footer #btn-cad").removeClass("d-none");
+    $("#modal-hospital .modal-footer #btn-alt").addClass("d-none");
 
     var url = "../modelo/select-hospital.php";
     var dados = {
@@ -30,10 +32,10 @@ $(document).ready(function () {
     $("#modal-hospital").modal("show");
   });
 
-  $(document).on("submit", "#add-hospital", function (e) {
+  $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
-    var dados = $("#add-hospital").serialize();
+    var dados = $("#form-hospital").serialize();
     var url = "../modelo/create-hospital.php";
 
     $.ajax({

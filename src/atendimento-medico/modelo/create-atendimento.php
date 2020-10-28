@@ -11,12 +11,20 @@ $horario = filter_input(INPUT_POST, "horario", FILTER_SANITIZE_SPECIAL_CHARS);
 $crm = filter_input(INPUT_POST, "CRM", FILTER_SANITIZE_SPECIAL_CHARS);
 $unidadeSaude = filter_input(INPUT_POST, "idUnidadeSaude", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$atendimento = new AtendimentoMedico;
+if (
+    !empty($data) && !empty($horario)
+    &&
+    !empty($crm) && !empty($unidadeSaude)
+) {
+    $atendimento = new AtendimentoMedico;
 
-$atendimento->setHorarioMedico($data . " " . $horario);
-$atendimento->setIdUnidadeSaude($unidadeSaude);
-$atendimento->setCrm($crm);
+    $atendimento->setHorarioMedico($data . " " . $horario);
+    $atendimento->setIdUnidadeSaude($unidadeSaude);
+    $atendimento->setCrm($crm);
 
-$atendimentoDao = new AtendimentoMedicoDao;
+    $atendimentoDao = new AtendimentoMedicoDao;
 
-$atendimentoDao->create($atendimento);
+    $atendimentoDao->create($atendimento);
+} else {
+    echo "Campos não preenchidos corretamente!";
+}

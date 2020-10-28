@@ -12,15 +12,19 @@ $idPaciente = filter_input(INPUT_POST, "idPaciente", FILTER_SANITIZE_SPECIAL_CHA
 $idHospital = filter_input(INPUT_POST, "idHospital", FILTER_SANITIZE_SPECIAL_CHARS);
 $idUsuario = filter_input(INPUT_POST, "idUsuario", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$encaminhamento = new Encaminhamento;
+if (!empty($idUnidadeSaude) && !empty($idPaciente)) {
+    $encaminhamento = new Encaminhamento;
 
-$encaminhamento->setDataEncaminhamento($data);
-$encaminhamento->setIdUnidadeSaude($idUnidadeSaude);
-$encaminhamento->setIdPaciente($idPaciente);
-$encaminhamento->setIdHospital($idHospital);
-$encaminhamento->setIdUsuario($idUsuario);
-$encaminhamento->setSituacao('Pendente');
+    $encaminhamento->setDataEncaminhamento($data);
+    $encaminhamento->setIdUnidadeSaude($idUnidadeSaude);
+    $encaminhamento->setIdPaciente($idPaciente);
+    $encaminhamento->setIdHospital($idHospital);
+    $encaminhamento->setIdUsuario($idUsuario);
+    $encaminhamento->setSituacao('Pendente');
 
-$encaminhamentoDao = new EncaminhamentoDao;
+    $encaminhamentoDao = new EncaminhamentoDao;
 
-$encaminhamentoDao->create($encaminhamento);
+    $encaminhamentoDao->create($encaminhamento);
+} else {
+    echo "Campos não preenchidos corretamente!";
+}

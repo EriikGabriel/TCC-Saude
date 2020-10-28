@@ -1,7 +1,9 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    $("#modal-medico .modal-body").load("cadastro-medico.html");
+    $("#modal-medico .modal-body").load("form-medico.html");
     $("#modal-medico .modal-title h4").html("Cadastrar Médico");
+    $("#modal-medico .modal-footer #btn-cad").removeClass("d-none");
+    $("#modal-medico .modal-footer #btn-alt").addClass("d-none");
 
     var url = "../modelo/select-medico.php";
     var dados = {
@@ -31,10 +33,10 @@ $(document).ready(function () {
     $("#modal-medico").modal("show");
   });
 
-  $(document).on("submit", "#add-medico", function (e) {
+  $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
-    var dados = $("#add-medico").serialize();
+    var dados = $("#form-medico").serialize();
     var url = "../modelo/create-medico.php";
 
     $.ajax({

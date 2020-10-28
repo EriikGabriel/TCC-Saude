@@ -1,14 +1,16 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    $("#modal-especialidade .modal-body").load("cadastro-especialidade.html");
+    $("#modal-especialidade .modal-body").load("form-especialidade.html");
     $("#modal-especialidade .modal-title h4").html("Cadastrar Especialidade");
+    $("#modal-especialidade .modal-footer #btn-cad").removeClass("d-none");
+    $("#modal-especialidade .modal-footer #btn-alt").addClass("d-none");
     $("#modal-especialidade").modal("show");
   });
 
-  $(document).on("submit", "#add-especialidade", function (e) {
+  $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
-    var dados = $("#add-especialidade").serialize();
+    var dados = $("#form-especialidade").serialize();
     var url = "../modelo/create-especialidade.php";
 
     $.ajax({

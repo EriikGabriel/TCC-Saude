@@ -1,13 +1,15 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-edit", function () {
-    $("#modal-atendimento .modal-body").load("edit-atendimento.html");
+    $("#modal-atendimento .modal-body").load("form-atendimento.html");
     $("#modal-atendimento .modal-body").data("content", $(this).attr("id"));
     $("#modal-atendimento .modal-title h4").html("Editar Atendimento");
+    $("#modal-atendimento .modal-footer #btn-alt").removeClass("d-none");
+    $("#modal-atendimento .modal-footer #btn-cad").addClass("d-none");
     $("#modal-atendimento").modal("show");
   });
 
   $("#modal-atendimento").on("show.bs.modal", function (e) {
-    if ($(".modal-body").data("content")) {
+    if ($(".modal-body").data("content") && $("#btn-cad").hasClass('d-none')) {
       var url = "../modelo/select-atendimento.php";
 
       for (let i = 1; i <= 2; i++) {
@@ -63,7 +65,7 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on("submit", "#edit-atendimento", function (e) {
+  $(document).on("click", "#btn-alt", function (e) {
     e.preventDefault();
 
     url = "../modelo/edit-atendimento.php";

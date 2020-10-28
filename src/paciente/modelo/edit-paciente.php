@@ -14,9 +14,15 @@ $tel = filter_input(INPUT_POST, "tel", FILTER_SANITIZE_SPECIAL_CHARS);
 $num = filter_input(INPUT_POST, "numeroSUS", FILTER_SANITIZE_SPECIAL_CHARS);
 $gravidade = filter_input(INPUT_POST, "gravidade", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$new_values = [$id, $nome, $rua, $bairro, $tel, $num, $gravidade];
+if (
+    !empty($nome) && !empty($rua) && !empty($bairro)
+    &&
+    !empty($tel) && !empty($num) && !empty($gravidade)
+) {
+    $new_values = [$id, $nome, $rua, $bairro, $tel, $num, $gravidade];
 
-$paciente = new Paciente;
-$PacienteDao = new PacienteDao;
+    $paciente = new Paciente;
+    $PacienteDao = new PacienteDao;
 
-$PacienteDao->edit($new_values);
+    $PacienteDao->edit($new_values);
+}

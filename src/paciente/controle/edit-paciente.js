@@ -1,13 +1,15 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-edit", function () {
-    $("#modal-paciente .modal-body").load("edit-paciente.html");
+    $("#modal-paciente .modal-body").load("form-paciente.html");
     $("#modal-paciente .modal-body").data("content", $(this).attr("id"));
     $("#modal-paciente .modal-title h4").html("Editar Paciente");
+    $("#modal-paciente .modal-footer #btn-alt").removeClass("d-none");
+    $("#modal-paciente .modal-footer #btn-cad").addClass("d-none");
     $("#modal-paciente").modal("show");
   });
 
   $("#modal-paciente").on("show.bs.modal", function (e) {
-    if ($(".modal-body").data("content")) {
+    if ($(".modal-body").data("content") && $("#btn-cad").hasClass('d-none')) {
       var url = "../modelo/select-paciente.php";
       var dados = {
         type: "search-data-paciente",
@@ -38,7 +40,7 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on("submit", "#edit-paciente", function (e) {
+  $(document).on("click", "#btn-alt", function (e) {
     e.preventDefault();
 
     url = "../modelo/edit-paciente.php";

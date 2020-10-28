@@ -1,7 +1,9 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    $("#modal-atendimento .modal-body").load("cadastro-atendimento.html");
+    $("#modal-atendimento .modal-body").load("form-atendimento.html");
     $("#modal-atendimento .modal-title h4").html("Cadastrar Horário");
+    $("#modal-atendimento .modal-footer #btn-cad").removeClass("d-none");
+    $("#modal-atendimento .modal-footer #btn-alt").addClass("d-none");
 
     var url = "../modelo/select-atendimento.php";
 
@@ -40,10 +42,10 @@ $(document).ready(function () {
     $("#modal-atendimento").modal("show");
   });
 
-  $(document).on("submit", "#add-atendimento", function (e) {
+  $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
-    var dados = $("#add-atendimento").serialize();
+    var dados = $("#form-atendimento").serialize();
     var url = "../modelo/create-atendimento.php";
 
     $.ajax({

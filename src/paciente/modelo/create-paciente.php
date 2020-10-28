@@ -13,15 +13,23 @@ $tel = filter_input(INPUT_POST, "tel", FILTER_SANITIZE_SPECIAL_CHARS);
 $num = filter_input(INPUT_POST, "numeroSUS", FILTER_SANITIZE_SPECIAL_CHARS);
 $gravidade = filter_input(INPUT_POST, "gravidade", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$paciente = new Paciente;
+if (
+    !empty($nome) && !empty($rua) && !empty($bairro)
+    &&
+    !empty($tel) && !empty($num) && !empty($gravidade)
+) {
+    $paciente = new Paciente;
 
-$paciente->setNomePaciente($nome);
-$paciente->setRuaPaciente($rua);
-$paciente->setBairroPaciente($bairro);
-$paciente->setTelefonePaciente($tel);
-$paciente->setNumeroSUS($num);
-$paciente->setGravidade($gravidade);
+    $paciente->setNomePaciente($nome);
+    $paciente->setRuaPaciente($rua);
+    $paciente->setBairroPaciente($bairro);
+    $paciente->setTelefonePaciente($tel);
+    $paciente->setNumeroSUS($num);
+    $paciente->setGravidade($gravidade);
 
-$PacienteDao = new PacienteDao;
+    $PacienteDao = new PacienteDao;
 
-$PacienteDao->create($paciente);
+    $PacienteDao->create($paciente);
+} else {
+    echo "Campos não preenchidos corretamente!";
+}

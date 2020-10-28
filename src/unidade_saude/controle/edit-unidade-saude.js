@@ -1,13 +1,15 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-edit", function () {
-    $("#modal-unidade-saude .modal-body").load("edit-unidade-saude.html");
+    $("#modal-unidade-saude .modal-body").load("form-unidade-saude.html");
     $("#modal-unidade-saude .modal-body").data("content", $(this).attr("id"));
     $("#modal-unidade-saude .modal-title h4").html("Editar Unidade de Saúde");
+    $("#modal-unidade-saude .modal-footer #btn-alt").removeClass("d-none");
+    $("#modal-unidade-saude .modal-footer #btn-cad").addClass("d-none");
     $("#modal-unidade-saude").modal("show");
   });
 
   $("#modal-unidade-saude").on("show.bs.modal", function (e) {
-    if ($(".modal-body").data("content")) {
+    if ($(".modal-body").data("content") && $("#btn-cad").hasClass('d-none')) {
       var url = "../modelo/select-unidade-saude.php";
       var dados = {
         type: "search-select-unidade",
@@ -57,7 +59,7 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on("submit", "#edit-unidade-saude", function (e) {
+  $(document).on("click", "#btn-alt", function (e) {
     e.preventDefault();
 
     url = "../modelo/edit-unidade-saude.php";

@@ -13,9 +13,15 @@ $bairro = filter_input(INPUT_POST, "bairro", FILTER_SANITIZE_SPECIAL_CHARS);
 $tel = filter_input(INPUT_POST, "tel", FILTER_SANITIZE_SPECIAL_CHARS);
 $idTipoUnidade = filter_input(INPUT_POST, "idTipoUnidade", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$new_values = [$id, $nome, $rua, $bairro, $tel, $idTipoUnidade];
+if (
+    !empty($nome) && !empty($rua) && !empty($bairro)
+    &&
+    !empty($tel) && !empty($idTipoUnidade)
+) {
+    $new_values = [$id, $nome, $rua, $bairro, $tel, $idTipoUnidade];
 
-$unidade = new UnidadeSaude;
-$unidadeDao = new UnidadeSaudeDao;
+    $unidade = new UnidadeSaude;
+    $unidadeDao = new UnidadeSaudeDao;
 
-$unidadeDao->edit($new_values);
+    $unidadeDao->edit($new_values);
+}

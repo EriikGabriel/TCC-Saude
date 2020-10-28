@@ -1,8 +1,10 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
     if (JSON.parse(localStorage.getItem("login")).id != "false") {
-      $("#modal-encaminhamento .modal-body").load("cadastro-encaminhamento.html");
+      $("#modal-encaminhamento .modal-body").load("form-encaminhamento.html");
       $("#modal-encaminhamento .modal-title h4").html("Fazer Encaminhamento");
+      $("#modal-encaminhamento .modal-footer #btn-cad").removeClass("d-none");
+      $("#modal-encaminhamento .modal-footer #btn-alt").addClass("d-none");
 
       var url = "../modelo/select-encaminhamento.php";
       var dados = {
@@ -39,14 +41,14 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on("change", "#add-encaminhamento select", function (e) {
+  $(document).on("change", "#form-encaminhamento select", function (e) {
     if (e.target.name == "idPaciente") {
-      $("#add-encaminhamento .form-row:not(:first-child) select").removeAttr("disabled");
+      $("#form-encaminhamento .form-row:not(:first-child) select").removeAttr("disabled");
       $(".options").remove();
     }
 
     if (e.target.name == "idPaciente" && $(this)[0].value == "")
-      $("#add-encaminhamento .form-row:not(:first-child) select").attr("disabled", "disable");
+      $("#form-encaminhamento .form-row:not(:first-child) select").attr("disabled", "disable");
 
     if ($("select[name='idPaciente']")[0].value != "" && e.target.name != "idUnidadeSaude") {
       $(".response-unidade").remove();
@@ -122,7 +124,7 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on("submit", "#add-encaminhamento", function (e) {
+  $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
     var url = "../modelo/select-encaminhamento.php";

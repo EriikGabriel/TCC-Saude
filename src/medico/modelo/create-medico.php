@@ -10,12 +10,16 @@ $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
 $crm = filter_input(INPUT_POST, "crm", FILTER_SANITIZE_SPECIAL_CHARS);
 $idEspecialidade = filter_input(INPUT_POST, "idEspecialidade", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$medico = new Medico;
+if (!empty($nome) && !empty($crm) && !empty($idEspecialidade)) {
+    $medico = new Medico;
 
-$medico->setCrm($crm);
-$medico->setNomeMedico($nome);
-$medico->setIdEspecialidade($idEspecialidade);
+    $medico->setCrm($crm);
+    $medico->setNomeMedico($nome);
+    $medico->setIdEspecialidade($idEspecialidade);
 
-$medicoDao = new MedicoDao;
+    $medicoDao = new MedicoDao;
 
-$medicoDao->create($medico);
+    $medicoDao->create($medico);
+} else {
+    echo "Campos não preenchidos corretamente!";
+}

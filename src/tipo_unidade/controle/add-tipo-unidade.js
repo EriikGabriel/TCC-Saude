@@ -1,14 +1,16 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    $("#modal-tipo-unidade .modal-body").load("cadastro-tipo-unidade.html");
+    $("#modal-tipo-unidade .modal-body").load("form-tipo-unidade.html");
     $("#modal-tipo-unidade .modal-title h4").html("Cadastrar Tipo de Unidade");
+    $("#modal-tipo-unidade .modal-footer #btn-cad").removeClass("d-none");
+    $("#modal-tipo-unidade .modal-footer #btn-alt").addClass("d-none");
     $("#modal-tipo-unidade").modal("show");
   });
 
-  $(document).on("submit", "#add-tipo-unidade", function (e) {
+  $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
-    var dados = $("#add-tipo-unidade").serialize();
+    var dados = $("#form-tipo-unidade").serialize();
     var url = "../modelo/create-tipo-unidade.php";
 
     $.ajax({

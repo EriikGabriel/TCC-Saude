@@ -1,7 +1,9 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    $("#modal-unidade-saude .modal-body").load("cadastro-unidade-saude.html");
+    $("#modal-unidade-saude .modal-body").load("form-unidade-saude.html");
     $("#modal-unidade-saude .modal-title h4").html("Cadastrar Unidade de Saúde");
+    $("#modal-unidade-saude .modal-footer #btn-cad").removeClass("d-none");
+    $("#modal-unidade-saude .modal-footer #btn-alt").addClass("d-none");
 
     var url = "../modelo/select-unidade-saude.php";
     var dados = {
@@ -31,10 +33,10 @@ $(document).ready(function () {
     $("#modal-unidade-saude").modal("show");
   });
 
-  $(document).on("submit", "#add-unidade-saude", function (e) {
+  $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
-    var dados = $("#add-unidade-saude").serialize();
+    var dados = $("#form-unidade-saude").serialize();
     var url = "../modelo/create-unidade-saude.php";
 
     $.ajax({

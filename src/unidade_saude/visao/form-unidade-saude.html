@@ -1,37 +1,32 @@
 <div class="row">
   <div class="offset-lg-2 offset-md-1 col-12">
-    <form method="post" id="add-unidade-saude">
+    <form method="post" id="form-unidade-saude">
       <div class="form-row">
         <div class="form-group col-lg-8 col-md-10">
           <label>Nome</label>
-          <input type="text" name="nome" class="form-control" required />
+          <input type="text" name="nome" id="nome" class="form-control" required />
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-lg-4 col-md-5">
           <label>Rua</label>
-          <input type="text" name="rua" class="form-control" required />
+          <input type="text" name="rua" id="rua" class="form-control" required />
         </div>
         <div class="form-group col-lg-4 col-md-5">
           <label>Bairro</label>
-          <input type="text" name="bairro" class="form-control" required />
+          <input type="text" name="bairro" id="bairro" class="form-control" required />
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-lg-4 col-md-5">
           <label>Telefone</label>
-          <input type="text" name="tel" class="form-control" required />
+          <input type="text" name="tel" id="tel" class="form-control" required />
         </div>
         <div class="form-group col-lg-4 col-md-5">
           <label>Tipo de Unidade:</label>
-          <select name="idTipoUnidade" class="form-control" required>
+          <select name="idTipoUnidade" id="idTipoUnidade" class="form-control" required>
             <option value="">Selecione o tipo de unidade</option>
           </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-lg-8 col-md-10 mt-2">
-          <button type="submit" class="btn btn-danger btn-block">Cadastrar</button>
         </div>
       </div>
     </form>
@@ -40,6 +35,6 @@
 
 <script>
   $(document).ready(function () {
-    $("#modal-unidade-saude input[name='tel']").mask("(00) 0000-0000");
+    $("#modal-unidade-saude #tel").mask("(00) 0000-0000");
   });
 </script>

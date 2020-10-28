@@ -8,10 +8,14 @@ require_once("../../../conexao/conn.php");
 
 $tipoEspecialidade = filter_input(INPUT_POST, "tipoEspecialidade", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$especialidade = new Especialidade;
+if (!empty($tipoEspecialidade)) {
+    $especialidade = new Especialidade;
 
-$especialidade->setTipoEspecialidade($tipoEspecialidade);
+    $especialidade->setTipoEspecialidade($tipoEspecialidade);
 
-$especialidadeDao = new EspecialidadeDao;
+    $especialidadeDao = new EspecialidadeDao;
 
-$especialidadeDao->create($especialidade);
+    $especialidadeDao->create($especialidade);
+} else {
+    echo "Campos não preenchidos corretamente!";
+}

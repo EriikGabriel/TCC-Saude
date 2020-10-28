@@ -14,9 +14,15 @@ $cep = filter_input(INPUT_POST, "cep", FILTER_SANITIZE_SPECIAL_CHARS);
 $tel = filter_input(INPUT_POST, "tel", FILTER_SANITIZE_SPECIAL_CHARS);
 $idUsuario = filter_input(INPUT_POST, "idUsuario", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$new_values = [$id, $nome, $rua, $bairro, $cep, $tel, $idUsuario];
+if (
+    !empty($nome) && !empty($rua) && !empty($bairro)
+    &&
+    !empty($cep) && !empty($tel) && !empty($idUsuario)
+) {
+    $new_values = [$id, $nome, $rua, $bairro, $cep, $tel, $idUsuario];
 
-$hospital = new Hospital;
-$hospitalDao = new HospitalDao;
+    $hospital = new Hospital;
+    $hospitalDao = new HospitalDao;
 
-$hospitalDao->edit($new_values);
+    $hospitalDao->edit($new_values);
+}

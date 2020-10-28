@@ -13,14 +13,16 @@ $idHospital = filter_input(INPUT_POST, "idHospital", FILTER_SANITIZE_SPECIAL_CHA
 $idUsuario = filter_input(INPUT_POST, "idUsuario", FILTER_SANITIZE_SPECIAL_CHARS);
 $type = filter_input(INPUT_POST, "finish", FILTER_SANITIZE_SPECIAL_CHARS);
 
-if ($type == "true") {
-    $encaminhamentoDao = new EncaminhamentoDao;
-    $encaminhamentoDao->finish([$id, "Concluido"]);
-} else {
-    $new_values = [$id, $idUnidadeSaude, $idPaciente, $idHospital, $idUsuario];
+if (!empty($idUnidadeSaude) && !empty($idPaciente)) {
+    if ($type == "true") {
+        $encaminhamentoDao = new EncaminhamentoDao;
+        $encaminhamentoDao->finish([$id, "Concluido"]);
+    } else {
+        $new_values = [$id, $idUnidadeSaude, $idPaciente, $idHospital, $idUsuario];
 
-    $encaminhamento = new Encaminhamento;
-    $encaminhamentoDao = new EncaminhamentoDao;
+        $encaminhamento = new Encaminhamento;
+        $encaminhamentoDao = new EncaminhamentoDao;
 
-    $encaminhamentoDao->edit($new_values);
+        $encaminhamentoDao->edit($new_values);
+    }
 }

@@ -1,29 +1,24 @@
 <div class="row">
   <div class="offset-lg-2 offset-md-1 col-12">
-    <form method="post" id="add-medico">
+    <form method="post" id="form-medico">
       <div class="form-row">
         <div class="form-group col-lg-8 col-md-10">
           <label>Nome</label>
-          <input type="text" name="nome" class="form-control" required />
+          <input type="text" name="nome" id="nome" class="form-control" required />
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-lg-8 col-md-10">
           <label>CRM</label>
-          <input type="text" name="crm" class="form-control" maxlength="13" required />
+          <input type="text" name="crm" id="crm" class="form-control" maxlength="13" required />
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-lg-8 col-md-10">
           <label>Especialidade:</label>
-          <select name="idEspecialidade" class="form-control" required>
+          <select name="idEspecialidade" id="idEspecialidade" class="form-control" required>
             <option value="">Selecione a especialidade</option>
           </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-lg-8 col-md-10 mt-2">
-          <button type="submit" class="btn btn-danger btn-block">Cadastrar</button>
         </div>
       </div>
     </form>

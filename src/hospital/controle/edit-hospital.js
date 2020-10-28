@@ -1,13 +1,15 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-edit", function () {
-    $("#modal-hospital .modal-body").load("edit-hospital.html");
+    $("#modal-hospital .modal-body").load("form-hospital.html");
     $("#modal-hospital .modal-body").data("content", $(this).attr("id"));
     $("#modal-hospital .modal-title h4").html("Editar Hospital");
+    $("#modal-hospital .modal-footer #btn-alt").removeClass("d-none");
+    $("#modal-hospital .modal-footer #btn-cad").addClass("d-none");
     $("#modal-hospital").modal("show");
   });
 
   $("#modal-hospital").on("show.bs.modal", function (e) {
-    if ($(".modal-body").data("content")) {
+    if ($(".modal-body").data("content") && $("#btn-cad").hasClass('d-none')) {
       var url = "../modelo/select-hospital.php";
       var dados = {
         type: "search-select-hospital",
@@ -57,7 +59,7 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on("submit", "#edit-hospital", function (e) {
+  $(document).on("click", "#btn-alt", function (e) {
     e.preventDefault();
 
     url = "../modelo/edit-hospital.php";

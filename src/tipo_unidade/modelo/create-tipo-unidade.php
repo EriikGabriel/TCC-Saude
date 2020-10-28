@@ -8,8 +8,12 @@ require_once("../../../conexao/conn.php");
 
 $tipo = filter_input(INPUT_POST, "tipo", FILTER_SANITIZE_SPECIAL_CHARS);
 
-$tipoUnidade = new TipoUnidade;
-$tipoUnidade->setTipoUnidade($tipo);
+if (!empty($tipo)) {
+    $tipoUnidade = new TipoUnidade;
+    $tipoUnidade->setTipoUnidade($tipo);
 
-$tipoUnidadeDao = new TipoUnidadeDao;
-$tipoUnidadeDao->create($tipoUnidade);
+    $tipoUnidadeDao = new TipoUnidadeDao;
+    $tipoUnidadeDao->create($tipoUnidade);
+} else {
+    echo "Campos não preenchidos corretamente!";
+}

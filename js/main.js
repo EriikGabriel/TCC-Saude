@@ -31,16 +31,43 @@ $(document).ready(function () {
     });
   });
 });
-// Dashboard
-// Animate the element's value from x to y:
-$({ someValue: 0 }).animate({ someValue: Math.floor(Math.random() * 3000) }, {
-  duration: 3000,
-  easing: 'swing', // can be anything
-  step: function () { // called on every step
-      // Update the element's text with rounded-up value:
-      $('.count').text(commaSeparateNumber(Math.round(this.someValue)));
-  }
+
+
+$.ajax({
+  type: "POST",
+  datatype: "json",
+  url: "php/main.php",
+  async: true,
+  data: { tabelas: JSON.stringify(
+    ["USUARIO", "HOSPITAL", "TIPO_USUARIO", "ESPECIALIDADE", "TIPO_UNIDADE", 
+    "UNIDADE_SAUDE", "PACIENTE", "MEDICO", "ENCAMINHAMENTO", "MEDICO_ATENDE_UNIDADE"]
+    ) 
+  },
+  success: function (response) {
+    response = JSON.parse(response);
+    var classes = [
+      "count-usuario", "count-hospital", 
+      "count-tipo-usuario", "count-especialidade", 
+      "count-tipo-unidade", "count-unidade-saude", 
+      "count-paciente", "count-medico", 
+      "count-encaminhamento", "count-atendimento"
+    ];
+    for (let i = 0; i < response.length; i++) {
+      animateDashboardCount(response[i]["COUNT(*)"], classes[i])
+    }
+  },
 });
+
+function animateDashboardCount(val, classe) {
+  $({ someValue: 0 }).animate({ someValue: val }, {
+    duration: 1500,
+    easing: 'swing',
+    step: function () { 
+        $(`.${classe}`).text(commaSeparateNumber(Math.round(this.someValue)));
+    }
+  });
+}
+
 
 function commaSeparateNumber(val) {
   while (/(\d+)(\d{3})/.test(val.toString())) {
