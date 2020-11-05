@@ -16,7 +16,7 @@ $(document).ready(function () {
       async: true,
       data: dados,
       success: function (dados) {
-        if (dados != "") {
+        if (dados != "" && dados != "[]") {
           dados = JSON.parse(dados)[0];
           localStorage.setItem("login", JSON.stringify({ id: dados.idUsuario, tipo: dados.idTipoUsuario }));
           location.href = "home.html";

@@ -13,6 +13,7 @@ $idTipoUsuario = filter_input(INPUT_POST, "idTipoUsuario", FILTER_SANITIZE_SPECI
 
 $new_values = [$id, $nome, password_hash($senha, PASSWORD_DEFAULT), $idTipoUsuario];
 
+
 $usuario = new Usuario;
 $usuarioDao = new UsuarioDao;
 

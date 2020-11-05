@@ -1,7 +1,9 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    $("#modal-usuario .modal-body").load("cadastro-usuario.html");
+    $("#modal-usuario .modal-body").load("form-usuario.html");
     $("#modal-usuario .modal-title h4").html("Cadastrar Usuário");
+    $("#modal-usuario .modal-footer #btn-cad").removeClass("d-none");
+    $("#modal-usuario .modal-footer #btn-alt").addClass("d-none");
 
     var url = "../modelo/select-usuario.php";
     var dados = { type: "search-select-usuario", table: "TIPO_USUARIO" };
@@ -34,11 +36,11 @@ $(document).ready(function () {
     $("#eye-password i").toggleClass("fa-eye-slash fa-eye");
   });
 
-  $(document).on("submit", "#add-usuario", function (e) {
+  $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
     if ($('input[name = "senha"]').val() === $('input[name = "confirmarSenha"]').val()) {
-      var dados = $("#add-usuario").serialize();
+      var dados = $("#form-usuario").serialize();
       var url = "../modelo/create-usuario.php";
 
       $.ajax({

@@ -62,9 +62,9 @@ class UsuarioDao
             $arrayParam = array($id);
             $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
-            if ($retorno[0]->nomeUsuario == "Administrador") {
+            if (isset($retorno[0]->nomeUsuario) && $retorno[0]->nomeUsuario == "Administrador") {
                 if ($senha == $retorno[0]->senhaUsuario) return json_encode($retorno);
-            } else if ($retorno > 0 && $check_password) {
+            } else if ($retorno > 0 && $check_password && $retorno != null) {
                 if (password_verify($senha, $retorno[0]->senhaUsuario)) return json_encode($retorno);
             } else {
                 if ($retorno > 0) echo json_encode($retorno);
@@ -78,11 +78,19 @@ class UsuarioDao
     public function edit($array)
     {
         try {
-            $arrayUpdate = array(
-                "nomeUsuario" => "{$array[1]}",
-                "senhaUsuario" => "{$array[2]}",
-                "idTipoUsuario" => "{$array[3]}"
-            );
+
+            if ($array[2] == null) {
+                $arrayUpdate = array(
+                    "nomeUsuario" => "{$array[1]}",
+                    "idTipoUsuario" => "{$array[3]}"
+                );
+            } else {
+                $arrayUpdate = array(
+                    "nomeUsuario" => "{$array[1]}",
+                    "senhaUsuario" => "{$array[2]}",
+                    "idTipoUsuario" => "{$array[3]}"
+                );
+            }
             $arrayCond = array("id" => "idUsuario=$array[0]");
             $this->crud->update($arrayUpdate, $arrayCond);
 

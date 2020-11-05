@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="offset-lg-2 offset-md-1 col-12">
+    <form id="form-usuario" method="POST">
+      <div class="form-row">
+        <div class="form-group col-lg-8 col-md-10">
+          <label>Nome:</label>
+          <input type="text" name="nome" id="nome" class="form-control" required />
+        </div>
+      </div>
+      <button type="button" id="change-password" class="btn btn-outline-dark d-none">
+        <i class="fa fa-lock" aria-hidden="true"></i> Trocar Senha 
+      </button>
+      <label class="lbl-senha">Senha</label>
+      <div class="form-row">
+        <div class="form-group input-group col-lg-8 col-md-12">
+          <input class="form-control" type="password" name="senha" id="senha" required/>
+          <div class="input-group-append">
+            <span class="input-group-text d-none bg-transparent" id="eye-password" style="cursor: pointer;">
+              <i class="fa fa-eye-slash" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row conf-senha">
+        <div class="form-group col-lg-8 col-md-10">
+          <label>Confirmar Senha</label>
+          <input type="password" name="confirmarSenha" id="confirmarSenha" class="form-control" required/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-lg-8 col-md-10">
+          <label>Tipo de Usuário:</label>
+          <select name="idTipoUsuario" id="idTipoUsuario" class="form-control" required>
+            <option value="">Selecione o tipo de usuário</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  if($("#btn-cad").hasClass('d-none')) {
+    $("#change-password").removeClass("d-none");
+    $(".lbl-senha").addClass("d-none");
+    $("#senha").addClass("d-none");
+    $("#eye-password").addClass("d-none");
+    $(".conf-senha").addClass("d-none");
+  }
+</script>
