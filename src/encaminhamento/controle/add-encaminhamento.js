@@ -98,7 +98,7 @@ $(document).ready(function () {
 
             for (let i = 0; i < res.length; i++) {
               var optUni = $('select[name="idUnidadeSaude"]')[0].innerText;
-              if (optUni.includes(res[i].idUnidadeSaude) == false) {
+              if (optUni.includes(res[i].idUnidadeSaude) == true) {
                 $(`<option class="options response-unidade" value="${res[i].idUnidadeSaude}">
                 ${res[i].nomeUnidadeSaude}</option>`).appendTo('select[name="idUnidadeSaude"]');
               }

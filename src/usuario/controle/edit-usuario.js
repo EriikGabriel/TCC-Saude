@@ -76,22 +76,25 @@ $(document).ready(function () {
   $(document).on("click", "#btn-alt", function (e) {
     e.preventDefault();
 
+    var url = "../modelo/edit-usuario.php";
+
     if($("#change-password").hasClass('d-none')) {
-      var url = "../modelo/select-usuario.php";
       var dados = {
-        type: "search-data-usuario",
-        senha: $("#senha").val(),
-        id: $("#nome").val()
-      } 
-    } else {
-      var url = "../modelo/edit-usuario.php";
+        idUsuario: $(".modal-body").data("content"),
+        nomeUsuario: $("#nome").val(),
+        idTipoUsuario: $("#idTipoUsuario").val(),
+        senhaUsuario: $("#senha").val(),
+        newSenha: $("#confirmarSenha").val(),
+        cript: $("#senha").data("cript")
+      };
+    } else { 
       var dados = {
         idUsuario: $(".modal-body").data("content"),
         nomeUsuario: $("#nome").val(),
         idTipoUsuario: $("#idTipoUsuario").val(),
       };
     }
-    console.log(dados)
+    
     $.ajax({
       type: "POST",
       datatype: "json",
@@ -100,7 +103,6 @@ $(document).ready(function () {
       data: dados,
       success: function (dados) {
         if($("#change-password").hasClass('d-none')) {
-          console.log(dados)
           if(dados != "") {
             url = "../modelo/edit-usuario.php";
             var dados = {

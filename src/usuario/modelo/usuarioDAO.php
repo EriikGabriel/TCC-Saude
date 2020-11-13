@@ -59,6 +59,7 @@ class UsuarioDao
                 $check_password = true;
             }
 
+
             $arrayParam = array($id);
             $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
