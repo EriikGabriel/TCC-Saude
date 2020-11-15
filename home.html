@@ -24,37 +24,24 @@
       </button>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto d-flex align-items-center h-100">
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/usuario/visao/list-usuario.html">Usuário</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/tipo_usuario/visao/list-tipo-usuario.html">Tipo Usuário</a>
-          </li>
-          <li class="nav-item manage-hospital">
-            <a class="nav-link text-white" href="src/hospital/visao/list-hospital.html">Hospital</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/especialidades/visao/list-especialidade.html">Especialidades</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/tipo_unidade/visao/list-tipo-unidade.html">Tipo Unidade</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/unidade_saude/visao/list-unidade-saude.html">Unidade de Saúde</a>
-          </li>
-          <li class="nav-item manage-paciente">
-            <a class="nav-link text-white" href="src/paciente/visao/list-paciente.html">Paciente</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/medico/visao/list-medico.html">Médico</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/encaminhamento/visao/list-encaminhamento.html">Encaminhamento</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="src/atendimento-medico/visao/list-atendimento.html"
-              >Atendimento Médico</a
-            >
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Gerenciar <i class="fa fa-cog text-white" aria-hidden="true"></i> 
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="src/usuario/visao/list-usuario.html">Usuário</a>
+              <a class="dropdown-item" href="src/tipo_usuario/visao/list-tipo-usuario.html">Tipo de Usuário</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="src/medico/visao/list-medico.html">Médico</a>
+              <a class="dropdown-item" href="src/especialidades/visao/list-especialidade.html">Especialidade</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="src/hospital/visao/list-hospital.html">Hospital</a>
+              <a class="dropdown-item" href="src/unidade_saude/visao/list-unidade-saude.html">Unidade de Saúde</a>
+              <a class="dropdown-item" href="src/tipo_unidade/visao/list-tipo-unidade.html">Tipo de Unidade</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="src/atendimento-medico/visao/list-atendimento.html">Atendimento Médico</a>
+              <a class="dropdown-item" href="src/encaminhamento/visao/list-encaminhamento.html">Encaminhamento</a>
+            </div>
           </li>
         </ul>
         <ul class="navbar-nav user-icon">

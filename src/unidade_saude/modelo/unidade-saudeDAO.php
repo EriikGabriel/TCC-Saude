@@ -23,6 +23,7 @@ class UnidadeSaudeDao
                 "ruaUnidadeSaude" => "{$u->getRuaUnidadeSaude()}",
                 "bairroUnidadeSaude" => "{$u->getBairroUnidadeSaude()}",
                 "telefoneUnidadeSaude" => "{$u->getTelefoneUnidadeSaude()}",
+                "vagas" => "{$u->getVagas()}",
                 "idTipoUnidade" => "{$u->getIdTipoUnidade()}"
             );
             $this->crud->insert($arrayCreate);
@@ -37,8 +38,8 @@ class UnidadeSaudeDao
     public function list($requestData)
     {
         try {
-            $sql = 'SELECT `UNIDADE_SAUDE`.`idUnidadeSaude`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, 
-            `UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`, `UNIDADE_SAUDE`.`telefoneUnidadeSaude`, `TIPO_UNIDADE`.`tipoUnidade`
+            $sql = 'SELECT `UNIDADE_SAUDE`.`idUnidadeSaude`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, `UNIDADE_SAUDE`.`ruaUnidadeSaude`,
+            `UNIDADE_SAUDE`.`bairroUnidadeSaude`, `UNIDADE_SAUDE`.`telefoneUnidadeSaude`, `UNIDADE_SAUDE`.`vagas`, `TIPO_UNIDADE`.`tipoUnidade`
             FROM UNIDADE_SAUDE
             INNER JOIN TIPO_UNIDADE ON (`UNIDADE_SAUDE`.`idTipoUnidade` = `TIPO_UNIDADE`.`idTipoUnidade`) 
             WHERE 1 = 1 ';
@@ -49,6 +50,7 @@ class UnidadeSaudeDao
                 "ruaUnidadeSaude",
                 "bairroUnidadeSaude",
                 "telefoneUnidadeSaude",
+                "vagas",
                 "tipoUnidade",
             );
             $this->crud->getSQLDataTable($requestData, $arrayFilterParams, $sql);
@@ -77,13 +79,17 @@ class UnidadeSaudeDao
     public function edit($array)
     {
         try {
-            $arrayUpdate = array(
-                "nomeUnidadeSaude" => "{$array[1]}",
-                "ruaUnidadeSaude" => "{$array[2]}",
-                "bairroUnidadeSaude" => "{$array[3]}",
-                "telefoneUnidadeSaude" => "{$array[4]}",
-                "idTipoUnidade" => "{$array[5]}",
-            );
+            if (count($array) == 2) {
+                $arrayUpdate = array("vagas" => "{$array[1]}");
+            } else {
+                $arrayUpdate = array(
+                    "nomeUnidadeSaude" => "{$array[1]}",
+                    "ruaUnidadeSaude" => "{$array[2]}",
+                    "bairroUnidadeSaude" => "{$array[3]}",
+                    "telefoneUnidadeSaude" => "{$array[4]}",
+                    "idTipoUnidade" => "{$array[5]}",
+                );
+            }
             $arrayCond = array("id" => "idUnidadeSaude=$array[0]");
             $this->crud->update($arrayUpdate, $arrayCond);
 

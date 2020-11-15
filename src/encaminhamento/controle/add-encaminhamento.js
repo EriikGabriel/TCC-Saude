@@ -95,7 +95,6 @@ $(document).ready(function () {
           data: dados,
           success: function (dados) {
             var res = JSON.parse(dados);
-
             for (let i = 0; i < res.length; i++) {
               var optUni = $('select[name="idUnidadeSaude"]')[0].innerText;
               if (optUni.includes(res[i].idUnidadeSaude) == true) {
@@ -140,15 +139,14 @@ $(document).ready(function () {
       url: url,
       async: true,
       data: dados,
-      success: function (dados) {
-        dados = JSON.parse(dados)[0];
+      success: function (dadoHosp) {
+        dadoHosp = JSON.parse(dadoHosp)[0];
 
-        var url = "../modelo/create-encaminhamento.php";
+        var url = "../modelo/select-encaminhamento.php";
         var dados = {
-          idUnidadeSaude: $('select[name="idUnidadeSaude"]').val(),
-          idPaciente: $('select[name="idPaciente"]').val(),
-          idHospital: dados.idHospital,
-          idUsuario: JSON.parse(localStorage.getItem("login")).id,
+          type: "search-select-encaminhamento",
+          sql: "SELECT vagas FROM UNIDADE_SAUDE WHERE idUnidadeSaude = ?",
+          id: $('select[name="idUnidadeSaude"]').val(),
         };
 
         $.ajax({
@@ -157,35 +155,67 @@ $(document).ready(function () {
           url: url,
           async: true,
           data: dados,
-          success: function (dados) {
-            if (dados == "true") {
-              Swal.fire({
-                title: "Sucesso!",
-                text: "Cadastro efetuado com sucesso",
-                icon: "success",
-                confirmButtonText: "Feito",
-              }).then((result) => {
-                if (result.value) {
-                  location.reload();
+          success: function (dadoUni) {
+            dadoUni = JSON.parse(dadoUni)[0];
+
+            var url = "../modelo/create-encaminhamento.php";
+            var dados = {
+              idUnidadeSaude: $('select[name="idUnidadeSaude"]').val(),
+              idPaciente: $('select[name="idPaciente"]').val(),
+              idHospital: dadoHosp.idHospital,
+              idUsuario: JSON.parse(localStorage.getItem("login")).id
+            };
+
+            $.ajax({
+              type: "POST",
+              datatype: "json",
+              url: url,
+              async: true,
+              data: dados,
+              success: function (dados) {
+                if (dados == "true") {
+                  Swal.fire({
+                    title: "Sucesso!",
+                    text: "Cadastro efetuado com sucesso",
+                    icon: "success",
+                    confirmButtonText: "Feito",
+                  }).then((result) => {
+                    var url = "../../unidade_saude/modelo/edit-unidade-saude.php";
+                    var dados = {
+                      id: $('select[name="idUnidadeSaude"]').val(),
+                      vagas: dadoUni.vagas - 1
+                    };
+
+                    $.ajax({
+                      type: "POST",
+                      datatype: "json",
+                      url: url,
+                      async: true,
+                      data: dados,
+                      success: function (dados) {
+                        if (dados == "true") location.reload()
+                      }
+                    })
+                  });
+                } else if (dados.includes("23000")) {
+                  Swal.fire({
+                    title: "Erro!",
+                    text: "Esse CRM já foi cadastrado",
+                    icon: "error",
+                    confirmButtonText: "Tente novamente",
+                  });
+                } else {
+                  Swal.fire({
+                    title: "Erro!",
+                    text: dados,
+                    icon: "error",
+                    confirmButtonText: "Tente novamente",
+                  });
                 }
-              });
-            } else if (dados.includes("23000")) {
-              Swal.fire({
-                title: "Erro!",
-                text: "Esse CRM já foi cadastrado",
-                icon: "error",
-                confirmButtonText: "Tente novamente",
-              });
-            } else {
-              Swal.fire({
-                title: "Erro!",
-                text: dados,
-                icon: "error",
-                confirmButtonText: "Tente novamente",
-              });
-            }
-          },
-        });
+              },
+            });
+          }
+        })
       },
     });
   });

@@ -98,7 +98,7 @@ class EncaminhamentoDao
                 INNER JOIN MEDICO ON 
                 (`MEDICO`.`CRM` = `MEDICO_ATENDE_UNIDADE`.`CRM`)
                 INNER JOIN ESPECIALIDADE ON 
-                (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) {$where}";
+                (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) {$where} AND `UNIDADE_SAUDE`.`vagas` > 0";
             }
 
             if ($sql == ":edit-encaminhamento") {
@@ -106,6 +106,12 @@ class EncaminhamentoDao
                 FROM ENCAMINHAMENTO
                 INNER JOIN UNIDADE_SAUDE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
                 INNER JOIN PACIENTE ON (`ENCAMINHAMENTO`.`idPaciente` = `PACIENTE`.`idPaciente`)
+                WHERE idEncaminhamento = ?";
+            }
+
+            if ($sql == ":edit-vagas") {
+                $sql = "SELECT `UNIDADE_SAUDE`.`idUnidadeSaude`, `UNIDADE_SAUDE`.`vagas` FROM ENCAMINHAMENTO
+                INNER JOIN UNIDADE_SAUDE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
                 WHERE idEncaminhamento = ?";
             }
 

@@ -4,7 +4,7 @@ namespace conn;
 
 class UnidadeSaude
 {
-    private $idUnidadeSaude, $nomeUnidadeSaude, $ruaUnidadeSaude, $bairroUnidadeSaude, $telefoneUnidadeSaude, $idTipoUnidade;
+    private $idUnidadeSaude, $nomeUnidadeSaude, $ruaUnidadeSaude, $bairroUnidadeSaude, $telefoneUnidadeSaude, $vagas, $idTipoUnidade;
 
     /**
      * Get the value of idUnidadeSaude
@@ -102,6 +102,26 @@ class UnidadeSaude
     public function setTelefoneUnidadeSaude($telefoneUnidadeSaude)
     {
         $this->telefoneUnidadeSaude = $telefoneUnidadeSaude;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of vagas
+     */
+    public function getVagas()
+    {
+        return $this->vagas;
+    }
+
+    /**
+     * Set the value of vagas
+     *
+     * @return  self
+     */
+    public function setVagas($vagas)
+    {
+        $this->vagas = $vagas;
 
         return $this;
     }

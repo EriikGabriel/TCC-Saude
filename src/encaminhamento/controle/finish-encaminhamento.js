@@ -24,7 +24,53 @@ $(document).on("click", ".btn-finish", function (e) {
         success: function (dados) {
           if (dados == "true") {
             Swal.fire("Sucesso!", "Encaminhamento concluido!", "success").then((result) => {
-              if (result.value) location.reload();
+              if (result.value) {
+                var url = "../modelo/select-encaminhamento.php";
+                var dados = {
+                  type: "search-select-encaminhamento",
+                  sql: ":edit-vagas",
+                  id: e.target.id,
+                };
+          
+                $.ajax({
+                  type: "POST",
+                  datatype: "json",
+                  url: url,
+                  async: true,
+                  data: dados,
+                  success: function (dadoUni) {
+                    dadoUni = JSON.parse(dadoUni)[0];
+                    var url = "../../unidade_saude/modelo/edit-unidade-saude.php";
+                    var dados = {
+                      id: dadoUni.idUnidadeSaude,
+                      vagas: dadoUni.vagas + 1
+                    }
+
+                    $.ajax({
+                      type: "POST",
+                      datatype: "json",
+                      url: url,
+                      async: true,
+                      data: dados,
+                      success: function (dados) {
+                        url = "../modelo/delete-encaminhamento.php";
+                        var dados = { id: e.target.id };
+
+                        $.ajax({
+                          type: "POST",
+                          datatype: "json",
+                          url: url,
+                          async: true,
+                          data: dados,
+                          success: function (dados) {
+                            if (dados == "true") location.reload()
+                          },
+                        });
+                      }
+                    })
+                  }
+                })
+              }
             });
           }
         },

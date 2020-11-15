@@ -33,6 +33,10 @@ $(document).ready(function () {
         className: "text-center",
       },
       {
+        data: "vagas",
+        className: "text-center",
+      },
+      {
         data: "tipoUnidade",
         className: "text-center",
       },

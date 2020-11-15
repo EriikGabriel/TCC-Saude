@@ -23,6 +23,7 @@ if (
     $unidade->setRuaUnidadeSaude($rua);
     $unidade->setBairroUnidadeSaude($bairro);
     $unidade->setTelefoneUnidadeSaude($tel);
+    $unidade->setVagas(3);
     $unidade->setIdTipoUnidade($id);
 
     $unidadeDao = new UnidadeSaudeDao;
