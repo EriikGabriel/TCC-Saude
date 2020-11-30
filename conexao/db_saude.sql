@@ -130,5 +130,3 @@ ENGINE = INNODB;
 
 INSERT INTO TIPO_USUARIO VALUES (NULL, 'usuario-hospital');
 INSERT INTO USUARIO VALUES (NULL, 'Administrador', 'admin', 1);
-
-SELECT count(*) FROM MEDICO WHERE idEspecialidade = 2;
