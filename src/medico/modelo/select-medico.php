@@ -16,6 +16,9 @@ if ($type == "search-data-medico") {
 } else if ($type == "search-select-medico") {
     $sql = "SELECT * FROM ESPECIALIDADE";
     $medicoDao->search($id, $sql);
+} else if ($type == "count-dados") {
+    $sql = "SELECT COUNT(*) as count FROM MEDICO_ATENDE_UNIDADE WHERE CRM = ?";
+    $medicoDao->search($id, $sql);
 } else {
     $requestData = $_REQUEST;
 

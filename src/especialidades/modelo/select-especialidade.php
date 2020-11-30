@@ -10,8 +10,8 @@ require_once("../../../conexao/conn.php");
 
 $especialidadeDao = new EspecialidadeDao;
 
-if ($type == "search-dados") {
-    $especialidadeDao->search($id);
+if ($type == "search-dados" || $type == "count-dados") {
+    $especialidadeDao->search($id, $type);
 } else {
     $requestData = $_REQUEST;
 

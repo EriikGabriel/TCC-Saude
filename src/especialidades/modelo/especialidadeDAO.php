@@ -38,10 +38,14 @@ class EspecialidadeDao
     }
 
     //? Search
-    public function search($id)
+    public function search($id, $type)
     {
         try {
-            $sql = "SELECT * FROM ESPECIALIDADE WHERE idEspecialidade = ?";
+            if ($type == "search-dados") {
+                $sql = "SELECT * FROM ESPECIALIDADE WHERE idEspecialidade = ?";
+            } else {
+                $sql = "SELECT COUNT(*) as count FROM MEDICO WHERE idEspecialidade = ?";
+            }
 
             $arrayParam = array($id);
             $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);

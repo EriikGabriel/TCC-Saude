@@ -16,6 +16,9 @@ if ($type == "search-data-atendimento") {
 } else if ($type == "search-select-atendimento") {
     $sql = "SELECT * FROM {$table}";
     $atendimentoDao->search($id, $sql);
+} else if ($type == "count-dados") {
+    $sql = "SELECT COUNT(*) as count FROM ENCAMINHAMENTO WHERE idUnidadeSaude = ?";
+    $atendimentoDao->search($id, $sql);
 } else {
     $requestData = $_REQUEST;
 

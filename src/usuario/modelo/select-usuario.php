@@ -27,6 +27,9 @@ if ($type == "search-data-usuario") {
 } else if ($type == "search-select-usuario") {
     $sql = "SELECT * FROM TIPO_USUARIO";
     $usuarioDao->search($id, $sql);
+} else if ($type == "count-dados") {
+    $sql = "SELECT COUNT(*) as count FROM HOSPITAL WHERE idUsuario = ?";
+    $usuarioDao->search($id, $sql);
 } else {
     $requestData = $_REQUEST;
     $usuarioDao->list($requestData);

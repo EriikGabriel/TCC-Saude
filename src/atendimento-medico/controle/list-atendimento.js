@@ -44,7 +44,7 @@ $(document).ready(function () {
           return `
             <button id="${data}" class="btn btn-primary btn btn-view">Visualizar</button>
             <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
-            <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
+            <button id="${data}" data-del="${row.nomeUnidadeSaude}" class="btn btn-danger btn btn-delete">Deletar</button>
             `;
         },
       },

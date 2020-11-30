@@ -8,6 +8,7 @@ $(document).ready(function () {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sim, delete isso!",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       url = "../modelo/delete-atendimento.php";
       var dados = { id: $(this).attr("id") };

@@ -16,8 +16,10 @@ if ($type == "search-data-unidade") {
 } else if ($type == "search-select-unidade") {
     $sql = "SELECT * FROM TIPO_UNIDADE";
     $unidadeDao->search($id, $sql);
+} else if ($type == "count-dados") {
+    $sql = "SELECT COUNT(*) as count FROM ENCAMINHAMENTO WHERE idUnidadeSaude = ?";
+    $unidadeDao->search($id, $sql);
 } else {
     $requestData = $_REQUEST;
-
     $unidadeDao->list($requestData);
 }

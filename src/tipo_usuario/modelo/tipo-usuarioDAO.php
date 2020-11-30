@@ -38,10 +38,14 @@ class TipoUsuarioDao
         }
     }
 
-    public function search($id)
+    public function search($id, $type)
     {
         try {
-            $sql = "SELECT * FROM TIPO_USUARIO WHERE idTipoUsuario = ?";
+            if ($type == "search-dados") {
+                $sql = "SELECT * FROM TIPO_USUARIO WHERE idTipoUsuario = ?";
+            } else {
+                $sql = "SELECT COUNT(*) as count FROM USUARIO WHERE idTipoUsuario = ?";
+            }
 
             $arrayParam = array($id);
             $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);

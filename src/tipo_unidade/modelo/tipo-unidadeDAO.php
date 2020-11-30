@@ -38,10 +38,14 @@ class TipoUnidadeDao
         }
     }
 
-    public function search($id)
+    public function search($id, $type)
     {
         try {
-            $sql = "SELECT * FROM TIPO_UNIDADE WHERE idTipoUnidade = ?";
+            if ($type == "search-dados") {
+                $sql = "SELECT * FROM TIPO_UNIDADE WHERE idTipoUnidade = ?";
+            } else {
+                $sql = "SELECT COUNT(*) as count FROM UNIDADE_SAUDE WHERE idTipoUnidade = ?";
+            }
 
             $arrayParam = array($id);
             $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);

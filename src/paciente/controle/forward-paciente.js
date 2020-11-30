@@ -3,6 +3,9 @@ $(document).ready(function () {
     $("#modal-paciente .modal-body").load("forward-paciente.html");
     $("#modal-paciente .modal-body").data("content", $(this).attr("id"));
     $("#modal-paciente .modal-title h4").html("Encaminhar Paciente");
+    $("#modal-paciente .modal-footer #btn-cad").addClass("d-none");
+    $("#modal-paciente .modal-footer #btn-alt").addClass("d-none");
+    $("#modal-paciente .modal-footer #btn-fwd").removeClass("d-none");
 
     var url = "../modelo/select-paciente.php";
     var dados = {
