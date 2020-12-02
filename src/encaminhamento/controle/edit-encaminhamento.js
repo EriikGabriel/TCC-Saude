@@ -4,7 +4,7 @@ $(document).ready(function () {
     $("#modal-encaminhamento .modal-body").data("content", $(this).attr("id"));
     $("#modal-encaminhamento .modal-title h4").html("Editar Encaminhamento");
     $("#modal-encaminhamento .modal-footer #btn-alt").removeClass("d-none");
-      $("#modal-encaminhamento .modal-footer #btn-cad").addClass("d-none");
+    $("#modal-encaminhamento .modal-footer #btn-cad").addClass("d-none");
     $("#modal-encaminhamento").modal("show");
   });
 

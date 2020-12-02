@@ -5,6 +5,7 @@ $(document).ready(function () {
     $("#modal-paciente .modal-title h4").html("Editar Paciente");
     $("#modal-paciente .modal-footer #btn-alt").removeClass("d-none");
     $("#modal-paciente .modal-footer #btn-cad").addClass("d-none");
+    $("#modal-paciente .modal-footer #btn-fwd").addClass("d-none");
     $("#modal-paciente").modal("show");
   });
 

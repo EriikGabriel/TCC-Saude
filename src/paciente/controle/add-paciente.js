@@ -4,6 +4,7 @@ $(document).ready(function () {
     $("#modal-paciente .modal-title h4").html("Cadastrar Paciente");
     $("#modal-paciente .modal-footer #btn-cad").removeClass("d-none");
     $("#modal-paciente .modal-footer #btn-alt").addClass("d-none");
+    $("#modal-paciente .modal-footer #btn-fwd").addClass("d-none");
     $("#modal-paciente").modal("show");
   });
 

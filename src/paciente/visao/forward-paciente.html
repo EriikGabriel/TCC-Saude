@@ -1,51 +1,36 @@
 <div class="row">
   <div class="offset-lg-2 offset-md-1 col-12">
-    <form method="post" id="add-paciente">
-      <div class="form-row">
-        <div class="form-group col-lg-4 col-md-5">
-          <label>Rua do Paciente:</label>
-          <select name="ruaPaciente" class="form-control" required disabled></select>
-        </div>
-        <div class="form-group col-lg-4 col-md-5">
-          <label>Bairro do Paciente:</label>
-          <select name="bairroPaciente" class="form-control" required disabled></select>
-        </div>
-      </div>
+    <form id="form-forward" method="POST">
       <div class="form-row">
         <div class="form-group col-lg-8 col-md-10">
-          <label>Tipo da Unidade:</label>
-          <select name="idTipoUnidade" class="form-control" required>
-            <option value="">Selecione o tipo da unidade:</option>
+          <label>Paciente:</label>
+          <select name="idPaciente" id="idPaciente" class="form-control" required disabled>
+            <option value="">Selecione o paciente</option>
           </select>
         </div>
       </div>
-      <div class="form-row d-none">
+      <label class="mt-2">Campos de Busca:</label>
+      <div class="form-row">
+        <div class="bg-light border border-secundary rounded col-lg-8 col-md-10 d-lg-flex pt-2 mb-2">
+          <div class="form-group col-lg-6 col-md-12">
+            <label>Especialidade do Médico:</label>
+            <select name="idEspecialidade" id="idEspecialidade" class="form-control">
+              <option value="">Qualquer especialidade</option>
+            </select>
+          </div>
+          <div class="form-group col-lg-6 col-md-12">
+            <label>Horário:</label>
+            <select name="idHorario" id="idHorario" class="form-control">
+              <option value="">Qualquer horário</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-row mt-3">
         <div class="form-group col-lg-8 col-md-10">
           <label>Unidade de Saúde:</label>
-          <select name="idUnidadeSaude" class="form-control" required>
-            <option value="">Selecione a unidade:</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row d-none">
-        <div class="form-group col-lg-4 col-md-5">
-          <label>Especialidade:</label>
-          <select name="idEspecialidade" class="form-control" required>
-            <option value="">Selecione a especialidade:</option>
-          </select>
-        </div>
-        <div class="form-group col-lg-4 col-md-5">
-          <label>Médico:</label>
-          <select name="CRM" class="form-control" required>
-            <option value="">Selecione o médico:</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row d-none">
-        <div class="form-group col-lg-8 col-md-10">
-          <label>Horário:</label>
-          <select name="horario" class="form-control" required>
-            <option value="">Selecione o horário:</option>
+          <select name="idUnidadeSaude" id="idUnidadeSaude" class="form-control" required>
+            <option value="">Selecione a unidade de saúde</option>
           </select>
         </div>
       </div>
