@@ -39,6 +39,7 @@ $(document).on("click", ".btn-finish", function (e) {
                   async: true,
                   data: dados,
                   success: function (dadoUni) {
+                    console.log(dadoUni)
                     dadoUni = JSON.parse(dadoUni)[0];
                     var url = "../../unidade_saude/modelo/edit-unidade-saude.php";
                     var dados = {

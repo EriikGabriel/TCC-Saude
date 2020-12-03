@@ -5,7 +5,10 @@ $(document).ready(function () {
     $("#modal-unidade-saude .modal-title h4").html("Editar Unidade de Saúde");
     $("#modal-unidade-saude .modal-footer #btn-alt").removeClass("d-none");
     $("#modal-unidade-saude .modal-footer #btn-cad").addClass("d-none");
+    
+    $("#vagas").attr("disabled", true)
     $("#modal-unidade-saude").modal("show");
+    
   });
 
   $("#modal-unidade-saude").on("show.bs.modal", function (e) {
@@ -15,7 +18,7 @@ $(document).ready(function () {
         type: "search-select-unidade",
         table: "TIPO_UNIDADE",
       };
-
+      
       $.ajax({
         type: "POST",
         datatype: "json",
@@ -51,6 +54,7 @@ $(document).ready(function () {
                 $("#bairro").val(dados.bairroUnidadeSaude);
                 $("#tel").val(dados.telefoneUnidadeSaude);
                 $("#idTipoUnidade").val(dados.idTipoUnidade);
+                $("#vagas").val(dados.vagas);
               },
             });
           }
@@ -71,6 +75,7 @@ $(document).ready(function () {
       bairro: $("#bairro").val(),
       tel: $("#tel").val(),
       idTipoUnidade: $("#idTipoUnidade").val(),
+      vagas: $("#vagas").val(),
     };
 
     $.ajax({

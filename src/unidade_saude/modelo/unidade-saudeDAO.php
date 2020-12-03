@@ -88,6 +88,7 @@ class UnidadeSaudeDao
                     "bairroUnidadeSaude" => "{$array[3]}",
                     "telefoneUnidadeSaude" => "{$array[4]}",
                     "idTipoUnidade" => "{$array[5]}",
+                    "vagas" => "{$array[6]}",
                 );
             }
             $arrayCond = array("id" => "idUnidadeSaude=$array[0]");

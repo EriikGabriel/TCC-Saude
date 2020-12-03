@@ -52,18 +52,16 @@ $(document).ready(function () {
         render: function (data, type, row, meta) {
           if (JSON.parse(localStorage.getItem("login")).tipo == 1) {
             return `
-              <button id="${data}" class="btn btn-primary btn btn-view">Visualizar</button>
-              <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
-              <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
+              <button id="${data}" class="btn btn-primary btn btn-edit"><i class="fas fa-pencil-alt"></i></button>
+              <button id="${data}" class="btn btn-danger btn btn-delete"><i class="fas fa-trash"></i></button>
             `;
           } else if (row.situacao == "Concluido") {
             return `
-              <button id="${data}" class="btn btn-primary btn btn-view">Visualizar</button>
+              <button id="${data}" class="btn btn-primary btn btn-view"><i class="fa fa-eye" aria-hidden="true"></i></button>
             `;
           } else {
             return `
-              <button id="${data}" class="btn btn-primary btn btn-view">Visualizar</button>
-              <button id="${data}" class="btn btn-success btn btn-finish">Concluir</button>
+              <button id="${data}" class="btn btn-success btn btn-finish"><i class="fa fa-check" aria-hidden="true"></i></button>
             `;
           }
         },

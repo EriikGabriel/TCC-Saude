@@ -53,15 +53,15 @@ $(document).ready(function () {
           render: function (data, type, row, meta) {
             if (row.gravidade == "Não Urgente" || row.gravidade == "Pouco Urgente") {
               return ` 
-                <button id="${data}" class="btn btn-primary btn btn-forward">Encaminhar</button>
-                <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
-                <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
+                <button id="${data}" class="btn btn-warning btn btn-forward text-white"><i class="fas fa-reply"></i></button>
+                <button id="${data}" class="btn btn-primary btn btn-edit text-white"><i class="fas fa-pencil-alt"></i></button>
+                <button id="${data}" class="btn btn-danger btn btn-delete"><i class="fas fa-trash"></i></button>
                 `;
             } else {
               return ` 
-                <button id="${data}" class="btn btn-primary btn btn-forward" disabled>Encaminhar</button>
-                <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
-                <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
+                <button id="${data}" class="btn btn-warning btn btn-forward text-white" disabled><i class="fas fa-reply"></i></button>
+                <button id="${data}" class="btn btn-primary btn btn-edit text-white"><i class="fas fa-pencil-alt"></i></button>
+                <button id="${data}" class="btn btn-danger btn btn-delete"><i class="fas fa-trash"></i></button>
                 `;
             }
           },

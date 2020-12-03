@@ -36,36 +36,46 @@ $(document).ready(function () {
   $(document).on("click", "#btn-cad", function (e) {
     e.preventDefault();
 
-    var dados = $("#form-unidade-saude").serialize();
-    var url = "../modelo/create-unidade-saude.php";
-
-    $.ajax({
-      type: "POST",
-      datatype: "json",
-      url: url,
-      async: true,
-      data: dados,
-      success: function (dados) {
-        if (dados == "true") {
-          Swal.fire({
-            title: "Sucesso!",
-            text: "Cadastro efetuado com sucesso",
-            icon: "success",
-            confirmButtonText: "Feito",
-          }).then((result) => {
-            if (result.value) {
-              location.reload();
-            }
-          });
-        } else {
-          Swal.fire({
-            title: "Erro!",
-            text: dados,
-            icon: "error",
-            confirmButtonText: "Tente novamente",
-          });
-        }
-      },
-    });
+    var vagas = $("#form-unidade-saude #vagas")[0].value;
+    if(vagas >= 1) {
+      var dados = $("#form-unidade-saude").serialize();
+      var url = "../modelo/create-unidade-saude.php";
+  
+      $.ajax({
+        type: "POST",
+        datatype: "json",
+        url: url,
+        async: true,
+        data: dados,
+        success: function (dados) {
+          if (dados == "true") {
+            Swal.fire({
+              title: "Sucesso!",
+              text: "Cadastro efetuado com sucesso",
+              icon: "success",
+              confirmButtonText: "Feito",
+            }).then((result) => {
+              if (result.value) {
+                location.reload();
+              }
+            });
+          } else {
+            Swal.fire({
+              title: "Erro!",
+              text: dados,
+              icon: "error",
+              confirmButtonText: "Tente novamente",
+            });
+          }
+        },
+      });
+    } else {
+      Swal.fire({
+        title: "Erro!",
+        text: "A quantidade de vagas é inválida!",
+        icon: "error",
+        confirmButtonText: "Tente novamente",
+      });
+    }
   });
 });

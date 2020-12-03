@@ -17,9 +17,9 @@ $vagas = filter_input(INPUT_POST, "vagas", FILTER_SANITIZE_SPECIAL_CHARS);
 if (
     !empty($nome) && !empty($rua) && !empty($bairro)
     &&
-    !empty($tel) && !empty($idTipoUnidade)
+    !empty($tel) && !empty($idTipoUnidade) && !empty($vagas)
 ) {
-    $new_values = [$id, $nome, $rua, $bairro, $tel, $idTipoUnidade];
+    $new_values = [$id, $nome, $rua, $bairro, $tel, $idTipoUnidade, $vagas];
 } else if ($vagas != null) {
     $new_values = [$id, $vagas];
 }

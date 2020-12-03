@@ -31,9 +31,8 @@ $(document).ready(function () {
         className: "text-center",
         render: function (data, type, row, meta) {
           return `
-            <button id="${data}" class="btn btn-primary btn btn-view">Visualizar</button>
-            <button id="${data}" class="btn btn-success btn btn-edit">Editar</button>
-            <button id="${data}" class="btn btn-danger btn btn-delete">Deletar</button>
+            <button id="${data}" class="btn btn-primary btn btn-edit"><i class="fas fa-pencil-alt"></i></button>
+            <button id="${data}" class="btn btn-danger btn btn-delete"><i class="fas fa-trash"></i></button>
             `;
         },
       },

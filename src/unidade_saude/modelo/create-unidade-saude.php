@@ -10,6 +10,7 @@ $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
 $rua = filter_input(INPUT_POST, "rua", FILTER_SANITIZE_SPECIAL_CHARS);
 $bairro = filter_input(INPUT_POST, "bairro", FILTER_SANITIZE_SPECIAL_CHARS);
 $tel = filter_input(INPUT_POST, "tel", FILTER_SANITIZE_SPECIAL_CHARS);
+$vagas = filter_input(INPUT_POST, "vagas", FILTER_SANITIZE_SPECIAL_CHARS);
 $id = filter_input(INPUT_POST, "idTipoUnidade", FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (
@@ -23,7 +24,7 @@ if (
     $unidade->setRuaUnidadeSaude($rua);
     $unidade->setBairroUnidadeSaude($bairro);
     $unidade->setTelefoneUnidadeSaude($tel);
-    $unidade->setVagas(3);
+    $unidade->setVagas($vagas);
     $unidade->setIdTipoUnidade($id);
 
     $unidadeDao = new UnidadeSaudeDao;
