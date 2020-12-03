@@ -30,6 +30,26 @@ $(document).ready(function () {
       },
     });
   });
+
+  $.ajax({
+    type: "POST",
+    datatype: "json",
+    url: "php/main.php",
+    async: true,
+    data: {  
+      id: JSON.stringify([
+        JSON.parse(localStorage.getItem("login")).id, 
+        JSON.parse(localStorage.getItem("login")).tipo
+      ])
+    },
+    success: function (res) {
+      if (res != "") {
+        res = JSON.parse(res)[0]
+        $(".username").html(res.nomeUsuario)
+        $(".type-user").html(res.tipoUsuario)
+      }
+    },
+  });
 });
 
 

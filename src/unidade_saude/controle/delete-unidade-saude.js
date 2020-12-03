@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-delete", function (e) {
+    $("#modal-unidade-saude .modal-body").data("content", $(this).attr("id"));
     url = "../modelo/select-unidade-saude.php";
     var dados = { 
       id: $(this).attr("id"),
@@ -32,7 +33,7 @@ $(document).ready(function () {
         }).then((result) => {
           if (result.value) {
             url = "../modelo/delete-unidade-saude.php";
-            var dados = { id: e.target.id };
+            var dados = { id: $(".modal-body").data("content") };
 
             $.ajax({
               type: "POST",

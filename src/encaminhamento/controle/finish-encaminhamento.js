@@ -1,4 +1,5 @@
 $(document).on("click", ".btn-finish", function (e) {
+  $("#modal-encaminhamento .modal-body").data("content", $(this).attr("id"));
   Swal.fire({
     title: "Você tem certeza?",
     text: "O status do encaminhamento será alterado e não poderá ser desfeito!",
@@ -11,8 +12,8 @@ $(document).on("click", ".btn-finish", function (e) {
     if (result.value) {
       var url = "../modelo/edit-encaminhamento.php";
       var dados = {
-        id: $(this).attr("id"),
-        finish: "true",
+        id: $(".modal-body").data("content"),
+        type: "finish",
       };
 
       $.ajax({
@@ -23,29 +24,36 @@ $(document).on("click", ".btn-finish", function (e) {
         data: dados,
         success: function (dados) {
           if (dados == "true") {
-            Swal.fire("Sucesso!", "Encaminhamento concluido!", "success").then((result) => {
-              if (result.value) {
-                var url = "../modelo/select-encaminhamento.php";
+            var url = "../modelo/select-encaminhamento.php";
+            var dados = {
+              type: "search-select-encaminhamento",
+              sql: ":edit-vagas",
+              id: $(".modal-body").data("content"),
+            };
+      
+            $.ajax({
+              type: "POST",
+              datatype: "json",
+              url: url,
+              async: true,
+              data: dados,
+              success: function (dadoUni) {
+                dadoUni = JSON.parse(dadoUni)[0];
+                var url = "../../unidade_saude/modelo/edit-unidade-saude.php";
                 var dados = {
-                  type: "search-select-encaminhamento",
-                  sql: ":edit-vagas",
-                  id: e.target.id,
-                };
-          
+                  id: dadoUni.idUnidadeSaude,
+                  vagas: dadoUni.vagas + 1
+                }
+
                 $.ajax({
                   type: "POST",
                   datatype: "json",
                   url: url,
                   async: true,
                   data: dados,
-                  success: function (dadoUni) {
-                    console.log(dadoUni)
-                    dadoUni = JSON.parse(dadoUni)[0];
-                    var url = "../../unidade_saude/modelo/edit-unidade-saude.php";
-                    var dados = {
-                      id: dadoUni.idUnidadeSaude,
-                      vagas: dadoUni.vagas + 1
-                    }
+                  success: function (res) {
+                    url = "../modelo/delete-encaminhamento.php";
+                    var dados = { id: $(".modal-body").data("content") };
 
                     $.ajax({
                       type: "POST",
@@ -54,25 +62,17 @@ $(document).on("click", ".btn-finish", function (e) {
                       async: true,
                       data: dados,
                       success: function (dados) {
-                        url = "../modelo/delete-encaminhamento.php";
-                        var dados = { id: e.target.id };
-
-                        $.ajax({
-                          type: "POST",
-                          datatype: "json",
-                          url: url,
-                          async: true,
-                          data: dados,
-                          success: function (dados) {
-                            if (dados == "true") location.reload()
-                          },
-                        });
-                      }
-                    })
+                        if (dados == "true") {
+                          Swal.fire("Sucesso!", "Encaminhamento concluido!", "success").then((result) => {   
+                            if(result.value) location.reload()
+                          });
+                        }
+                      },
+                    });
                   }
                 })
               }
-            });
+            })     
           }
         },
       });

@@ -130,3 +130,7 @@ ENGINE = INNODB;
 
 INSERT INTO TIPO_USUARIO VALUES (NULL, 'usuario-hospital');
 INSERT INTO USUARIO VALUES (NULL, 'Administrador', 'admin', 1);
+
+SELECT `TIPO_USUARIO`.`tipoUsuario`, `USUARIO`.`nomeUsuario` FROM USUARIO
+INNER JOIN TIPO_USUARIO ON (`TIPO_USUARIO`.`idTipoUsuario` = `USUARIO`.`idTipoUsuario`)
+WHERE idUsuario = 1;

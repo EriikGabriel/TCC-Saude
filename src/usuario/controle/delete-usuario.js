@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-delete", function (e) {
+    $("#modal-usuario .modal-body").data("content", $(this).attr("id"));
     url = "../modelo/select-usuario.php";
     var dados = { 
       id: $(this).attr("id"),
@@ -31,7 +32,7 @@ $(document).ready(function () {
           cancelButtonText: "Cancelar"
         }).then((result) => {
           if(result.value) {
-            if(JSON.parse(localStorage.getItem("login")).id == e.target.id) {
+            if(JSON.parse(localStorage.getItem("login")).id == $(".modal-body").data("content")) {
               var text = "Você está atualmente logado na conta que será deletada, ao confirmar, você voltará para o login!"
               var loggedAcount = true;
             } else {
@@ -50,7 +51,7 @@ $(document).ready(function () {
               cancelButtonText: "Cancelar"
             }).then((result) => {
               url = "../modelo/delete-usuario.php";
-              var dados = { id: e.target.id };
+              var dados = { id: $(".modal-body").data("content") };
         
               if (result.value) {
                 $.ajax({

@@ -60,7 +60,7 @@ class UsuarioDao
             }
 
 
-            $arrayParam = array($id);
+            $arrayParam = (is_array($id)) ? $id : array($id);
             $retorno = $this->crud->getSQLGeneric($sql, $arrayParam, TRUE);
 
             if (isset($retorno[0]->nomeUsuario) && $retorno[0]->nomeUsuario == "Administrador") {

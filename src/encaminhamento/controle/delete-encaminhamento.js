@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-delete", function (e) {
+    $("#modal-encaminhamento .modal-body").data("content", $(this).attr("id"));
     Swal.fire({
       title: "Você tem certeza?",
       text: "O registro será deletado permanentemente!",
@@ -41,7 +42,7 @@ $(document).ready(function () {
               success: function (dados) {  
                 if (dados == "true") {
                   url = "../modelo/delete-encaminhamento.php";
-                  var dados = { id: e.target.id };
+                  var dados = { id: $(".modal-body").data("content") };
 
                   $.ajax({
                     type: "POST",
