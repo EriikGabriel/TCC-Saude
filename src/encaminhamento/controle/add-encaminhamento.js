@@ -1,44 +1,59 @@
 $(document).ready(function () {
   $(document).on("click", ".btn-add", function () {
-    if (JSON.parse(localStorage.getItem("login")).id != "false") {
-      $("#modal-encaminhamento .modal-body").load("form-encaminhamento.html");
-      $("#modal-encaminhamento .modal-title h4").html("Fazer Encaminhamento");
-      $("#modal-encaminhamento .modal-footer #btn-cad").removeClass("d-none");
-      $("#modal-encaminhamento .modal-footer #btn-alt").addClass("d-none");
+    $("#modal-encaminhamento .modal-body").load("form-encaminhamento.html");
+    $("#modal-encaminhamento .modal-title h4").html("Fazer Encaminhamento");
+    $("#modal-encaminhamento .modal-footer #btn-cad").removeClass("d-none");
+    $("#modal-encaminhamento .modal-footer #btn-alt").addClass("d-none");
 
-      var url = "../modelo/select-encaminhamento.php";
-      var dados = {
-        type: "search-select-encaminhamento",
-        sql: "SELECT * FROM PACIENTE WHERE gravidade = ? OR gravidade = ?",
-        id: JSON.stringify(["Pouco Urgente", "Não Urgente"]),
-      };
-
-      $.ajax({
-        type: "POST",
-        datatype: "json",
-        url: url,
-        async: true,
-        data: dados,
-        success: function (dados) {
-          if (dados != "") {
-            var resPac = JSON.parse(dados);
-            for (let i = 0; i < resPac.length; i++) {
-              $(`<option value="${resPac[i].idPaciente}">${resPac[i].nomePaciente}</option>`).appendTo(
-                'select[name="idPaciente"]'
-              );
-            }
-          }
-        },
-      });
-      $("#modal-encaminhamento").modal("show");
-    } else {
-      Swal.fire({
-        title: "Erro!",
-        text: "Não é possível realizar um encaminhamento, o usuário não está logado!",
-        icon: "error",
-        confirmButtonText: "Entendi",
-      });
-    }
+    var url = "../../hospital/modelo/select-hospital.php";
+    var dados = {
+      type: "search-hospital-usuario",
+      id: JSON.parse(localStorage.getItem("login")).id,
+    };
+    $.ajax({
+      type: "POST",
+      datatype: "json",
+      url: url,
+      async: true,
+      data: dados,
+      success: function (dados) {
+        if (JSON.parse(dados) != "") {  
+          var url = "../modelo/select-encaminhamento.php";
+          var dados = {
+            type: "search-select-encaminhamento",
+            sql: "SELECT * FROM PACIENTE WHERE gravidade = ? OR gravidade = ?",
+            id: JSON.stringify(["Pouco Urgente", "Não Urgente"]),
+          };
+    
+          $.ajax({
+            type: "POST",
+            datatype: "json",
+            url: url,
+            async: true,
+            data: dados,
+            success: function (dados) {
+              if (dados != "") {
+                var resPac = JSON.parse(dados);
+                for (let i = 0; i < resPac.length; i++) {
+                  $(`<option value="${resPac[i].idPaciente}">${resPac[i].nomePaciente}</option>`).appendTo(
+                    'select[name="idPaciente"]'
+                  );
+                }
+              }
+            },
+          });
+          $("#modal-encaminhamento").modal("show");
+        } else {
+          Swal.fire({
+            title: "Erro!",
+            text: "Não é possível realizar um encaminhamento, o usuário não está relacionado a nenhum hospital!",
+            icon: "error",
+            confirmButtonText: "Entendi",
+          });
+        }
+      }
+    })
+    
   });
 
   $(document).on("change", "#form-encaminhamento select", function (e) {

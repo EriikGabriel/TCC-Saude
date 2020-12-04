@@ -16,6 +16,9 @@ if ($type == "search-data-hospital") {
 } else if ($type == "search-select-hospital") {
     $sql = "SELECT * FROM USUARIO";
     $hospitalDao->search($id, $sql);
+} else if ($type == "search-hospital-usuario") {
+    $sql = "SELECT * FROM HOSPITAL WHERE idUsuario = ?";
+    $hospitalDao->search($id, $sql);
 } else {
     $requestData = $_REQUEST;
     $hospitalDao->list($requestData);

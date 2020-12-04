@@ -189,40 +189,44 @@ $(document).ready(function () {
     var url = "../modelo/select-encaminhamento.php";
     var dados = {
       type: "search-select-encaminhamento",
-      sql: "SELECT idHospital FROM HOSPITAL WHERE idUsuario = ?",
-      id: JSON.parse(localStorage.getItem("login")).id,
+      id: $(".modal-body").data("content"),
     };
 
+    console.log(dados)
     $.ajax({
       type: "POST",
       datatype: "json",
       url: url,
       async: true,
       data: dados,
-      success: function (dados) {
-        dados = JSON.parse(dados)[0];
+      success: function (res) {
+        if(res != "") {
+          res = JSON.parse(res)[0]
+          console.log(res)
 
-        var url = "../modelo/edit-encaminhamento.php";
-        var dados = {
-          id: $(".modal-body").data("content"),
-          idUnidadeSaude: $("#idUnidadeSaude").val(),
-          idPaciente: $("#idPaciente").val(),
-          idAtendimento: $("#idHorario").val(),
-          idHospital: dados.idHospital,
-          idUsuario: JSON.parse(localStorage.getItem("login")).id,
-        };
+          var url = "../modelo/edit-encaminhamento.php";
+          var dados = {
+            id: $(".modal-body").data("content"),
+            idUnidadeSaude: $("#idUnidadeSaude").val(),
+            idPaciente: $("#idPaciente").val(),
+            idAtendimento: $("#idHorario").val(),
+            idHospital: res.idHospital,
+            idUsuario: res.idUsuario,
+          };
+  
+          $.ajax({
+            type: "POST",
+            datatype: "json",
+            url: url,
+            async: true,
+            data: dados,
+            success: function (dados) {
+              if (dados == "true") location.href = "list-encaminhamento.html";
+            },
+          });
 
-        $.ajax({
-          type: "POST",
-          datatype: "json",
-          url: url,
-          async: true,
-          data: dados,
-          success: function (dados) {
-            if (dados == "true") location.href = "list-encaminhamento.html";
-          },
-        });
-      },
-    });
+        }
+      }
+    })
   });
 });
