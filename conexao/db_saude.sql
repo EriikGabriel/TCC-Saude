@@ -134,12 +134,3 @@ ENGINE = INNODB;
 
 INSERT INTO TIPO_USUARIO VALUES (NULL, 'usuario-hospital');
 INSERT INTO USUARIO VALUES (NULL, 'Administrador', 'admin', 1);
-
-SELECT `PACIENTE`.`idPaciente`, `UNIDADE_SAUDE`.`idUnidadeSaude`, `PACIENTE`.`nomePaciente`, 
-`UNIDADE_SAUDE`.`nomeUnidadeSaude`, `MEDICO_ATENDE_UNIDADE`.`idAtendimento`, 
-DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, '%d/%m/%Y %H:%i') as horarioMedico
-FROM ENCAMINHAMENTO
-INNER JOIN UNIDADE_SAUDE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
-INNER JOIN MEDICO_ATENDE_UNIDADE ON (`ENCAMINHAMENTO`.`idAtendimento` = `MEDICO_ATENDE_UNIDADE`.`idAtendimento`)
-INNER JOIN PACIENTE ON (`ENCAMINHAMENTO`.`idPaciente` = `PACIENTE`.`idPaciente`)
-WHERE idEncaminhamento = 19
