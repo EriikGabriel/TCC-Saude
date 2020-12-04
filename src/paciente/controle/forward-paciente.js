@@ -46,10 +46,9 @@ $(document).ready(function () {
               data: dados,
               success: function (dados) {
                 var res = JSON.parse(dados);
-                console.log(res)
                 for (let i = 0; i < res.length; i++) {
                   var optUni = $('select[name="idUnidadeSaude"]')[0].innerText;
-                  if (optUni.includes(res[i].idUnidadeSaude) == false) {
+                  if (optUni.includes(res[i].nomeUnidadeSaude) == false) {
                     $(`<option class="options response-unidade" value="${res[i].idUnidadeSaude}">
                     ${res[i].nomeUnidadeSaude}</option>`).appendTo('select[name="idUnidadeSaude"]');
                   }
@@ -64,8 +63,7 @@ $(document).ready(function () {
                   if (optHor.includes(res[i].horarioMedico) == false) {
                     var splitDate = res[i].horarioMedico.split(" ");
                     var convertDate = splitDate[0].split("/").reverse().join("-") + " " + splitDate[1];
-    
-                    $(`<option class="options" value="${convertDate}">
+                    $(`<option class="options" value="${res[i].idAtendimento}" data-convert="${convertDate}">
                     ${res[i].horarioMedico}</option>`).appendTo('select[name="idHorario"]');
                   }
                 }
@@ -111,7 +109,8 @@ $(document).ready(function () {
               objIds.tipoEspecialidade = selects[i].value;
               break;
             case "idHorario":
-              objIds.horarioMedico = selects[i].value;
+              var selectIndex = selects[i].options.selectedIndex
+              objIds.horarioMedico = selects[i].options[selectIndex].dataset.convert || ""
               break;
             default:
               break;
@@ -138,7 +137,7 @@ $(document).ready(function () {
             var res = JSON.parse(dados);
             for (let i = 0; i < res.length; i++) {
               var optUni = $('select[name="idUnidadeSaude"]')[0].innerText;
-              if (optUni.includes(res[i].idUnidadeSaude) == false) {
+              if (optUni.includes(res[i].nomeUnidadeSaude) == false) {
                 $(`<option class="options response-unidade" value="${res[i].idUnidadeSaude}">
                 ${res[i].nomeUnidadeSaude}</option>`).appendTo('select[name="idUnidadeSaude"]');
               }
@@ -153,8 +152,7 @@ $(document).ready(function () {
               if (optHor.includes(res[i].horarioMedico) == false) {
                 var splitDate = res[i].horarioMedico.split(" ");
                 var convertDate = splitDate[0].split("/").reverse().join("-") + " " + splitDate[1];
-
-                $(`<option class="options" value="${convertDate}">
+                $(`<option class="options" value="${res[i].idAtendimento}" data-convert="${convertDate}">
                 ${res[i].horarioMedico}</option>`).appendTo('select[name="idHorario"]');
               }
             }
@@ -203,6 +201,7 @@ $(document).ready(function () {
             var dados = {
               idUnidadeSaude: $('select[name="idUnidadeSaude"]').val(),
               idPaciente: $('select[name="idPaciente"]').val(),
+              idAtendimento: $('select[name="idHorario"]').val(),
               idHospital: dadoHosp.idHospital,
               idUsuario: JSON.parse(localStorage.getItem("login")).id
             };

@@ -79,7 +79,8 @@ class PacienteDao
                     }
                     $cont++;
                 }
-                $sql = "SELECT `UNIDADE_SAUDE`.`idUnidadeSaude`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, `ESPECIALIDADE`.`tipoEspecialidade`,
+                $sql = "SELECT `UNIDADE_SAUDE`.`idUnidadeSaude`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, 
+                `ESPECIALIDADE`.`tipoEspecialidade`, `MEDICO_ATENDE_UNIDADE`.`idAtendimento`,
                 DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, '%d/%m/%Y %H:%i') as horarioMedico
                 FROM PACIENTE
                 INNER JOIN UNIDADE_SAUDE ON 
@@ -89,7 +90,8 @@ class PacienteDao
                 INNER JOIN MEDICO ON 
                 (`MEDICO`.`CRM` = `MEDICO_ATENDE_UNIDADE`.`CRM`)
                 INNER JOIN ESPECIALIDADE ON 
-                (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) {$where} AND `UNIDADE_SAUDE`.`vagas` > 0";
+                (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) {$where} AND `UNIDADE_SAUDE`.`vagas` > 0
+                AND (SELECT COUNT(*) FROM ENCAMINHAMENTO WHERE `ENCAMINHAMENTO`.`idAtendimento` = `MEDICO_ATENDE_UNIDADE`.`idAtendimento`) = 0";
             }
 
             $arrayParam = (is_array($id)) ? $id : array($id);
