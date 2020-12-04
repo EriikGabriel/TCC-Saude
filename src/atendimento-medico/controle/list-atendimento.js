@@ -13,6 +13,10 @@ $(document).ready(function () {
     },
     columns: [
       {
+        data: "idAtendimento",
+        className: "text-center",
+      },
+      {
         data: "CRM",
         className: "text-center",
       },
@@ -35,7 +39,7 @@ $(document).ready(function () {
       {
         // O último elemento a ser instânciado em nossa DataTable são os nossos botões de ações, ou seja, devemos criar os elementos em tela para
         // podermos executar as funções do CRUD.
-        data: "CRM",
+        data: "idAtendimento",
         orderable: false, // Aqui iremos desabilitar a opção de ordenamento por essa coluna
         searchable: false, // Aqui também iremos desabilitar a possibilidade de busca por essa coluna
         className: "text-center",

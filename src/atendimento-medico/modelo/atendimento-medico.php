@@ -4,7 +4,27 @@ namespace conn;
 
 class AtendimentoMedico
 {
-    private $horarioMedico, $idUnidadeSaude, $crm;
+    private $idAtendimento, $horarioMedico, $idUnidadeSaude, $crm;
+
+    /**
+     * Get the value of idAtendimento
+     */
+    public function getIdAtendimento()
+    {
+        return $this->idAtendimento;
+    }
+
+    /**
+     * Set the value of idAtendimento
+     *
+     * @return  self
+     */
+    public function setIdAtendimento($idAtendimento)
+    {
+        $this->idAtendimento = $idAtendimento;
+
+        return $this;
+    }
 
     /**
      * Get the value of horarioMedico

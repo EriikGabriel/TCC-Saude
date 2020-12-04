@@ -19,7 +19,7 @@ class EncaminhamentoDao
     {
         try {
             $arrayCreate = array(
-                "dataEncaminhamento" => "{$u->getDataEncaminhamento()}",
+                "idAtendimento" => "{$u->getIdAtendimento()}",
                 "idUnidadeSaude" => "{$u->getIdUnidadeSaude()}",
                 "idPaciente" => "{$u->getIdPaciente()}",
                 "idHospital" => "{$u->getIdHospital()}",
@@ -38,15 +38,17 @@ class EncaminhamentoDao
     public function list($requestData)
     {
         try {
-            $sql = 'SELECT `ENCAMINHAMENTO`.`idEncaminhamento`, `PACIENTE`.`nomePaciente`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, 
-			`UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`,
+            $sql = "SELECT `ENCAMINHAMENTO`.`idEncaminhamento`, `PACIENTE`.`nomePaciente`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, 
+			`UNIDADE_SAUDE`.`ruaUnidadeSaude`, `UNIDADE_SAUDE`.`bairroUnidadeSaude`, 
+            DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, '%d/%m/%Y %H:%i') as horarioMedico,
             `HOSPITAL`.`nomeHospital`, `USUARIO`.`nomeUsuario`, `ENCAMINHAMENTO`.`situacao`
             FROM ENCAMINHAMENTO
             INNER JOIN UNIDADE_SAUDE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
+            INNER JOIN MEDICO_ATENDE_UNIDADE ON (`MEDICO_ATENDE_UNIDADE`.`idAtendimento` = `ENCAMINHAMENTO`.`idAtendimento`)
             INNER JOIN PACIENTE ON (`ENCAMINHAMENTO`.`idPaciente` = `PACIENTE`.`idPaciente`)
             INNER JOIN HOSPITAL ON (`ENCAMINHAMENTO`.`idHospital` = `HOSPITAL`.`idHospital`) 
             INNER JOIN USUARIO ON (`ENCAMINHAMENTO`.`idUsuario` = `USUARIO`.`idUsuario`)
-            WHERE 1 = 1 ';
+            WHERE 1 = 1 ";
 
             $arrayFilterParams = array(
                 "idEncaminhamento",
@@ -88,7 +90,8 @@ class EncaminhamentoDao
                     }
                     $cont++;
                 }
-                $sql = "SELECT `UNIDADE_SAUDE`.`idUnidadeSaude`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, `ESPECIALIDADE`.`tipoEspecialidade`,
+                $sql = "SELECT `UNIDADE_SAUDE`.`idUnidadeSaude`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`, 
+                `ESPECIALIDADE`.`tipoEspecialidade`, `MEDICO_ATENDE_UNIDADE`.`idAtendimento`,
                 DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, '%d/%m/%Y %H:%i') as horarioMedico
                 FROM PACIENTE
                 INNER JOIN UNIDADE_SAUDE ON 
@@ -98,7 +101,8 @@ class EncaminhamentoDao
                 INNER JOIN MEDICO ON 
                 (`MEDICO`.`CRM` = `MEDICO_ATENDE_UNIDADE`.`CRM`)
                 INNER JOIN ESPECIALIDADE ON 
-                (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) {$where} AND `UNIDADE_SAUDE`.`vagas` > 0";
+                (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`) {$where} AND `UNIDADE_SAUDE`.`vagas` > 0
+                AND (SELECT COUNT(*) FROM ENCAMINHAMENTO WHERE `ENCAMINHAMENTO`.`idAtendimento` = `MEDICO_ATENDE_UNIDADE`.`idAtendimento`) = 0";
             }
 
             if ($sql == ":edit-encaminhamento") {

@@ -35,7 +35,7 @@ class AtendimentoMedicoDao
     public function list($requestData)
     {
         try {
-            $sql = 'SELECT `MEDICO`.`CRM`, `MEDICO`.`nomeMedico`, `ESPECIALIDADE`.`tipoEspecialidade`, 
+            $sql = 'SELECT `MEDICO_ATENDE_UNIDADE`.`idAtendimento`, `MEDICO`.`CRM`, `MEDICO`.`nomeMedico`, `ESPECIALIDADE`.`tipoEspecialidade`, 
 			DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, "%d/%m/%Y %H:%i") as horarioMedico, `UNIDADE_SAUDE`.`nomeUnidadeSaude`
             FROM MEDICO 
             INNER JOIN ESPECIALIDADE ON (`MEDICO`.`idEspecialidade` = `ESPECIALIDADE`.`idEspecialidade`)
@@ -44,11 +44,11 @@ class AtendimentoMedicoDao
             WHERE 1 = 1 ';
 
             $arrayFilterParams = array(
-                "CRM",
+                "idAtendimento",
                 "nomeMedico",
                 "tipoEspecialidade",
                 "horarioMedico",
-                "nomeUnidadeSaude"
+                "nomeUnidadeSaude",
             );
             $this->crud->getSQLDataTable($requestData, $arrayFilterParams, $sql);
         } catch (\PDOException $e) {
@@ -60,7 +60,7 @@ class AtendimentoMedicoDao
     {
         try {
             if (empty($sql)) {
-                $sql = "SELECT * FROM MEDICO_ATENDE_UNIDADE WHERE CRM = ?";
+                $sql = "SELECT * FROM MEDICO_ATENDE_UNIDADE WHERE idAtendimento = ?";
             }
 
             $arrayParam = array($id);
@@ -81,7 +81,7 @@ class AtendimentoMedicoDao
                 "idUnidadeSaude" => "{$array[2]}",
                 "CRM" => "{$array[3]}"
             );
-            $arrayCond = array("id" => "CRM=$array[0]");
+            $arrayCond = array("id" => "idAtendimento=$array[0]");
             $this->crud->update($arrayUpdate, $arrayCond);
 
             echo "true";
@@ -94,7 +94,7 @@ class AtendimentoMedicoDao
     public function delete($id)
     {
         try {
-            $arrayCond = array('CRM=' => "$id");
+            $arrayCond = array('idAtendimento=' => "$id");
             $this->crud->delete($arrayCond);
 
             echo "true";
