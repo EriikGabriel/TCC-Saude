@@ -43,7 +43,18 @@ $(document).ready(function () {
                   );
                 }
               } else {
+                dados = JSON.parse(dados)
+
+                $(`<option value="${res[0].idAtendimento}">${res[0].horarioMedico}</option>`).appendTo(
+                  'select[name="idHorario"]'
+                );
+                $(`<option class="response-unidade" value="${res[0].idUnidadeSaude}">${res[0].nomeUnidadeSaude}</option>`).appendTo(
+                  'select[name="idUnidadeSaude"]'
+                );
+
                 $("#idPaciente").val(res[0].idPaciente);
+                $("#idHorario").val(dados[0].idAtendimento);
+                $("#idUnidadeSaude").val(dados[0].idUnidadeSaude);
 
                 var dados = {
                   type: "search-select-encaminhamento",
@@ -61,7 +72,7 @@ $(document).ready(function () {
                     var dados = JSON.parse(dados);
                     for (let i = 0; i < dados.length; i++) {
                       var optUni = $("#idUnidadeSaude")[0].innerText;
-                      if (optUni.includes(dados[i].idUnidadeSaude) == false) {
+                      if (optUni.includes(dados[i].nomeUnidadeSaude) == false) {
                         $(`<option class="response-unidade" value="${dados[i].idUnidadeSaude}">
                         ${dados[i].nomeUnidadeSaude}</option>`).appendTo('select[name="idUnidadeSaude"]');
                       }
@@ -80,7 +91,6 @@ $(document).ready(function () {
                         ${dados[i].horarioMedico}</option>`).appendTo('select[name="idHorario"]');
                       }
                     }
-                    $("#idUnidadeSaude").val(res[0].idUnidadeSaude);
                   },
                 });
               }
@@ -146,7 +156,6 @@ $(document).ready(function () {
           data: dados,
           success: function (dados) {
             var res = JSON.parse(dados);
-
             for (let i = 0; i < res.length; i++) {
               var optUni = $("#idUnidadeSaude")[0].innerText;
               if (optUni.includes(res[i].nomeUnidadeSaude) == false) {
@@ -198,6 +207,7 @@ $(document).ready(function () {
           id: $(".modal-body").data("content"),
           idUnidadeSaude: $("#idUnidadeSaude").val(),
           idPaciente: $("#idPaciente").val(),
+          idAtendimento: $("#idHorario").val(),
           idHospital: dados.idHospital,
           idUsuario: JSON.parse(localStorage.getItem("login")).id,
         };

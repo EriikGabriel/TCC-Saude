@@ -106,9 +106,12 @@ class EncaminhamentoDao
             }
 
             if ($sql == ":edit-encaminhamento") {
-                $sql = "SELECT `PACIENTE`.`idPaciente`, `UNIDADE_SAUDE`.`idUnidadeSaude`, `PACIENTE`.`nomePaciente`, `UNIDADE_SAUDE`.`nomeUnidadeSaude`
+                $sql = "SELECT `PACIENTE`.`idPaciente`, `UNIDADE_SAUDE`.`idUnidadeSaude`, `PACIENTE`.`nomePaciente`, 
+                `UNIDADE_SAUDE`.`nomeUnidadeSaude`, `MEDICO_ATENDE_UNIDADE`.`idAtendimento`, 
+                DATE_FORMAT(`MEDICO_ATENDE_UNIDADE`.`horarioMedico`, '%d/%m/%Y %H:%i') as horarioMedico
                 FROM ENCAMINHAMENTO
                 INNER JOIN UNIDADE_SAUDE ON (`ENCAMINHAMENTO`.`idUnidadeSaude` = `UNIDADE_SAUDE`.`idUnidadeSaude`)
+                INNER JOIN MEDICO_ATENDE_UNIDADE ON (`ENCAMINHAMENTO`.`idAtendimento` = `MEDICO_ATENDE_UNIDADE`.`idAtendimento`)
                 INNER JOIN PACIENTE ON (`ENCAMINHAMENTO`.`idPaciente` = `PACIENTE`.`idPaciente`)
                 WHERE idEncaminhamento = ?";
             }
@@ -136,7 +139,8 @@ class EncaminhamentoDao
                 "idUnidadeSaude" => "{$array[1]}",
                 "idPaciente" => "{$array[2]}",
                 "idHospital" => "{$array[3]}",
-                "idUsuario" => "{$array[4]}"
+                "idUsuario" => "{$array[4]}",
+                "idAtendimento" => "{$array[5]}",
             );
             $arrayCond = array("id" => "idEncaminhamento=$array[0]");
             $this->crud->update($arrayUpdate, $arrayCond);
