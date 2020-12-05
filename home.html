@@ -30,17 +30,18 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="src/usuario/visao/list-usuario.html">Usuário</a>
-              <a class="dropdown-item" href="src/tipo_usuario/visao/list-tipo-usuario.html">Tipo de Usuário</a>
+              <a class="dropdown-item manage-tipo-usuario" href="src/tipo_usuario/visao/list-tipo-usuario.html">Tipo de Usuário</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="src/medico/visao/list-medico.html">Médico</a>
-              <a class="dropdown-item" href="src/especialidades/visao/list-especialidade.html">Especialidade</a>
+              <a class="dropdown-item manage-medico" href="src/medico/visao/list-medico.html">Médico</a>
+              <a class="dropdown-item manage-especialidade" href="src/especialidades/visao/list-especialidade.html">Especialidade</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="src/hospital/visao/list-hospital.html">Hospital</a>
-              <a class="dropdown-item" href="src/unidade_saude/visao/list-unidade-saude.html">Unidade de Saúde</a>
-              <a class="dropdown-item" href="src/tipo_unidade/visao/list-tipo-unidade.html">Tipo de Unidade</a>
+              <a class="dropdown-item manage-hospital" href="src/hospital/visao/list-hospital.html">Hospital</a>
+              <a class="dropdown-item manage-unidade" href="src/unidade_saude/visao/list-unidade-saude.html">Unidade de Saúde</a>
+              <a class="dropdown-item manage-tipo-unidade" href="src/tipo_unidade/visao/list-tipo-unidade.html">Tipo de Unidade</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="src/atendimento-medico/visao/list-atendimento.html">Atendimento Médico</a>
-              <a class="dropdown-item" href="src/encaminhamento/visao/list-encaminhamento.html">Encaminhamento</a>
+              <a class="dropdown-item manage-paciente" href="src/paciente/visao/list-paciente.html">Paciente</a>
+              <a class="dropdown-item manage-atendimento" href="src/atendimento-medico/visao/list-atendimento.html">Atendimento Médico</a>
+              <a class="dropdown-item manage-encaminhamento" href="src/encaminhamento/visao/list-encaminhamento.html">Encaminhamento</a>
             </div>
           </li>
         </ul>
@@ -75,7 +76,7 @@
 
     <div class="container d-flex justify-content-center align-items-center vh-100 vw-100">
       <div class="row justify-content-sm-center mt-5">
-        <div class="col-sm-12 col-md-3 mt-4">
+        <div class="col-sm-12 col-md-3 mt-4 manage-usuario">
           <div class="list-group">
             <a href="src/usuario/visao/list-usuario.html" class="list-group-item visitor bg-danger text-white">
               <h3 class="text-white">
@@ -87,9 +88,9 @@
           </div>
         </div>
         
-        <div class="col-sm-12 col-md-3 mt-4">
+        <div class="col-sm-12 col-md-3 mt-4 manage-hospital">
           <div class="list-group">
-            <a href="src/hospital/visao/list-hospital.html" class="list-group-item visitor bg-danger text-white">
+            <a href="src/hospital/visao/list-hospital.html" class=" list-group-item visitor bg-danger text-white">
               <h3 class="text-white">
                 <i class="fas fa-hospital fa-lg"></i>
               </h3>
@@ -99,7 +100,7 @@
           </div>
         </div>
         
-        <div class="col-sm-12 col-md-3 mt-4">
+        <div class="col-sm-12 col-md-3 mt-4 manage-tipo-usuario">
           <div class="list-group">
               <a href="src/tipo_usuario/visao/list-tipo-usuario.html" class="list-group-item visitor bg-danger text-white">
                 <h3 class="text-white">
@@ -111,7 +112,7 @@
             </div>
           </div>
           
-          <div class="col-sm-12 col-md-3 mt-4">
+          <div class="col-sm-12 col-md-3 mt-4 manage-especialidade">
             <div class="list-group">
               <a href="src/especialidades/visao/list-especialidade.html" class="list-group-item visitor bg-danger text-white">
                 <h3 class="text-white">
@@ -123,7 +124,7 @@
             </div>
           </div>
           
-          <div class="col-sm-12 col-md-3 mt-4">
+          <div class="col-sm-12 col-md-3 mt-4 manage-tipo-unidade">
             <div class="list-group">
               <a href="src/tipo_unidade/visao/list-tipo-unidade.html" class="list-group-item visitor bg-danger text-white">
                 <h3 class="text-white">
@@ -135,7 +136,7 @@
             </div>
           </div>
           
-          <div class="col-sm-12 col-md-3 mt-4">
+          <div class="col-sm-12 col-md-3 mt-4 manage-unidade">
             <div class="list-group">
               <a href="src/unidade_saude/visao/list-unidade-saude.html" class="list-group-item visitor bg-danger text-white">
                 <h3 class="text-white">
@@ -147,7 +148,7 @@
             </div>
           </div>
           
-          <div class="col-sm-12 col-md-3 mt-4">
+          <div class="col-sm-12 col-md-3 mt-4 manage-paciente">
             <div class="list-group">
               <a href="src/paciente/visao/list-paciente.html" class="list-group-item visitor bg-danger text-white">
                 <h3 class="text-white">
@@ -159,7 +160,7 @@
             </div>
           </div>
           
-          <div class="col-sm-12 col-md-3 mt-4">
+          <div class="col-sm-12 col-md-3 mt-4 manage-medico">
             <div class="list-group">
               <a href="src/medico/visao/list-medico.html" class="list-group-item visitor bg-danger text-white">
                 <h3 class="text-white">
@@ -171,7 +172,7 @@
             </div>
           </div>
           
-          <div class="col-sm-12 col-md-3 mt-4">
+          <div class="col-sm-12 col-md-3 mt-4 manage-encaminhamento">
             <div class="list-group">
               <a href="src/encaminhamento/visao/list-encaminhamento.html" class="list-group-item visitor bg-danger text-white">
                 <h3 class="text-white">
@@ -183,7 +184,7 @@
             </div>
           </div>
           
-          <div class="col-sm-12 col-md-3 mt-4">
+          <div class="col-sm-12 col-md-3 mt-4 manage-atendimento">
             <div class="list-group">
               <a href="src/atendimento-medico/visao/list-atendimento.html" class="list-group-item visitor bg-danger text-white">
                 <h3 class="text-white">

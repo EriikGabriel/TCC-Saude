@@ -43,6 +43,11 @@
     </div>
 </div>
 
+<script>
+    if(JSON.parse(localStorage.getItem("login"))) {
+        if(location.search == "") location.href = "home.html?logged"
+    }
+</script>
 <script src="js/jquery-3.5.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="libs/sweetalert2/sweetalert2.all.min.js"></script>

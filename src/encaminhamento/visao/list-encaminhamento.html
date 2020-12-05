@@ -46,7 +46,7 @@
 
       <div class="row d-flex justify-content-center align-items-center">
         <div class="col-sm-4 col-md-2 mt-5">
-          <a class="btn btn-outline-danger btn-sm btn-add btn-block" href="../../../home.html" role="button">Voltar</a>
+          <a class="btn btn-outline-danger btn-sm btn-block" href="../../../home.html" role="button">Voltar</a>
         </div>
       </div>
     </div>
@@ -81,5 +81,10 @@
     <script src="../controle/edit-encaminhamento.js"></script>
     <script src="../controle/delete-encaminhamento.js"></script>
     <script src="../controle/finish-encaminhamento.js"></script>
+
+    <script>
+      var tipo = JSON.parse(localStorage.getItem("login")).tipo
+      if(tipo === 3) $(".btn-add").addClass("d-none")
+    </script>
   </body>
 </html>

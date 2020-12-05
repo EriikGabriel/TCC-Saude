@@ -54,7 +54,8 @@ $(document).ready(function () {
         searchable: false, // Aqui também iremos desabilitar a possibilidade de busca por essa coluna
         className: "text-center",
         render: function (data, type, row, meta) {
-          if (JSON.parse(localStorage.getItem("login")).tipo == 1) {
+          var tipo = JSON.parse(localStorage.getItem("login")).tipo
+          if (tipo == 1 || tipo == 2) {
             return `
               <button id="${data}" class="btn btn-primary btn btn-edit"><i class="fas fa-pencil-alt"></i></button>
               <button id="${data}" class="btn btn-danger btn btn-delete"><i class="fas fa-trash"></i></button>

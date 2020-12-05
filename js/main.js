@@ -7,9 +7,36 @@ $(document).ready(function () {
     success: function (response) {
       if (response != false) {
         response = JSON.parse(response);
-        if (response.idTipoUsuario == 2) {
-          $(".manage-hospital").addClass("d-none");
-          $(".manage-paciente").addClass("d-none");
+
+        switch(response.idTipoUsuario) {
+          case 2:
+            $(".manage-tipo-usuario").addClass("d-none");
+            $(".manage-especialidade").addClass("d-none");
+            $(".manage-tipo-unidade").addClass("d-none");
+            $(".manage-unidade").addClass("d-none");
+            $(".manage-medico").addClass("d-none");
+            $(".manage-atendimento").addClass("d-none");
+            $(".dropdown-divider").removeClass("dropdown-divider")
+
+            $("div.manage-usuario").toggleClass("col-md-3 col-md-6");
+            $("div.manage-hospital").toggleClass("col-md-3 col-md-6");
+            $("div.manage-paciente").toggleClass("col-md-3 col-md-6");
+            $("div.manage-encaminhamento").toggleClass("col-md-3 col-md-6");
+            break;
+          case 3:
+            $(".manage-tipo-usuario").addClass("d-none");
+            $(".manage-tipo-unidade").addClass("d-none");
+            $(".manage-hospital").addClass("d-none");
+            $(".manage-paciente").addClass("d-none");
+            $(".dropdown-divider").removeClass("dropdown-divider")
+
+            $("div.manage-usuario").toggleClass("col-md-3 col-md-4");
+            $("div.manage-especialidade").toggleClass("col-md-3 col-md-4");
+            $("div.manage-unidade").toggleClass("col-md-3 col-md-4");
+            $("div.manage-medico").toggleClass("col-md-3 col-md-4");
+            $("div.manage-encaminhamento").toggleClass("col-md-3 col-md-4");
+            $("div.manage-atendimento").toggleClass("col-md-3 col-md-4");
+            break;
         }
       }
     },
