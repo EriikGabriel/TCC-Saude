@@ -18,7 +18,11 @@ $(document).ready(function () {
       success: function (dados) {
         if (dados != "" && dados != "[]") {
           dados = JSON.parse(dados)[0];
-          localStorage.setItem("login", JSON.stringify({ id: dados.idUsuario, tipo: dados.idTipoUsuario }));
+
+          var keep = ($('#keepConnected').is(":checked")) ? true : false
+
+          localStorage.setItem("login", JSON.stringify({ id: dados.idUsuario, tipo: dados.idTipoUsuario, keep}));
+          
           location.href = "home.html";
         } else {
           Swal.fire({

@@ -10,50 +10,88 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 
-<div class="container w-100 vh-100" id="login-container">
-    <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="col-12 col-md-8 col-lg-6">
-            <div class="offset-lg-2 offset-md-1 col-12">
-                <form method="POST" id="login-usuario">
-                    <h1 class="text-danger text-center col-lg-8 col-md-12 mb-4">Login</h1>
-                    <div class="form-row">
-                        <div class="form-group col-lg-8 col-md-12">
-                            <label>Nome</label>
-                            <input class="form-control" type="text" name="nome" required>
-                        </div>
-                    </div>
-                    <label>Senha</label>
-                    <div class="form-row">
-                        <div class="form-group input-group col-lg-8 col-md-12">
-                            <input class="form-control" type="password" name="senha" required>
-                            <div class="input-group-append">
-                                <span class="input-group-text bg-transparent" id="eye-password" style="cursor: pointer;">
-                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
-                                </span>
+<body class="bg-danger">
+    <div class="container w-100 vh-100" id="login-container">
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="offset-lg-1 offset-lg-1 col-lg-9 col-md-12 p-2 px-5 rounded-lg" style="background-color: rgba(0, 0, 0, 0.6);">
+                    <form method="POST" id="login-usuario" class="py-3">
+                        <h1 class="text-white col-lg-8 col-md-11 p-0 m-0">Login</h1>
+                        <hr class="bg-white p-0 mb-2 mb-4">
+                        <label class="text-white">Nome</label>
+                        <div class="form-row text-white">
+                            <div class="form-group input-group col-lg-12 col-md-12">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-transparent rounded-0">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control bg-transparent rounded-0" type="text" name="nome" autocomplete="off" required>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-lg-8 col-md-12 mt-2">
-                            <button type="submit" class="btn btn-danger btn-block">Entrar</button>
+                        <label class="text-white">Senha</label>
+                        <div class="form-row">
+                            <div class="form-group input-group col-lg-12 col-md-12">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-transparent rounded-0">
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control bg-transparent rounded-0" type="password" name="senha" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-transparent rounded-0" id="eye-password" style="cursor: pointer;">
+                                        <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                    </span> 
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                        <div class="form-row">
+                            <div class="form-group form-check ml-1 mt-2">
+                                <input type="checkbox" class="form-check-input" id="keepConnected">
+                                <div class="text-white" for="keepConnected">Mantenha-me conectado</div>
+                              </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-12 col-md-12 mt-2">
+                                <button type="submit" class="btn btn-outline-light btn-block">Entrar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    if(JSON.parse(localStorage.getItem("login"))) {
-        if(location.search == "") location.href = "home.html?logged"
-    }
-</script>
-<script src="js/jquery-3.5.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="libs/sweetalert2/sweetalert2.all.min.js"></script>
-<script src="src/usuario/controle/add-usuario.js"></script>
-<script src="src/usuario/controle/search-usuario.js"></script>
+    <script>
+        if(JSON.parse(localStorage.getItem("login"))) {
+            if(JSON.parse(localStorage.getItem("login")).keep) {
+                if(location.search == "") location.href = "home.html?logged"
+            } else {
+                localStorage.setItem("login", false)
+            }
+        }
+    </script>
+
+    <style>
+        input, span {
+            color: white !important;
+            box-shadow: 0 0 0 0 !important;
+            outline: 0 !important;
+            border: white solid 1px !important;
+            border-top: none !important; 
+            border-left: none !important; 
+            border-right: none !important; 
+        }
+
+        hr {
+            border: white solid 3px !important;
+        }
+    </style>
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="libs/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="src/usuario/controle/add-usuario.js"></script>
+    <script src="src/usuario/controle/search-usuario.js"></script>
 </body>
 
 </html>
