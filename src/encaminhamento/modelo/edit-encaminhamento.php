@@ -17,12 +17,10 @@ $type = filter_input(INPUT_POST, "type", FILTER_SANITIZE_SPECIAL_CHARS);
 if ($type == "finish") {
     $encaminhamentoDao = new EncaminhamentoDao;
     $encaminhamentoDao->finish([$id, "Concluido"]);
-bo}else if($type == "cancel") {
+} else if ($type == "cancel") {
     $encaminhamentoDao = new EncaminhamentoDao;
     $encaminhamentoDao->finish([$id, "Cancelado"]);
 }
-
-
 
 if (!empty($idUnidadeSaude) && !empty($idPaciente)) {
     $new_values = [$id, $idUnidadeSaude, $idPaciente, $idHospital, $idUsuario, $idAtendimento];

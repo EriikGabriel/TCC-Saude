@@ -56,18 +56,18 @@ $(document).ready(function() {
                     var tipo = JSON.parse(localStorage.getItem("login")).tipo
                     if (tipo == 1 || tipo == 2) {
                         return `
-              <button id="${data}" class="btn btn-primary btn btn-edit"><i class="fas fa-pencil-alt"></i></button>
-              <button id="${data}" class="btn btn-danger btn btn-delete"><i class="fas fa-trash"></i></button>
-            `;
+                        <button id="${data}" class="btn btn-primary btn btn-edit"><i class="fas fa-pencil-alt"></i></button>
+                        <button id="${data}" class="btn btn-danger btn btn-delete"><i class="fas fa-trash"></i></button>
+                        `;
                     } else if (row.situacao == "Concluido") {
                         return `
-              <button id="${data}" class="btn btn-primary btn btn-view"><i class="fa fa-eye" aria-hidden="true"></i></button>
-            `;
+                        <button id="${data}" class="btn btn-primary btn btn-view"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                        `;
                     } else {
                         return `
-              <button id="${data}" class="btn btn-success btn btn-finish"><i class="fa fa-check" aria-hidden="true"></i></button>
-              <button id="${data}" class="btn btn-danger btn btn-cancel"><i class="fa fa-window-close" aria-hidden="true"></i></button>
-            `;
+                        <button id="${data}" class="btn btn-success btn btn-finish"><i class="fa fa-check" aria-hidden="true"></i></button>
+                        <button id="${data}" class="btn btn-danger btn btn-cancel"><i class="fa fa-window-close" aria-hidden="true"></i></button>
+                        `;
                     }
                 },
             },
