@@ -62,14 +62,25 @@
         </div>
     </div>
 
+    <script src="js/jquery-3.5.1.js"></script>
     <script>
-        if(JSON.parse(localStorage.getItem("login"))) {
-            if(JSON.parse(localStorage.getItem("login")).keep) {
-                if(location.search == "") location.href = "home.html?logged"
-            } else {
-                localStorage.setItem("login", false)
+         $.ajax({
+            type: "POST",
+            datatype: "json",
+            url: "conexao/conn-session.php",
+            async: true,
+            success: function (response) {
+                if(JSON.parse(localStorage.getItem("login")) && response != false) {
+                    if(JSON.parse(localStorage.getItem("login")).keep) {
+                        if(location.search == "") location.href = "home.html?logged"
+                    } else {
+                        localStorage.setItem("login", false)
+                    }
+                } else if (JSON.parse(localStorage.getItem("login"))) {
+                    localStorage.setItem("login", false)
+                }
             }
-        }
+        })
     </script>
 
     <style>
@@ -87,7 +98,6 @@
             border: white solid 3px !important;
         }
     </style>
-    <script src="js/jquery-3.5.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="libs/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="src/usuario/controle/add-usuario.js"></script>
